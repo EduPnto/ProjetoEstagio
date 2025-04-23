@@ -1,28 +1,21 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-
 const app = express();
 const PORT = 3000;
 
-app.use(cors());
-app.use(bodyParser.json());
-
-const fakeUser = {
-  name: 'admin',
-  password: '1234'
-};
+// Middleware para aceitar JSON
+app.use(express.json());
 
 app.post('/login', (req, res) => {
   const { name, password } = req.body;
 
+  // Simulação de autenticação (use banco de dados no futuro)
   if (name === 'admin' && password === '1234') {
-    res.json({ success: true, message: 'Login bem-sucedido!' });
+    res.json({ success: true });
   } else {
-    res.json({ success: false, message: 'Nome ou senha incorretos.' });
+    res.json({ success: false, message: 'Credenciais inválidas' });
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
