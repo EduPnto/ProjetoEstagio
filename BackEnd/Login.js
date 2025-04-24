@@ -2,20 +2,29 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
-// Middleware para aceitar JSON
-app.use(express.json());
+document.getElementById('loginForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
 
-app.post('/login', (req, res) => {
-  const { name, password } = req.body;
+  const name = document.getElementById('name').value;
+  const password = document.getElementById('password').value;
 
-  // Simulação de autenticação (use banco de dados no futuro)
+  const response = await fetch('/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ name, password })
+  });
+
+  const data = await response.json();
+  
   if (name === 'admin' && password === '1234') {
     res.json({ success: true });
-  } else {
-    res.json({ success: false, message: 'Credenciais inválidas' });
-  }
-});
 
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+    if (data.success) {
+      window.location.href = '../FrontEnd/Páginas/MainPage.php'; // Redirecionamento feito no cliente
+    }
+  } else {
+    alert('Credenciais inválidas');
+  }
 });

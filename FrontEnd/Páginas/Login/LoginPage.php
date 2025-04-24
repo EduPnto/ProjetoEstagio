@@ -23,13 +23,13 @@
         <label>
           <input type="checkbox" id="remember"> Lembrar senha
         </label>
-        <a href="../EsqueceuSenha/ForgotPassword.html">Esqueceu-se da senha?</a>
+        <a href="../EsqueceuSenha/ForgotPassword.php">Esqueceu-se da senha?</a>
       </div>
 
       <button type="submit">Entrar</button>
     </form>
   </div>
 
-  <script src="../BackEnd/Login.js"></script>
+  <script src="../Login.js"></script>
 </body>
 </html>

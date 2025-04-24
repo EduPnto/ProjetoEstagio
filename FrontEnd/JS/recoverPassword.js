@@ -1,5 +1,5 @@
 let userEmail = '';
-let validCode = '123456'; // Código mockado
+let validCode = '123456';
 
 // Enviar código para o e-mail
 function sendRecoveryCode() {
@@ -11,7 +11,7 @@ function sendRecoveryCode() {
   }
 
   // Chama a API do backend para enviar o código
-  fetch('http://localhost:3001/send-code', {
+  fetch('http://localhost:3000/send-code', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ function sendRecoveryCode() {
 function verifyCode() {
   const codeInput = document.getElementById('code').value;
 
-  fetch('http://localhost:3001/verify-code', {
+  fetch('http://localhost:3000/verify-code', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ function updatePassword() {
   }
 
   // Chama a API do backend para atualizar a senha
-  fetch('http://localhost:3001/update-password', {
+  fetch('http://localhost:3000/update-password', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ function updatePassword() {
   .then(data => {
     if (data.success) {
       alert('Senha alterada com sucesso!');
-      window.location.href = '../LoginPage.html';
+      window.location.href = '../LoginPage.php';
     } else {
       alert(data.message);
     }
