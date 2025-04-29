@@ -10,7 +10,7 @@
     <img src="../../../Imagens/LogotipoJunta.png" alt="Ermesinde Logo" class="logo">
   </div>
 
-  <div class="login-box" id="recoveryBox">
+  <div class="Recover-box" id="recoveryBox">
     <h2>Recuperar Senha</h2>
 
     <div id="stepEmail">
@@ -36,6 +36,6 @@
     </div>
   </div>
 
-  <script src="../../JS/recoverPassword.js"></script>
+  <script src="../BackEnd/recoverPassword.js"></script>
 </body>
 </html>

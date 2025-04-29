@@ -1,9 +1,13 @@
 <!DOCTYPE html>
+<?php 
+  include('../../../BackEnd/DataBase/db_connect.php');
+?>
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Login - Ermesinde</title>
+  <title></title>
   <link rel="stylesheet" href="../../CSS/Login.css">
+  <link namespace>
 </head>
 <body>
   <div class="header">
@@ -12,7 +16,7 @@
 
   <div class="login-box">
     <h2>Login</h2>
-    <form id="loginForm">
+    <form id="loginForm" method="POST">
       <label for="name">Nome:</label>
       <input type="text" id="name" name="name" required>
 
@@ -23,13 +27,12 @@
         <label>
           <input type="checkbox" id="remember"> Lembrar senha
         </label>
-        <a href="../EsqueceuSenha/ForgotPassword.php">Esqueceu-se da senha?</a>
+        <a href="../Login/EsqueceuSenha/ForgotPassword.php">Esqueceu-se da senha?</a>
       </div>
 
       <button type="submit">Entrar</button>
     </form>
   </div>
-
-  <script src="../Login.js"></script>
+  <script src="../../../BackEnd/Login/Login.js"></script>
 </body>
 </html>
