@@ -29,6 +29,6 @@
       <button type="submit">Entrar</button>
     </form>
   </div>
-  <script src='../../BackEnd/Login/Login.js'></script>
+  <script src="/BackEnd/Login/Login.js"></script>
 </body>
 </html>

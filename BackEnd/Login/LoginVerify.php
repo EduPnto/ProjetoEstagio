@@ -7,33 +7,52 @@
         exit;
     }
 
-    // Receber os dados do POST
-    $name = $_POST['name'] ?? '';
-    $password = $_POST['password'] ?? '';
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        $name = $_POST["name"];
+        $password = $_POST["password"];
 
-    if (empty($name) || empty($password)) {
-        echo json_encode(['success' => false, 'message' => 'Nome e senha são obrigatórios.']);
-        exit;
-    }
-
-    // Prevenir SQL Injection
-    $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE nome = ?");
-    mysqli_stmt_bind_param($stmt, "s", $name);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-
-    if ($user = mysqli_fetch_assoc($result)) {
-        if (password_verify($password, $user['senha'])) {
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_name'] = $user['nome'];
-
-            echo json_encode(['success' => true]);
+        if(!empty($email) && !empty($password)){
+            $condition = true;
         } else {
-            echo json_encode(['success' => false, 'message' => 'Senha incorreta.']);
+            $condition = false;
         }
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Utilizador não encontrado.']);
-    }
+        
+        if($condition == true){
 
-    mysqli_close($conn);
+            $sql = "SELECT * FROM users WHERE nome = ? and senha = ?";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ss",$name,$password);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+        
+            if($name == $row['nome'] && $password == $row['senha']){
+                $condition = true;
+
+                if($condition == true){
+                    
+                        $sql = "SELECT * FROM users WHERE nome = ?";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("s",$name);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        $row = $result->fetch_assoc();
+
+                        session_start();
+
+                        $_SESSION['ID'] = $row['ID'];
+
+                        header("Location: Paginas/MainPage.php"); //Caminho para a página do utilizador
+                        exit();
+
+                    
+                    } 
+                }
+                
+            } else {
+                echo 'Utilizador não existe';
+            }
+
+        } 
 ?>

@@ -17,7 +17,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     console.log(data); // <-- Vê o que está a chegar
     if (data.success) {
       alert('Login bem-sucedido!');
-      window.location.href = '../MainPage.php';
+      header("Location: Paginas/MainPage.php");
     } else {
       alert(data.message);
     }
