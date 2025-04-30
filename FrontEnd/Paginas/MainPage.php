@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>CLIS</title>
   <link rel="stylesheet" href="../../CSS/MainPage.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="../main.js"></script>
 </head>
 <body>
   <div class="top-bar">
@@ -30,9 +30,5 @@
     <button onclick="loadPage('comunicacao')">Comunicação</button>
     <button class="empty"></button>
   </div>
-
-  <div id="content"></div>
-
-  <script src="js/main.js"></script>
 </body>
 </html>

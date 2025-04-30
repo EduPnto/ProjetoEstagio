@@ -1,0 +1,124 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f4f7;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #66cc66;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: white;
+}
+
+main {
+    padding: 20px;
+    background: white;
+    max-width: 1100px;
+    margin: auto;
+    box-shadow: 0 0 10px #ccc;
+}
+
+h2 {
+    color: #2e6e2e;
+}
+
+.form-section {
+    margin-bottom: 30px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.agregado-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+    background: #f9f9f9;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #66cc66;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #333;
+    color: white;
+}
+
+footer .redes a {
+    color: white;
+    margin: 0 5px;
+    text-decoration: none;
+}
+
+footer .logos img {
+    height: 30px;
+    margin: 5px;
+}
+
+.resposta-item {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #f9f9f9;
+}
+
+.resposta-btn {
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    background: #e0e0e0;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.resposta-detalhes {
+    display: none;
+    padding: 10px;
+    background: #fff;
+}
+
+.resposta-detalhes ul {
+    margin: 0;
+    padding-left: 20px;
+}

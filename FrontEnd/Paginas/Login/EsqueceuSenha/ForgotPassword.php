@@ -2,8 +2,8 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Recuperar Senha - Ermesinde</title>
-  <link rel="stylesheet" href="../../../CSS/ForgotPassword.css">
+  <title>CLIS - Recuperar Senha</title>
+  <link rel="stylesheet" href="../../../../CSS/ForgotPassword.css">
 </head>
 <body>
   <div class="header">
