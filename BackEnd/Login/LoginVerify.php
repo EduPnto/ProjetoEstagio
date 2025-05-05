@@ -1,58 +1,43 @@
 <?php
-    session_start();
-    require('../../../BackEnd/DataBase/db_connect.php');
+session_start();
+header('Content-Type: application/json');
 
-    if (!$conn) {
-        echo json_encode(['success' => false, 'message' => 'Erro na conexão com a base de dados.']);
+include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/DataBase/db_connect.php';
+
+if (!$conn) {
+    echo json_encode(['success' => false, 'message' => 'Erro na conexão com a base de dados.']);
+    exit;
+}
+
+$name = $_POST['name'] ?? '';
+$password = $_POST['password'] ?? '';
+
+if (empty($name) || empty($password)) {
+    echo json_encode(['success' => false, 'message' => 'Nome ou senha em branco.']);
+    exit;
+}
+
+$stmt = $conn->prepare("SELECT * FROM users WHERE nome = ?");
+$stmt->bind_param("s", $name);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($row = $result->fetch_assoc()) {
+    // Se a senha estiver encriptada com password_hash()
+    if (password_verify($password, $row['senha'])) {
+        $_SESSION['user'] = $row['nome'];
+        echo json_encode(['success' => true]);
         exit;
     }
+    // Se não estiver encriptada (usa comparação direta)
+    // if ($password === $row['senha']) { ... }
+    if ($password === $row['senha']) {
+        $_SESSION['user'] = $row['nome'];
+        echo json_encode(['success' => true]);
+        exit;
+    }
+}
 
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $name = $_POST["name"];
-        $password = $_POST["password"];
-
-        if(!empty($email) && !empty($password)){
-            $condition = true;
-        } else {
-            $condition = false;
-        }
-        
-        if($condition == true){
-
-            $sql = "SELECT * FROM users WHERE nome = ? and senha = ?";
-
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ss",$name,$password);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $row = $result->fetch_assoc();
-        
-            if($name == $row['nome'] && $password == $row['senha']){
-                $condition = true;
-
-                if($condition == true){
-                    
-                        $sql = "SELECT * FROM users WHERE nome = ?";
-                        $stmt = $conn->prepare($sql);
-                        $stmt->bind_param("s",$name);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                        $row = $result->fetch_assoc();
-
-                        session_start();
-
-                        $_SESSION['ID'] = $row['ID'];
-
-                        header("Location: Paginas/MainPage.php"); //Caminho para a página do utilizador
-                        exit();
-
-                    
-                    } 
-                }
-                
-            } else {
-                echo 'Utilizador não existe';
-            }
-
-        } 
+echo json_encode(['success' => false, 'message' => 'Credenciais inválidas.']);
+exit;
 ?>

@@ -4,18 +4,43 @@
     <meta charset="UTF-8">
     <title>CLIS - Página Principal</title>
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/mainPage.css">
+    <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const trigger = document.querySelector('.user-trigger');
+    const menu = document.querySelector('.dropdown-menu');
+
+    trigger.addEventListener('click', function() {
+      menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+    });
+
+    window.addEventListener('click', function(e) {
+      if (!trigger.contains(e.target)) {
+        menu.style.display = 'none';
+      }
+    });
+  });
+</script>
+
 </head>
 <body>
     <div class="top-bar">
-        <div class="logo" style="background-color: white; display: flex; align-items: center; justify-content: center; padding: 10px;">
-            <img src="../Imagens/LogotipoJunta.png">
-        </div>
-        <div class="title">CLIS - Comissão Local de Intervenção Social</div>
-        <div class="user-info">
-            <?php $username = "Refood"; ?>
+      <div class="logo" style="background-color: white; display: flex; align-items: center; justify-content: center; padding: 10px;">
+        <img src="../Imagens/LogotipoJunta.png">
+      </div>
+      <div class="title">CLIS - Comissão Local de Intervenção Social</div>
+      <div class="user-info">
+        <?php $username = "Refood"; ?>
+        <div class="user-dropdown">
+          <div class="user-trigger">
             <div>Bem-Vindo,<br><strong><?php echo htmlspecialchars($username, ENT_QUOTES, 'UTF-8'); ?></strong></div>
             <img src="../Imagens/default-user.png" alt="User" class="user-img">
+          </div>
+          <div class="dropdown-menu">
+            <a href="detalhesConta.php">Ver Detalhes da Conta</a>
+            <a href="../../BackEnd/Login/Logout.php">Logout</a>
+          </div>
         </div>
+      </div>
     </div>
     <div class="menu-container">
         <?php
@@ -36,5 +61,16 @@
         }
         ?>
     </div>
+    <footer>
+        <p>Contacto: geral@clis.jfe.pt | Tel: +351 227 344 418</p>
+        <div class="redes">
+            <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="#">Instagram</a> | <a href="#">LinkedIn</a>
+        </div>
+        <div class="logos">
+            <img src="logo-adice.png" alt="ADICE">
+            <img src="logo-jfe.png" alt="JFE">
+            <img src="logo-refood.png" alt="Refood">
+        </div>
+    </footer>
 </body>
 </html>

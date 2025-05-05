@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: url('../Imagens/juntaIMG.jpg') no-repeat center center fixed;
+    background: url('../../Imagens/juntaIMG.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 .top-bar {
@@ -72,6 +72,26 @@ select {
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+select[name="genero"] {
+    width: 50%;
+    display: inline-block;
+}
+
+.Postal {
+    width: 50%;
+}
+
+.Nascimento {
+    width: 50%;
+    display: inline-block;
+}
+
+.idade-display {
+    display: inline-block;
+    margin-left: 10px;
+    font-weight: bold;
+    color: #333;
 }
 
 .grid-2 {

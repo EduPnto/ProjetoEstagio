@@ -58,6 +58,26 @@
                 });
             });
         });
+            document.addEventListener("DOMContentLoaded", () => {
+            const dataNascInput = document.getElementById("data_nasc");
+            const idadeDisplay = document.getElementById("idade_display");
+
+            dataNascInput.addEventListener("input", () => {
+                const dataNasc = new Date(dataNascInput.value);
+                const hoje = new Date();
+
+                if (!isNaN(dataNasc)) {
+                    let idade = hoje.getFullYear() - dataNasc.getFullYear();
+                    const mes = hoje.getMonth() - dataNasc.getMonth();
+                    if (mes < 0 || (mes === 0 && hoje.getDate() < dataNasc.getDate())) {
+                        idade--;
+                    }
+                    idadeDisplay.textContent = `Idade: ${idade}`;
+                } else {
+                    idadeDisplay.textContent = "Idade: --";
+                }
+            });
+        });
     </script>
 </head>
 <body>
@@ -112,12 +132,16 @@
             <div class="grid-3">
                 <div><label>NIF</label><input type="text" name="nif"></div>
                 <div><label>NISS</label><input type="text" name="niss"></div>
-                <div><label>BI/CC</label><input type="text" name="biccc"></div>
+                <div><label>BI/CC</label><input type="text" name="bi/cc"></div>
             </div>
             <div class="grid-3">
                 <div><label>Morada</label><input type="text" name="morada"></div>
-                <div><label>Código Postal</label><input type="text" name="cod_postal"></div>
-                <div><label>Data de Nascimento</label><input type="date" name="data_nasc"></div>
+                <div class="Postal"><label>Código Postal</label><input type="text" name="cod_postal"></div>
+                <div class="Nascimento">
+                    <label>Data de Nascimento</label>
+                    <input type="date" name="data_nasc" id="data_nasc">
+                    <span class="idade-display" id="idade_display">Idade: --</span>
+                </div>
             </div>
         </div>
 
@@ -156,9 +180,9 @@
     </main>
 
     <footer>
-        <p>Contacto: geral@clis.pt | Tel: 222 222 222</p>
+        <p>Contacto: geral@clis.jfe.pt | Tel: +351 227 344 418</p>
         <div class="redes">
-            <a href="#">Facebook</a> | <a href="#">Instagram</a> | <a href="#">LinkedIn</a>
+            <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="#">Instagram</a> | <a href="#">LinkedIn</a>
         </div>
         <div class="logos">
             <img src="logo-adice.png" alt="ADICE">
