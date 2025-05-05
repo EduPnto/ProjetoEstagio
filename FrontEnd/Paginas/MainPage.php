@@ -1,34 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <title>CLIS</title>
-  <link rel="stylesheet" href="../../CSS/MainPage.css">
-  <script src="../main.js"></script>
+    <meta charset="UTF-8">
+    <title>CLIS - Página Principal</title>
+    <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/mainPage.css">
 </head>
 <body>
-  <div class="top-bar">
-    <div class="logo">
-      <img src="assets/logo.png" alt="Ermesinde Logo">
-      <div>
-        <strong>ermesinde</strong><br>
-        junta de freguesia
-      </div>
+    <div class="top-bar">
+        <div class="logo" style="background-color: white; display: flex; align-items: center; justify-content: center; padding: 10px;">
+            <img src="../Imagens/LogotipoJunta.png">
+        </div>
+        <div class="title">CLIS - Comissão Local de Intervenção Social</div>
+        <div class="user-info">
+            <?php $username = "Refood"; ?>
+            <div>Bem-Vindo,<br><strong><?php echo htmlspecialchars($username, ENT_QUOTES, 'UTF-8'); ?></strong></div>
+            <img src="../Imagens/default-user.png" alt="User" class="user-img">
+        </div>
     </div>
-    <h1>CLIS</h1>
-    <div class="user">
-      <span>Bem-Vindo,<br><strong>Refood</strong></span>
-      <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="User">
-    </div>
-  </div>
+    <div class="menu-container">
+        <?php
+        $menuItems = [
+            ["href" => "entidades.php", "icon" => "../Icons/Entidades.png", "alt" => "Entidades", "label" => "Entidades"],
+            ["href" => "servicos.php", "icon" => "../Icons/servicos.png", "alt" => "Serviços", "label" => "Serviços"],
+            ["href" => "../Paginas/Beneficiario/Beneficiario.php", "icon" => "../Icons/Beneficiario.png", "alt" => "Beneficiários", "label" => "Beneficiários"],
+            ["href" => "documentacao.php", "icon" => "../Icons/Documentos.png", "alt" => "Documentação", "label" => "Documentação"],
+            ["href" => "comunicacao.php", "icon" => "../Icons/comunicacao.png", "alt" => "Comunicação", "label" => "Comunicação"],
+            ["href" => "resultados.php", "icon" => "../Icons/resultados.svg", "alt" => "Resultados", "label" => "Resultados"]
+        ];
 
-  <div class="menu">
-    <button onclick="loadPage('entidades')">Entidades</button>
-    <button onclick="loadPage('servicos')">Serviços</button>
-    <button onclick="loadPage('beneficiarios')">Beneficiários</button>
-    <button onclick="loadPage('documentacao')">Documentação</button>
-    <button onclick="loadPage('comunicacao')">Comunicação</button>
-    <button class="empty"></button>
-  </div>
+        foreach ($menuItems as $item) {
+            echo '<a href="' . $item["href"] . '" class="menu-btn">';
+            echo '<img src="' . $item["icon"] . '" alt="' . $item["alt"] . '">';
+            echo '<span>' . $item["label"] . '</span>';
+            echo '</a>';
+        }
+        ?>
+    </div>
 </body>
 </html>

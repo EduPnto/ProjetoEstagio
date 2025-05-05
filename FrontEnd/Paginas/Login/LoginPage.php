@@ -1,9 +1,42 @@
+<?php
+define('BASE_URL', 'http://localhost/ProjetoEstagio/');
+include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/DataBase/db_connect.php';
+?>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
   <title>CLIS - Login</title>
-  <link rel="stylesheet" href="../../../CSS/Login.css">
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>FrontEnd/CSS/Login/Login.css">
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const password = document.getElementById('password').value;
+
+    fetch('<?php echo BASE_URL; ?>Login/LoginVerify.php', { // Caminho para o novo ficheiro PHP
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: `name=${encodeURIComponent(name)}&password=${encodeURIComponent(password)}`
+    })
+
+    .then(response => response.json())
+    .then(data => {
+      console.log(data); // <-- Check what is being received
+      if (data.success) {
+        window.location.href = '/ProjetoEstagio/FrontEnd/Paginas/MainPage.php';
+      } else {
+        alert(data.message);
+      }
+    })
+        .catch(error => console.error('Erro na requisição:', error));
+      });
+    });
+  </script>
 </head>
 <body>
   <div class="header">
@@ -29,6 +62,5 @@
       <button type="submit">Entrar</button>
     </form>
   </div>
-  <script src="/BackEnd/Login/Login.js"></script>
 </body>
 </html>

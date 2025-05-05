@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>CLIS - Registo de Beneficiário</title>
-    <link rel="stylesheet" href="../../CSS/Beneficiario/BeneficiarioRegister.css">
+    <link rel="stylesheet" href="<?php echo '/ProjetoEstagio/FrontEnd/CSS/Beneficiario/BeneficiarioRegister.css'; ?>">
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const apoioData = {
@@ -61,12 +61,41 @@
     </script>
 </head>
 <body>
-    <header>
-        <img src="logo.png" alt="Logo Ermesinde">
-        <h1>CLIS</h1>
-    </header>
+    <div class="top-bar">
+        <div class="logo" style="background-color: white; display: flex; align-items: center; justify-content: center; padding: 10px;">
+            <img src="/ProjetoEstagio/FrontEnd/Imagens/LogotipoJunta.png">
+        </div>
+        <div class="title">CLIS - Comissão Local de Intervenção Social</div>
+        <div class="user-info">
+            <?php $username = "Refood"; ?>
+            <div><strong><?php echo htmlspecialchars($username, ENT_QUOTES, 'UTF-8'); ?></strong></div>
+            <img src="../Imagens/default-user.png" alt="User" class="user-img">
+        </div>
+    </div>
 
     <main>
+    <div class="form-section respostas">
+            <h3>Respostas Sociais</h3>
+            <div class="resposta-item">
+                <button class="resposta-btn">JFE</button>
+                <div class="resposta-detalhes">
+                    <ul>
+                        <li>BPAAD</li>
+                        <li>Viver bem aos 55+</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="resposta-item">
+                <button class="resposta-btn">ADICE</button>
+                <div class="resposta-detalhes">
+                    <ul>
+                        <li>Formação</li>
+                        <li>Acompanhamento</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
         <h2>Registo de Beneficiário</h2>
 
         <div class="form-section titular">
@@ -121,27 +150,7 @@
             </div>
         </div>
 
-        <div class="form-section respostas">
-            <h3>Respostas Sociais</h3>
-            <div class="resposta-item">
-                <button class="resposta-btn">JFE</button>
-                <div class="resposta-detalhes">
-                    <ul>
-                        <li>BPAAD</li>
-                        <li>Viver bem aos 55+</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="resposta-item">
-                <button class="resposta-btn">ADICE</button>
-                <div class="resposta-detalhes">
-                    <ul>
-                        <li>Formação</li>
-                        <li>Acompanhamento</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        
 
         <button type="submit">Criar Beneficiário</button>
     </main>
