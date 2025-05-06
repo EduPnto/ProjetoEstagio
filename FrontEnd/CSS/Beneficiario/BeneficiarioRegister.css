@@ -53,6 +53,13 @@ h2 {
     color: #2e6e2e;
 }
 
+h3{
+    color: white;
+    border-radius: 5px;
+    background-color: #7AB242;
+    padding: 5px 10px;
+}
+
 .form-section {
     margin-bottom: 30px;
 }
@@ -73,6 +80,7 @@ select {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+
 select[name="genero"] {
     width: 50%;
     display: inline-block;
@@ -85,6 +93,16 @@ select[name="genero"] {
 .Nascimento {
     width: 50%;
     display: inline-block;
+}
+
+div .Admissao {
+    float:left;
+    width: 50%;
+}
+
+div .Saida {
+    float: left;
+    width: 50%;
 }
 
 .idade-display {
@@ -143,16 +161,15 @@ footer .logos img {
 
 .resposta-item {
     margin-bottom: 10px;
-    border: 1px solid #ccc;
     border-radius: 5px;
-    background: #f9f9f9;
+    width: 25%;
 }
 
 .resposta-btn {
-    width: 25%;
+    width: 100%;
     text-align: left;
     padding: 10px;
-    background: #e0e0e0;
+    background: #5CC535;
     border: none;
     font-weight: bold;
     cursor: pointer;
@@ -161,7 +178,8 @@ footer .logos img {
 .resposta-detalhes {
     display: none;
     padding: 10px;
-    background: #fff;
+    width: 250px;
+    background: #ccc;
 }
 
 .resposta-detalhes ul {

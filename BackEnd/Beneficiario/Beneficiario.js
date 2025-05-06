@@ -32,11 +32,11 @@ document.addEventListener("DOMContentLoaded", () => {
             div.classList.add("agregado-item");
             div.innerHTML = `
                 <label>NISS:</label>
-                <input type="text" name="agregado_niss[]">
+                <input type="text" name="agregado_niss[]" style="width: 50%;">
                 <label>Data de Nascimento:</label>
-                <input type="date" name="agregado_data[]">
+                <input type="date" name="agregado_data[]" style="width: 15%;">
                 <label>Género:</label>
-                <select name="agregado_genero[]">
+                <select name="agregado_genero[]" style="width: 10%;">
                     <option value="Masculino">Masculino</option>
                     <option value="Feminino">Feminino</option>
                 </select>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>CLIS - Registo de Beneficiário</title>
-    <link rel="stylesheet" href="<?php echo '/ProjetoEstagio/FrontEnd/CSS/Beneficiario/BeneficiarioRegister.css'; ?>">
+    <link rel="stylesheet" href="../../CSS/Beneficiario/BeneficiarioRegister.css">
     <script src='/ProjetoEstagio/BackEnd/Beneficiario/Beneficiario.js'></script>
 </head>
 <body>
@@ -11,17 +11,12 @@
         <div class="logo" style="background-color: white; display: flex; align-items: center; justify-content: center; padding: 10px;">
             <img src="/ProjetoEstagio/FrontEnd/Imagens/LogotipoJunta.png">
         </div>
-        <div class="title">CLIS - Comissão Local de Intervenção Social</div>
-        <div class="user-info">
-            <?php $username = "Refood"; ?>
-            <div><strong><?php echo htmlspecialchars($username, ENT_QUOTES, 'UTF-8'); ?></strong></div>
-            <img src="../Imagens/default-user.png" alt="User" class="user-img">
-        </div>
+        <div class="title">CLIS - Comissão Local de Intervenção Social</div><br>
     </div>
 
     <main>
-    <div class="form-section respostas">
-            <h3>Respostas Sociais</h3>
+    <div class="form-section respostas" style="width: 50%;">
+            <h3 style="width: 31%;">Respostas Sociais</h3>
             <div class="resposta-item">
                 <button class="resposta-btn">JFE</button>
                 <div class="resposta-detalhes">
@@ -41,11 +36,13 @@
                 </div>
             </div>
         </div>
-        
+        <br>
+        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
+        <br>
         <h2>Registo de Beneficiário</h2>
 
         <div class="form-section titular">
-            <h3>Titular</h3>
+            <h3 style="width: 5.5%;">Titular</h3>
             <div class="grid-2">
                 <div><label>Nome</label><input type="text" name="nome"></div>
                 <div><label>Género</label>
@@ -71,18 +68,42 @@
             </div>
         </div>
 
+        <br>
+        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
+        <br>
+
+        <div class="form-section admissao">
+            <h3 style="width: 21%;">Admissão do Beneficiário</h3>
+            <div class="Admissao">
+                <label>Data de Admissão</label>
+                <input type="date" name="data_admissao" id="data_admissao" style="width: 25%;">
+            </div>
+            <div class="Saida">
+                <label>Data de Saída</label>
+                <input type="date" name="data_saida" id="data_saida" style="width: 25%;">
+            </div>
+        </div>
+
+        <br>
+        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
+        <br>
+
         <div class="form-section agregado">
-            <h3>Agregado Familiar</h3>
+            <h3 style="width: 15%;">Agregado Familiar</h3>
             <label>Nº de elementos</label>
-            <input type="number" id="num_elementos" min="0">
+            <input type="number" id="num_elementos" min="0" max="20" style="width: 50px;" onkeydown="return event.key !== 'e' && event.key !== '-' && event.key !== '+' && event.key !== '.'">
             <div id="agregado_campos"></div>
             <button type="button">Inserir no Registo</button>
         </div>
 
+        <br>
+        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
+        <br>
+
         <div class="form-section apoio">
-            <h3>Tipo de Apoio</h3>
+            <h3 style="width: 11.5%;">Tipo de Apoio</h3>
             <div class="grid-2">
-                <div>
+                <div style="width: 50%;">
                     <label>Entidade</label>
                     <select id="apoio_entidade">
                         <option value="Default_Value">Selecione</option>
@@ -91,7 +112,7 @@
                         <option value="REFOOD">REFOOD</option>
                     </select>
                 </div>
-                <div>
+                <div style="width: 50%;">
                     <label>Tipo de Apoio</label>
                     <select id="tipo_apoio">
                         <option value="">------</option>
