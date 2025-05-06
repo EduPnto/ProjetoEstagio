@@ -5,22 +5,21 @@
     <title>CLIS - Página Principal</title>
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/mainPage.css">
     <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const trigger = document.querySelector('.user-trigger');
-    const menu = document.querySelector('.dropdown-menu');
+      document.addEventListener('DOMContentLoaded', function() {
+      const trigger = document.querySelector('.user-trigger');
+      const menu = document.querySelector('.dropdown-menu');
 
-    trigger.addEventListener('click', function() {
-      menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-    });
+      trigger.addEventListener('click', function() {
+        menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+      });
 
-    window.addEventListener('click', function(e) {
-      if (!trigger.contains(e.target)) {
-        menu.style.display = 'none';
-      }
-    });
-  });
-</script>
-
+      window.addEventListener('click', function(e) {
+        if (!trigger.contains(e.target)) {
+          menu.style.display = 'none';
+        }
+      });
+      });
+    </script>
 </head>
 <body>
     <div class="top-bar">
@@ -29,7 +28,10 @@
       </div>
       <div class="title">CLIS - Comissão Local de Intervenção Social</div>
       <div class="user-info">
-        <?php $username = "Refood"; ?>
+        <?php 
+        session_start();
+        $username = isset($_SESSION['user']) ? $_SESSION['user'] : 'Visitante';
+        ?>
         <div class="user-dropdown">
           <div class="user-trigger">
             <div>Bem-Vindo,<br><strong><?php echo htmlspecialchars($username, ENT_QUOTES, 'UTF-8'); ?></strong></div>

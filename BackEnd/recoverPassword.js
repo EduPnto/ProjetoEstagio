@@ -1,5 +1,3 @@
-let userEmail = '';
-let validCode = '123456';
 
 // Enviar código para o e-mail
 function sendRecoveryCode() {
@@ -28,7 +26,7 @@ function sendRecoveryCode() {
       alert(data.message);
     }
   })
-  .catch(error => alert('Erro ao enviar código.'));
+  .catch(() => alert('Erro ao enviar código.'));
 }
 
 // Verificar código
@@ -51,7 +49,7 @@ function verifyCode() {
       alert(data.message);
     }
   })
-  .catch(error => alert('Erro ao verificar código.'));
+  .catch(() => alert('Erro ao verificar código.'));
 }
 
 // Atualizar senha
@@ -81,5 +79,5 @@ function updatePassword() {
       alert(data.message);
     }
   })
-  .catch(error => alert('Erro ao atualizar senha.'));
+  .catch(() => alert('Erro ao atualizar senha.'));
 }

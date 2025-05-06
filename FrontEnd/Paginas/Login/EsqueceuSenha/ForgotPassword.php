@@ -2,8 +2,8 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>CLIS - Recuperar Senha</title>
-  <link rel="stylesheet" href="../../../../CSS/ForgotPassword.css">
+  <title>Recuperar Senha - Ermesinde</title>
+  <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Login/ForgotPassword.css">
 </head>
 <body>
   <div class="header">
@@ -36,6 +36,47 @@
     </div>
   </div>
 
-  <script src="../BackEnd/recoverPassword.js"></script>
+  <script>
+    function sendRecoveryCode() {
+      const email = document.getElementById('email').value;
+      if (email) {
+        // Simulate sending the recovery code
+        alert('Código de recuperação enviado para o e-mail fornecido.');
+        document.getElementById('stepEmail').style.display = 'none';
+        document.getElementById('stepCode').style.display = 'block';
+      } else {
+        alert('Por favor, insira um e-mail válido.');
+      }
+    }
+
+    function verifyCode() {
+      const code = document.getElementById('code').value;
+      if (code) {
+        // Simulate verifying the code
+        alert('Código verificado com sucesso.');
+        document.getElementById('stepCode').style.display = 'none';
+        document.getElementById('stepNewPassword').style.display = 'block';
+      } else {
+        alert('Por favor, insira o código recebido.');
+      }
+    }
+
+    function updatePassword() {
+      const newPassword = document.getElementById('newPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      if (newPassword && confirmPassword) {
+        if (newPassword === confirmPassword) {
+          // Simulate updating the password
+          alert('Senha alterada com sucesso.');
+          window.location.href = '../Login/LoginPage.php';
+        } else {
+          alert('As senhas não coincidem.');
+        }
+      } else {
+        alert('Por favor, preencha todos os campos.');
+      }
+    }
+  </script>
 </body>
 </html>
