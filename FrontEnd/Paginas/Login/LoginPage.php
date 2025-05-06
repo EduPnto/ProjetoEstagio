@@ -10,31 +10,31 @@ session_start();
   <title>CLIS - Login</title>
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>FrontEnd/CSS/Login/Login.css">
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-      event.preventDefault();
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
 
-      const name = document.getElementById('name').value;
-      const password = document.getElementById('password').value;
+        const name = document.getElementById('name').value;
+        const password = document.getElementById('password').value;
 
-      fetch('<?php echo BASE_URL; ?>BackEnd/Login/LoginVerify.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: `name=${encodeURIComponent(name)}&password=${encodeURIComponent(password)}`
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          window.location.replace('<?php echo BASE_URL; ?>FrontEnd/Paginas/MainPage.php');
-        } else {
-          alert(data.message || 'Login falhou.');
-        }
-      })
-      .catch(error => console.error('Erro na requisição:', error));
+        fetch('<?php echo BASE_URL; ?>BackEnd/Login/LoginVerify.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: `name=${encodeURIComponent(name)}&password=${encodeURIComponent(password)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            window.location.replace('<?php echo BASE_URL; ?>FrontEnd/Paginas/MainPage.php');
+          } else {
+            alert(data.message || 'Login falhou.');
+          }
+        })
+        .catch(error => console.error('Erro na requisição:', error));
+      });
     });
-  });
   </script>
 </head>
 <body>
@@ -45,11 +45,11 @@ session_start();
     <div class="login-box">
       <h2>Login</h2>
       <form id="loginForm" method="POST">
-        <label for="name">Nome:</label>
+        <label for="name">Nome/Email:</label>
         <input type="text" id="name" name="name" required>
 
         <label for="password">Senha:</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password" required oninput="this.value = this.value.trim()">
 
         <div class="options">
           <label>
@@ -63,9 +63,9 @@ session_start();
     </div>
   </main>
   <footer>
-        <p>Contacto: geral@clis.jfe.pt | Tel: +351 227 344 418</p>
+        <p>Contacto: geral@clis.jfe.pt | Tel: 227 344 418</p>
         <div class="redes">
-            <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="#">Instagram</a> | <a href="#">LinkedIn</a>
+            <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
         </div>
         <div class="logos">
             <img src="logo-adice.png" alt="ADICE">

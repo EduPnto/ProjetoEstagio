@@ -16,13 +16,8 @@
     <div id="stepEmail">
       <label for="email">Digite seu e-mail:</label>
       <input type="email" id="email" required>
-      <button onclick="sendRecoveryCode()">Enviar Código</button>
-    </div>
-
-    <div id="stepCode" style="display: none;">
-      <label for="code">Digite o código que recebeu por e-mail:</label>
-      <input type="text" id="code" required>
-      <button onclick="verifyCode()">Verificar Código</button>
+      <button onclick="verifyEmail()">Enviar</button>
+      <div id="errorBox" style="color: red; margin-top: 10px;"></div>
     </div>
 
     <div id="stepNewPassword" style="display: none;">
@@ -36,47 +31,6 @@
     </div>
   </div>
 
-  <script>
-    function sendRecoveryCode() {
-      const email = document.getElementById('email').value;
-      if (email) {
-        // Simulate sending the recovery code
-        alert('Código de recuperação enviado para o e-mail fornecido.');
-        document.getElementById('stepEmail').style.display = 'none';
-        document.getElementById('stepCode').style.display = 'block';
-      } else {
-        alert('Por favor, insira um e-mail válido.');
-      }
-    }
-
-    function verifyCode() {
-      const code = document.getElementById('code').value;
-      if (code) {
-        // Simulate verifying the code
-        alert('Código verificado com sucesso.');
-        document.getElementById('stepCode').style.display = 'none';
-        document.getElementById('stepNewPassword').style.display = 'block';
-      } else {
-        alert('Por favor, insira o código recebido.');
-      }
-    }
-
-    function updatePassword() {
-      const newPassword = document.getElementById('newPassword').value;
-      const confirmPassword = document.getElementById('confirmPassword').value;
-
-      if (newPassword && confirmPassword) {
-        if (newPassword === confirmPassword) {
-          // Simulate updating the password
-          alert('Senha alterada com sucesso.');
-          window.location.href = '../Login/LoginPage.php';
-        } else {
-          alert('As senhas não coincidem.');
-        }
-      } else {
-        alert('Por favor, preencha todos os campos.');
-      }
-    }
-  </script>
+  <script src='/ProjetoEstagio/BackEnd/ForgotPassword/StepNewpassword.js'></script>
 </body>
 </html>

@@ -9,35 +9,38 @@ if (!$conn) {
     exit;
 }
 
-$name = $_POST['name'] ?? '';
-$password = $_POST['password'] ?? '';
+$input = trim($_POST['name'] ?? '');
+$password = trim($_POST['password'] ?? '');
 
-if (empty($name) || empty($password)) {
-    echo json_encode(['success' => false, 'message' => 'Nome ou senha em branco.']);
+if (empty($input) || empty($password)) {
+    echo json_encode(['success' => false, 'message' => 'Nome/email ou senha em branco.']);
     exit;
 }
 
-$stmt = $conn->prepare("SELECT * FROM users WHERE nome = ?");
-$stmt->bind_param("s", $name);
+// Verifica se é um email válido
+$isEmail = filter_var($input, FILTER_VALIDATE_EMAIL);
+
+// Prepara o statement correto com base no tipo de input
+if ($isEmail) {
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+} else {
+    $stmt = $conn->prepare("SELECT * FROM users WHERE nome = ?");
+}
+
+$stmt->bind_param("s", $input);
 $stmt->execute();
 $result = $stmt->get_result();
 
 if ($row = $result->fetch_assoc()) {
-    // Se a senha estiver encriptada com password_hash()
-    if (password_verify($password, $row['senha'])) {
-        $_SESSION['user'] = $row['nome'];
-        echo json_encode(['success' => true]);
-        exit;
-    }
-    // Se não estiver encriptada (usa comparação direta)
-    // if ($password === $row['senha']) { ... }
-    if ($password === $row['senha']) {
+    // Verifica a senha, com suporte para hash ou plano
+    if (password_verify($password, $row['senha']) || $password === $row['senha']) {
         $_SESSION['user'] = $row['nome'];
         echo json_encode(['success' => true]);
         exit;
     }
 }
 
+// Se não encontrou ou senha incorreta
 echo json_encode(['success' => false, 'message' => 'Credenciais inválidas.']);
 exit;
 ?>

@@ -64,9 +64,9 @@
         ?>
     </div>
     <footer>
-        <p>Contacto: geral@clis.jfe.pt | Tel: +351 227 344 418</p>
+        <p>Contacto: geral@clis.jfe.pt | Tel: 227 344 418</p>
         <div class="redes">
-            <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="#">Instagram</a> | <a href="#">LinkedIn</a>
+            <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
         </div>
         <div class="logos">
             <img src="logo-adice.png" alt="ADICE">

@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const apoioData = {
+        Default_Value:["------"],
         JFE: ["BPAAD", "Viver bem aos 55+"],
         ADICE: ["Formação", "Acompanhamento"],
         REFOOD: ["Cabaz Alimentar", "Refeições"]
@@ -49,5 +50,25 @@ document.addEventListener("DOMContentLoaded", () => {
             const detalhes = button.nextElementSibling;
             detalhes.style.display = detalhes.style.display === "block" ? "none" : "block";
         });
+    });
+});
+    document.addEventListener("DOMContentLoaded", () => {
+    const dataNascInput = document.getElementById("data_nasc");
+    const idadeDisplay = document.getElementById("idade_display");
+
+    dataNascInput.addEventListener("input", () => {
+        const dataNasc = new Date(dataNascInput.value);
+        const hoje = new Date();
+
+        if (!isNaN(dataNasc)) {
+            let idade = hoje.getFullYear() - dataNasc.getFullYear();
+            const mes = hoje.getMonth() - dataNasc.getMonth();
+            if (mes < 0 || (mes === 0 && hoje.getDate() < dataNasc.getDate())) {
+                idade--;
+            }
+            idadeDisplay.textContent = `Idade: ${idade}`;
+        } else {
+            idadeDisplay.textContent = "Idade: --";
+        }
     });
 });
