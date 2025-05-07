@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>CLIS - Registo de Beneficiário</title>
-    <link rel="stylesheet" href="../../CSS/Beneficiario/BeneficiarioRegister.css">
+    <link rel="stylesheet" href="../../../CSS/Beneficiario/Register/BeneficiarioRegister.css">
     <script src='/ProjetoEstagio/BackEnd/Beneficiario/Beneficiario.js'></script>
 </head>
 <body>
     <div class="top-bar">
-        <div class="logo" style="background-color: white; display: flex; align-items: center; justify-content: center; padding: 10px;">
+        <div class="logo" style="background-color: white; display: flex; align-items: center; justify-content: center; padding: 10px; border-radius: 5px;">
             <img src="/ProjetoEstagio/FrontEnd/Imagens/LogotipoJunta.png">
         </div>
         <div class="title">CLIS - Comissão Local de Intervenção Social</div><br>
@@ -120,6 +120,50 @@
                 </div>
             </div>
         </div>
+        <br>
+            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
+        <br>
+        <div class="form-section incapacidade">
+            <h3 style="width: 35%;">Incapacidade/autonomia do Beneficiário</h3>
+            <div class="grid-2">
+                <div>
+                    <label>Deficiência/incapacidade:</label><br>
+                    <input type="checkbox" name="deficiencia_sim"> Sim
+                    <input type="checkbox" name="deficiencia_nao"> Não
+                    <br><br>
+                    <label>Situação sem abrigo:</label><br>
+                    <input type="checkbox" name="sem_abrigo_sim"> Sim
+                    <input type="checkbox" name="sem_abrigo_nao"> Não
+                </div>
+                <div>
+                    <label>Autonomia/dependência:</label><br>
+                    <input type="checkbox" name="autonomo"> Autónomo
+                    <input type="checkbox" name="dependente"> Dependente
+                    <br><br>
+                    <label>Situação face ao emprego:</label><br>
+                    <input type="checkbox" name="empregado"> Empregado
+                    <input type="checkbox" name="desempregado"> Desempregado
+                </div>
+            </div>
+        </div>
+        <br>
+            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
+        <br>
+        <div class="form-section imigrante">
+            <h3 style="width: 8%;">Imigrante</h3>
+            <label>Imigrante:</label>
+            <input type="checkbox" name="imigrante_sim"> Sim
+            <input type="checkbox" name="imigrante_nao"> Não
+            <label style="margin-left: 20px;">País:</label>
+            <input type="text" name="pais_origem" style="width: 150px;">
+        </div>
+        <br>
+            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
+        <br>
+        <div class="form-section observacoes">
+            <h3 style="width: 11%;">Observações</h3>
+            <textarea name="observacoes" rows="10" cols="80" maxlength="300" style="resize: none; width: 75%;"></textarea>
+        </div>
 
         <button type="submit">Criar Beneficiário</button>
     </main>
@@ -130,9 +174,9 @@
             <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
         </div>
         <div class="logos">
-            <img src="logo-adice.png" alt="ADICE">
-            <img src="logo-jfe.png" alt="JFE">
-            <img src="logo-refood.png" alt="Refood">
+            <img src="../../../Imagens/logo_adice.png" alt="ADICE">
+            <img src="../../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
+            <img src="../../../Imagens/rfe.png" alt="Refood">
         </div>
     </footer>
 </body>

@@ -59,6 +59,8 @@ session_start();
         </div>
 
         <button type="submit">Entrar</button>
+        <label style="display: flex; justify-content:center; padding-top: 10px; padding-bottom: 20px;">________________ ou ________________</label>
+        <button type="button">Registar</button>
       </form>
     </div>
   </main>

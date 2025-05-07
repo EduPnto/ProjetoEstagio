@@ -49,7 +49,8 @@ body {
 
 .top-bar {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 505px;
   align-items: center;
   background-color: #5CC535;
   padding: 10px 20px;
@@ -62,6 +63,8 @@ body {
 
 .title {
   background-color: #8DCD5C;
+  display: flex;
+  justify-content: center;
   padding: 15px 40px;
   border-radius: 10px;
   font-size: 24px;
@@ -87,9 +90,19 @@ body {
 .menu-container {
   margin: 40px auto;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
-  max-width: 1100px;
+  max-width: 1300px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 12px;
+}
+
+.submenu-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1300px;
   background-color: rgba(255, 255, 255, 0.9);
   padding: 30px;
   border-radius: 12px;
@@ -97,7 +110,7 @@ body {
 
 .menu-btn {
   background-color: #80FF80;
-  width: 150px;
+  width: 180px;
   height: 140px;
   margin: 10px;
   border-radius: 12px;
@@ -112,8 +125,8 @@ body {
 }
 
 .menu-btn img {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   margin-bottom: 10px;
 }
 
@@ -137,6 +150,6 @@ footer .redes a {
 }
 
 footer .logos img {
-  height: 30px;
+  height: 55px;
   margin: 5px;
 }

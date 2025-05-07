@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: url('../../Imagens/juntaIMG.jpg') no-repeat center center fixed;
+    background: url('../../../Imagens/juntaIMG.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 .top-bar {
@@ -155,7 +155,7 @@ footer .redes a {
 }
 
 footer .logos img {
-    height: 30px;
+    height: 55px;
     margin: 5px;
 }
 
