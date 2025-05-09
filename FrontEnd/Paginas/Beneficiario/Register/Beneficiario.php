@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>CLIS - Registo de Beneficiário</title>
     <link rel="stylesheet" href="../../../CSS/Beneficiario/Register/BeneficiarioRegister.css">
-    <script src='/ProjetoEstagio/BackEnd/Beneficiario/Beneficiario.js'></script>
+    <script src='/ProjetoEstagio/BackEnd/Beneficiario/Beneficiario.js' defer></script>
 </head>
 <body>
     <div class="top-bar">
@@ -15,23 +15,23 @@
     </div>
 
     <main>
-    <div class="form-section respostas" style="width: 50%;">
+        <div class="form-section respostas" style="width: 50%;">
             <h3 style="width: 31%;">Respostas Sociais</h3>
             <div class="resposta-item">
-                <button class="resposta-btn">JFE</button>
-                <div class="resposta-detalhes">
+                <button class="resposta-btn" id="resposta_jfe">JFE</button>
+                <div class="resposta-detalhes" id="resposta_jfe_detalhes">
                     <ul>
-                        <li>BPAAD</li>
-                        <li>Viver bem aos 55+</li>
+                        <li id="bpaad">BPAAD</li>
+                        <li id="viver_bem_55">Viver bem aos 55+</li>
                     </ul>
                 </div>
             </div>
             <div class="resposta-item">
-                <button class="resposta-btn">ADICE</button>
-                <div class="resposta-detalhes">
+                <button class="resposta-btn" id="resposta_adice">ADICE</button>
+                <div class="resposta-detalhes" id="resposta_adice_detalhes">
                     <ul>
-                        <li>Formação</li>
-                        <li>Acompanhamento</li>
+                        <li id="formacao">Formação</li>
+                        <li id="acompanhamento">Acompanhamento</li>
                     </ul>
                 </div>
             </div>
@@ -44,24 +44,25 @@
         <div class="form-section titular">
             <h3 style="width: 5.5%;">Titular</h3>
             <div class="grid-2">
-                <div><label>Nome</label><input type="text" name="nome"></div>
-                <div><label>Género</label>
-                    <select name="genero">
+                <div><label for="nome">Nome</label><input type="text" name="nome" id="nome"></div>
+                <div style="width: 75%;"><label for="genero">Género</label>
+                    <select name="genero" id="genero">
                         <option>Masculino</option>
                         <option>Feminino</option>
                     </select>
                 </div>
+                <div style="width: 60%;"><label for="contacto">Contacto</label><input type="text" name="contacto" id="contacto"></div>
             </div>
             <div class="grid-3">
-                <div><label>NIF</label><input type="text" name="nif"></div>
-                <div><label>NISS</label><input type="text" name="niss"></div>
-                <div><label>BI/CC</label><input type="text" name="bi/cc"></div>
+                <div><label for="nif">NIF</label><input type="text" name="nif" id="nif"></div>
+                <div><label for="niss">NISS</label><input type="text" name="niss" id="niss"></div>
+                <div><label for="bi_cc">BI/CC</label><input type="text" name="bi/cc" id="bi_cc"></div>
             </div>
             <div class="grid-3">
-                <div><label>Morada</label><input type="text" name="morada"></div>
-                <div class="Postal"><label>Código Postal</label><input type="text" name="cod_postal"></div>
+                <div><label for="morada">Morada</label><input type="text" name="morada" id="morada"></div>
+                <div class="Postal"><label for="cod_postal">Código Postal</label><input type="text" name="cod_postal" id="cod_postal"></div>
                 <div class="Nascimento">
-                    <label>Data de Nascimento</label>
+                    <label for="data_nasc">Data de Nascimento</label>
                     <input type="date" name="data_nasc" id="data_nasc">
                     <span class="idade-display" id="idade_display">Idade: --</span>
                 </div>
@@ -74,12 +75,12 @@
 
         <div class="form-section admissao">
             <h3 style="width: 21%;">Admissão do Beneficiário</h3>
-            <div class="Admissao">
-                <label>Data de Admissão</label>
+            <div>
+                <label for="data_admissao">Data de Admissão</label>
                 <input type="date" name="data_admissao" id="data_admissao" style="width: 25%;">
             </div>
-            <div class="Saida">
-                <label>Data de Saída</label>
+            <div>
+                <label for="data_saida">Data de Saída</label>
                 <input type="date" name="data_saida" id="data_saida" style="width: 25%;">
             </div>
         </div>
@@ -90,10 +91,45 @@
 
         <div class="form-section agregado">
             <h3 style="width: 15%;">Agregado Familiar</h3>
-            <label>Nº de elementos</label>
-            <input type="number" id="num_elementos" min="0" max="20" style="width: 50px;" onkeydown="return event.key !== 'e' && event.key !== '-' && event.key !== '+' && event.key !== '.'">
+            <label for="num_elementos">Nº de elementos</label>
+            <input type="number" id="num_elementos" min="0" max="20" style="width: 50px;">
+            <script>
+                const input = document.getElementById('num_elementos');
+                const max = 20;
+
+                input.addEventListener('input', () => {
+                    const valor = parseInt(input.value, 10);
+
+                    if (!isNaN(valor) && valor > max) {
+                    input.value = max;
+                    }
+                });
+            </script>
             <div id="agregado_campos"></div>
-            <button type="button">Inserir no Registo</button>
+            <form method="POST" id="familiarForm">
+                <button type="button" id="Inserir_Familiar" style="float: right;">Inserir no registo</button>
+            </form>
+            <script>
+                document.getElementById("Inserir_Familiar").addEventListener("click", () => {
+                    const niss = Array.from(document.querySelectorAll("#agregado_niss")).map(input => input.value);
+                    const datas = Array.from(document.querySelectorAll("#agregado_data")).map(input => input.value);
+                    const generos = Array.from(document.querySelectorAll("[name='agregado_genero']")).map(select => select.value);
+
+                    const formData = new FormData();
+                    niss.forEach((v, i) => {
+                        formData.append(`agregado_niss[]`, v);
+                        formData.append(`agregado_data[]`, datas[i]);
+                        formData.append(`agregado_genero[]`, generos[i]);
+                    });
+
+                    fetch("/ProjetoEstagio/BackEnd/Beneficiario/Familiar/inserir_familiar.php", {
+                        method: "POST",
+                        body: formData
+                    }).then(response => response.text())
+                    .then(result => alert(result))
+                    .catch(error => alert("Erro ao inserir: " + error));
+                });
+            </script>
         </div>
 
         <br>
@@ -102,19 +138,14 @@
 
         <div class="form-section apoio">
             <h3 style="width: 11.5%;">Tipo de Apoio</h3>
-            <div class="grid-2">
-                <div style="width: 50%;">
-                    <label>Entidade</label>
-                    <select id="apoio_entidade">
-                        <option value="Default_Value">Selecione</option>
-                        <option value="JFE">JFE</option>
-                        <option value="ADICE">ADICE</option>
-                        <option value="REFOOD">REFOOD</option>
-                    </select>
+            <div class="grid-4">
+                <div style="width: 60%;">
+                    <label for="apoio_entidade">Entidade</label>
+                    <select id="apoio_entidade" name="apoio_entidade"></select>
                 </div>
-                <div style="width: 50%;">
-                    <label>Tipo de Apoio</label>
-                    <select id="tipo_apoio">
+                <div style="width: 70%;">
+                    <label for="tipo_apoio">Tipo de Apoio</label>
+                    <select id="tipo_apoio" name="tipo_apoio">
                         <option value="">------</option>
                     </select>
                 </div>
@@ -124,25 +155,115 @@
             <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
         <br>
         <div class="form-section incapacidade">
-            <h3 style="width: 35%;">Incapacidade/autonomia do Beneficiário</h3>
+            <h3 style="width: 33%;">Incapacidade/autonomia do Beneficiário</h3>
             <div class="grid-2">
                 <div>
-                    <label>Deficiência/incapacidade:</label><br>
-                    <input type="checkbox" name="deficiencia_sim"> Sim
-                    <input type="checkbox" name="deficiencia_nao"> Não
-                    <br><br>
-                    <label>Situação sem abrigo:</label><br>
-                    <input type="checkbox" name="sem_abrigo_sim"> Sim
-                    <input type="checkbox" name="sem_abrigo_nao"> Não
+                    <label for="deficiencia_sim">Deficiência/incapacidade:</label><br>
+                    <input type="checkbox" name="deficiencia" id="deficiencia_sim"> Sim
+                    <input type="checkbox" name="deficiencia" id="deficiencia_nao"> Não
+                    <script>
+                        const deficienciaSim = document.getElementById('deficiencia_sim');
+                        const deficienciaNao = document.getElementById('deficiencia_nao');
+
+                        deficienciaSim.addEventListener('change', () => {
+                            if (deficienciaSim.checked) {
+                                deficienciaNao.checked = false;
+                            }
+                        });
+
+                        deficienciaNao.addEventListener('change', () => {
+                            if (deficienciaNao.checked) {
+                                deficienciaSim.checked = false;
+                            }
+                        });
+                    </script>
                 </div>
+           </div>
+        </div>
+        <br>
+            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
+        <br>
+        <div class="form-section abrigo">
+            <h3 style="width: 21%;">Situação face sem abrigo</h3>
+            <div class="grid-2">
                 <div>
-                    <label>Autonomia/dependência:</label><br>
-                    <input type="checkbox" name="autonomo"> Autónomo
-                    <input type="checkbox" name="dependente"> Dependente
-                    <br><br>
-                    <label>Situação face ao emprego:</label><br>
-                    <input type="checkbox" name="empregado"> Empregado
-                    <input type="checkbox" name="desempregado"> Desempregado
+                    <label for="sem_abrigo_sim">Situação sem abrigo:</label><br>
+                    <input type="checkbox" name="sem_abrigo" id="sem_abrigo_sim"> Sim
+                    <input type="checkbox" name="sem_abrigo" id="sem_abrigo_nao"> Não
+                    <script>
+                        const semAbrigoSim = document.getElementById('sem_abrigo_sim');
+                        const semAbrigoNao = document.getElementById('sem_abrigo_nao');
+
+                        semAbrigoSim.addEventListener('change', () => {
+                            if (semAbrigoSim.checked) {
+                                semAbrigoNao.checked = false;
+                            }
+                        });
+
+                        semAbrigoNao.addEventListener('change', () => {
+                            if (semAbrigoNao.checked) {
+                                semAbrigoSim.checked = false;
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+        <br>
+            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
+        <br>
+        <div class="form-section autonomia">
+            <h3 style="width: 27.5%;">Situação autonomia/dependência</h3>
+            <div class="grid-2">
+                <div>
+                    <label for="auto">Autonomia/dependência:</label><br>
+                    <input type="checkbox" name="autonomo" id="auto"> Autónomo
+                    <input type="checkbox" name="dependente" id="depen"> Dependente
+                    <script>
+                        const auto = document.getElementById('auto');
+                        const depen = document.getElementById('depen');
+
+                        auto.addEventListener('change', () => {
+                            if (auto.checked) {
+                                depen.checked = false;
+                            }
+                        });
+
+                        depen.addEventListener('change', () => {
+                            if (depen.checked) {
+                                auto.checked = false;
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+        <br>
+            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
+        <br>
+        <div class="form-section emprego">
+            <h3 style="width: 7.5%;">Emprego</h3>
+            <div class="grid-2">
+                <div>
+                    <label for="Empre">Situação face ao emprego:</label><br>
+                    <input type="checkbox" name="empregado" id="Empre"> Empregado
+                    <input type="checkbox" name="desempregado" id="Desemp"> Desempregado
+                    <script>
+                        const Empregado = document.getElementById('Empre');
+                        const Desempregado = document.getElementById('Desemp');
+
+                        Empregado.addEventListener('change', () => {
+                            if (Empregado.checked) {
+                                Desempregado.checked = false;
+                            }
+                        });
+
+                        Desempregado.addEventListener('change', () => {
+                            if (Desempregado.checked) {
+                                Empregado.checked = false;
+                            }
+                        });
+                    </script>
                 </div>
             </div>
         </div>
@@ -151,21 +272,98 @@
         <br>
         <div class="form-section imigrante">
             <h3 style="width: 8%;">Imigrante</h3>
-            <label>Imigrante:</label>
-            <input type="checkbox" name="imigrante_sim"> Sim
-            <input type="checkbox" name="imigrante_nao"> Não
-            <label style="margin-left: 20px;">País:</label>
-            <input type="text" name="pais_origem" style="width: 150px;">
+            <div class="grid-2">
+                <div>
+                    <label for="imigrante_sim">Imigrante:</label>
+                    <input type="checkbox" name="imigrante" id="imigrante_sim" value="sim"> Sim
+                    <input type="checkbox" name="imigrante" id="imigrante_nao" value="nao"> Não
+                </div>
+                <div id="pais_origem_container" style="display: none;">
+                    <label for="pais_origem_select">País:</label>
+                    <select name="pais_origem" id="pais_origem_select" style="width: 200px;">
+                        <option value="Default_Value">Selecione</option>
+                    </select>
+                </div>
+                <script>
+                    const imigranteSim = document.getElementById('imigrante_sim');
+                    const imigranteNao = document.getElementById('imigrante_nao');
+                    const paisOrigemContainer = document.getElementById('pais_origem_container');
+                    const paisOrigemSelect = document.getElementById('pais_origem_select');
+
+                    imigranteSim.addEventListener('change', () => {
+                        if (imigranteSim.checked) {
+                            paisOrigemContainer.style.display = 'block';
+                            imigranteNao.checked = false;
+                        }
+                    });
+
+                    imigranteNao.addEventListener('change', () => {
+                        if (imigranteNao.checked) {
+                            paisOrigemContainer.style.display = 'none';
+                            imigranteSim.checked = false;
+                            paisOrigemSelect.value = "Default_Value";
+                        }
+                    });
+                </script>
+            </div>
         </div>
         <br>
             <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
         <br>
         <div class="form-section observacoes">
             <h3 style="width: 11%;">Observações</h3>
-            <textarea name="observacoes" rows="10" cols="80" maxlength="300" style="resize: none; width: 75%;"></textarea>
+            <textarea name="observacoes" id="observacoes" rows="10" cols="80" maxlength="300" style="resize: none; width: 75%;"></textarea>
         </div>
+        <form method="POST">
+            <button type="submit" id="btn_criar">Criar Beneficiário</button>
+        </form>
+        <script>
+            document.getElementById("btn_criar").addEventListener("click", function(event) {
+                event.preventDefault(); // Impede envio tradicional
 
-        <button type="submit">Criar Beneficiário</button>
+                const data = {
+                    nome: document.getElementById("nome").value,
+                    genero: document.getElementById("genero").value,
+                    contacto: document.getElementById("contacto").value,
+                    nif: document.getElementById("nif").value,
+                    niss: document.getElementById("niss").value,
+                    bi_cc: document.getElementById("bi_cc").value,
+                    morada: document.getElementById("morada").value,
+                    cod_postal: document.getElementById("cod_postal").value,
+                    data_nasc: document.getElementById("data_nasc").value,
+                    data_admissao: document.getElementById("data_admissao").value,
+                    data_saida: document.getElementById("data_saida").value,
+                    tipo_apoio: document.getElementById("tipo_apoio").value,
+                    apoio_entidade: document.getElementById("apoio_entidade").value,
+                    deficiencia: document.getElementById("deficiencia_sim").checked ? 1 : (document.getElementById("deficiencia_nao").checked ? 0 : null),
+                    sem_abrigo: document.getElementById("sem_abrigo_sim").checked ? 1 : (document.getElementById("sem_abrigo_nao").checked ? 0 : null),
+                    autonomia: document.getElementById("auto").checked ? 1 : (document.getElementById("depen").checked ? 0 : null),
+                    emprego: document.getElementById("Empre").checked ? 1 : (document.getElementById("Desemp").checked ? 0 : null),
+                    imigrante: document.getElementById("imigrante_sim").checked ? 1 : (document.getElementById("imigrante_nao").checked ? 0 : null),
+                    pais_origem: document.getElementById("pais_origem_select").value,
+                    observacoes: document.getElementById("observacoes").value
+                };
+
+                fetch('/ProjetoEstagio/BackEnd/Beneficiario/registar_beneficiario.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        alert(result.message);
+                    } else {
+                        alert("Erro: " + result.message);
+                    }
+                })
+                .catch(error => {
+                    alert("Erro na requisição: " + error);
+                });
+            });
+        </script>    
     </main>
 
     <footer>

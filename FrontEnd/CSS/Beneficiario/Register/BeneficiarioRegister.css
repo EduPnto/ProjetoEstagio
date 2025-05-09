@@ -43,7 +43,7 @@ body {
 
 main {
     padding: 20px;
-    background: white;
+    background: rgb(240, 240, 240);
     max-width: 1100px;
     margin: auto;
     box-shadow: 0 0 10px #ccc;
@@ -95,16 +95,6 @@ select[name="genero"] {
     display: inline-block;
 }
 
-div .Admissao {
-    float:left;
-    width: 50%;
-}
-
-div .Saida {
-    float: left;
-    width: 50%;
-}
-
 .idade-display {
     display: inline-block;
     margin-left: 10px;
@@ -114,7 +104,7 @@ div .Saida {
 
 .grid-2 {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
 }
 
@@ -123,12 +113,19 @@ div .Saida {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
 }
+.grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+}
+
 
 .agregado-item {
-    border: 1px solid #ccc;
+    border: 1px solid #aaaaaa;
+    border-radius: 10px;
     padding: 10px;
     margin-top: 10px;
-    background: #f9f9f9;
+    background: #dfdfdf;
 }
 
 button {

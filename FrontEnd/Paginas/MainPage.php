@@ -17,7 +17,7 @@
           session_start();
           $username = isset($_SESSION['user']) ? $_SESSION['user'] : 'Visitante';
         ?>
-        <div class="user-dropdown" style="background-color: gray; padding: 5px 15px 10px 15px; border-radius: 10px;">
+        <div class="user-dropdown" style="background-color: #ccc; padding: 5px 15px 10px 15px; border-radius: 10px; border: 1px solid #111111;">
           <div class="user-trigger">
             <div>Bem-Vindo,<br><strong><?php echo htmlspecialchars($username, ENT_QUOTES, 'UTF-8'); ?></strong></div>
             <img src="../Imagens/logo_adice.png" alt="User" class="user-img">

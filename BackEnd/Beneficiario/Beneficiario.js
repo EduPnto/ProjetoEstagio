@@ -1,13 +1,58 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const apoioData = {
-        Default_Value:["------"],
-        JFE: ["BPAAD", "Viver bem aos 55+"],
-        ADICE: ["Formação", "Acompanhamento"],
-        REFOOD: ["Cabaz Alimentar", "Refeições"]
-    };
-
     const entidadeSelect = document.getElementById("apoio_entidade");
     const tipoApoioSelect = document.getElementById("tipo_apoio");
+
+    entidadeSelect.addEventListener("change", () => {
+        const entidade = entidadeSelect.value;
+        tipoApoioSelect.innerHTML = "";
+
+        if (entidade === "Default_Value") {
+            tipoApoioSelect.innerHTML = `<option value="">------</option>`;
+            return;
+        }
+
+        fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Apoios/get_tipos_apoio.php?entidade=${encodeURIComponent(entidade)}`)
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    data.forEach(tipo => {
+                        const opt = document.createElement("option");
+                        opt.value = tipo;
+                        opt.textContent = tipo;
+                        tipoApoioSelect.appendChild(opt);
+                    });
+                } else {
+                    tipoApoioSelect.innerHTML = `<option value="">Erro ao carregar</option>`;
+                }
+            })
+            .catch(err => {
+                console.error("Erro:", err);
+                tipoApoioSelect.innerHTML = `<option value="">Erro ao carregar</option>`;
+            });
+    });
+
+    // Buscar entidades do servidor
+    fetch('/ProjetoEstagio/BackEnd/Beneficiario/Apoios/get_entidades.php')
+        .then(res => res.json())
+        .then(data => {
+            entidadeSelect.innerHTML = '<option value="Default_Value">Selecione</option>';
+    
+            if (Array.isArray(data)) {
+                data.forEach(entidade => {
+                    const opt = document.createElement("option");
+                    opt.value = entidade;
+                    opt.textContent = entidade;
+                    entidadeSelect.appendChild(opt);
+                });
+            } else {
+                entidadeSelect.innerHTML = '<option value="">Erro ao carregar</option>';
+            }
+        })
+        .catch(err => {
+            console.error("Erro ao carregar entidades:", err);
+            entidadeSelect.innerHTML = '<option value="">Erro ao carregar</option>';
+        });
+    
     const numElementos = document.getElementById("num_elementos");
     const agregadoContainer = document.getElementById("agregado_campos");
 
@@ -24,6 +69,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    fetch('/ProjetoEstagio/BackEnd/Beneficiario/get_paises.php')
+    .then(res => res.json())
+    .then(data => {
+        const select = document.getElementById("pais_origem_select");
+        data.forEach(pais => {
+            const opt = document.createElement("option");
+            opt.value = pais.Id_Sigla;
+            opt.textContent = `${pais.Sigla} - ${pais.nome}`;
+            select.appendChild(opt);
+        });
+    });
+
     numElementos.addEventListener("input", () => {
         agregadoContainer.innerHTML = "";
         const n = parseInt(numElementos.value) || 0;
@@ -32,11 +89,11 @@ document.addEventListener("DOMContentLoaded", () => {
             div.classList.add("agregado-item");
             div.innerHTML = `
                 <label>NISS:</label>
-                <input type="text" name="agregado_niss[]" style="width: 50%;">
+                <input type="text" name="agregado_niss" id='agregado_niss' style="width: 50%;">
                 <label>Data de Nascimento:</label>
-                <input type="date" name="agregado_data[]" style="width: 15%;">
+                <input type="date" name="agregado_data" id='agregado_data' style="width: 15%;">
                 <label>Género:</label>
-                <select name="agregado_genero[]" style="width: 10%;">
+                <select name="agregado_genero" style="width: 10%;">
                     <option value="Masculino">Masculino</option>
                     <option value="Feminino">Feminino</option>
                 </select>
@@ -51,10 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
             detalhes.style.display = detalhes.style.display === "block" ? "none" : "block";
         });
     });
-});
-    document.addEventListener("DOMContentLoaded", () => {
-    const dataNascInput = document.getElementById("data_nasc");
-    const idadeDisplay = document.getElementById("idade_display");
 
     dataNascInput.addEventListener("input", () => {
         const dataNasc = new Date(dataNascInput.value);
