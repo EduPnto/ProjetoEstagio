@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("");
-
     const apoioData = {};
     const entidadeSelect = document.getElementById("apoio_entidade");
     const tipoApoioSelect = document.getElementById("tipo_apoio");
