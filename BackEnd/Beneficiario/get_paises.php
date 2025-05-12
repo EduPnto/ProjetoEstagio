@@ -13,7 +13,10 @@
     $paises = [];
 
     while ($row = $result->fetch_assoc()) {
-        $paises[] = $row;
+        $paises[] = [
+            'sigla' => $row['Sigla'],
+            'nome' => $row['nome'],
+        ];
     }
 
     echo json_encode($paises);

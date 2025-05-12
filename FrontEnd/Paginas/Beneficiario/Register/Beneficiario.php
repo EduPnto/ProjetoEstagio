@@ -54,9 +54,18 @@
                 <div style="width: 60%;"><label for="contacto">Contacto</label><input type="text" name="contacto" id="contacto"></div>
             </div>
             <div class="grid-3">
-                <div><label for="nif">NIF</label><input type="text" name="nif" id="nif"></div>
-                <div><label for="niss">NISS</label><input type="text" name="niss" id="niss"></div>
-                <div><label for="bi_cc">BI/CC</label><input type="text" name="bi/cc" id="bi_cc"></div>
+                <div>
+                    <label for="nif">NIF</label>
+                    <input type="text" name="nif" id="nif" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                </div>
+                <div>
+                    <label for="niss">NISS</label>
+                    <input type="text" name="niss" id="niss" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                </div>
+                <div>
+                    <label for="bi_cc">BI/CC</label>
+                    <input type="text" name="bi/cc" id="bi_cc" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                </div>
             </div>
             <div class="grid-3">
                 <div><label for="morada">Morada</label><input type="text" name="morada" id="morada"></div>

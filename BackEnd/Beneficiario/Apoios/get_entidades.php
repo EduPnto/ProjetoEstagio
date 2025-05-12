@@ -7,7 +7,7 @@
      header('Content-Type: application/json');
 
      try {
-          $query = "SELECT Sigla FROM entidades ORDER BY nome ASC";
+          $query = "SELECT Sigla FROM entidades ORDER BY Id_Enti ASC";
           $result = $conn->query($query);
 
           if ($result) {
