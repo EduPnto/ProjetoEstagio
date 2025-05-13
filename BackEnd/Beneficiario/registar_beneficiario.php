@@ -1,7 +1,24 @@
 <?php
     header('Content-Type: application/json');
     $data = json_decode(file_get_contents("php://input"), true);
-
+    error_log("nome: " . $data['nome']);
+    error_log("genero: " . $data['genero']);
+    error_log("nif: " . $data['nif']);
+    error_log("niss: " . $data['niss']);
+    error_log("bi_cc: " . $data['bi_cc']);
+    error_log("morada: " . $data['morada']);
+    error_log("contacto: " . $data['contacto']);
+    error_log("cod_postal: " . $data['cod_postal']);
+    error_log("data_nasc: " . $data['data_nasc']);
+    error_log("data_admissao: " . $data['data_admissao']);
+    error_log("data_saida: " . $data['data_saida']);
+    error_log("deficiencia: " . $data['deficiencia']);
+    error_log("autonomia: " . $data['autonomia']);
+    error_log("sem_abrigo: " . $data['sem_abrigo']);
+    error_log("emprego: " . $data['emprego']);
+    error_log("imigrante: " . $data['imigrante']);
+    error_log("id_sigla: " . $data['id_sigla']);
+    error_log("observacoes: " . $data['observacoes']);
     require $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/DataBase/db_connect.php';
 
     if ($conn->connect_error) {
@@ -36,7 +53,7 @@
         Sit_Emprego, Imigrante, Id_Sigla, Observacao
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $stmt->bind_param("issssssssssiiiiiiss",
+    $stmt->bind_param("issssssssssiiiiiiis",
         $new_id_bene, $data['nome'], $data['genero'], 
         $data['nif'], $data['niss'], $data['bi_cc'],
         $data['morada'], $data['contacto'], $data['cod_postal'], 

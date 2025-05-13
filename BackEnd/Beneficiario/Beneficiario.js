@@ -18,7 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (Array.isArray(data)) {
                     data.forEach(tipo => {
                         const opt = document.createElement("option");
-                        opt.textContent = tipo;
+                        opt.value = tipo.id;
+                        opt.textContent = tipo.nome;
                         tipoApoioSelect.appendChild(opt);
                     });
                 } else {
@@ -39,8 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (Array.isArray(data)) {
             data.forEach(entidade => {
                 const opt = document.createElement("option");
-                opt.value = entidade;
-                opt.textContent = entidade;
+                opt.value = entidade.id;
+                opt.textContent = entidade.sigla;
                 entidadeSelect.appendChild(opt);
             });
         } else {
@@ -67,7 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const numElementos = document.getElementById("num_elementos");
     const agregadoContainer = document.getElementById("agregado_campos");
 
-    fetch('/ProjetoEstagio/BackEnd/Beneficiario/get_paises.php')
+    
+    fetch('/ProjetoEstagio/BackEnd/Beneficiario/paises/get_paises.php')
     .then(res => res.json())
     .then(data => {
         const select = document.getElementById("pais_origem_select");

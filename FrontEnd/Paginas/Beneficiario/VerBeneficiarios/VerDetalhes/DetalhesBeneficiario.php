@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>CLIS - Registo de Beneficiário</title>
-    <link rel="stylesheet" href="../../../CSS/Beneficiario/Register/BeneficiarioRegister.css">
-    <script src='/ProjetoEstagio/BackEnd/Beneficiario/Beneficiario.js' defer></script>
+    <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Beneficiario/Register/BeneficiarioRegister.css">
+    <script src='/ProjetoEstagio/BackEnd/Beneficiario/VerAtualizarBeneficiario.js' defer></script>
 </head>
 <body>
     <div class="top-bar">
@@ -328,7 +328,7 @@
         </form>
         <script>
             document.getElementById("btn_criar").addEventListener("click", function(event) {
-                event.preventDefault(); 
+                event.preventDefault(); // Impede envio tradicional
 
                 const data = {
                     nome: document.getElementById("nome").value,

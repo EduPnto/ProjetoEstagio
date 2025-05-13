@@ -18,7 +18,7 @@
         <div class="menu-container">
             <?php
                 $menuItems = [
-                    ["href" => "entidades.php", "icon" => "../../Icons/View.png", "alt" => "Ver Beneficiários", "label" => "Ver Beneficiários"],
+                    ["href" => "/ProjetoEstagio/FrontEnd/Paginas/Beneficiario/VerBeneficiarios/VerBeneficiarios.php", "icon" => "../../Icons/View.png", "alt" => "Ver Beneficiários", "label" => "Ver Beneficiários"],
                     ["href" => "/ProjetoEstagio/FrontEnd/Paginas/Beneficiario/Register/Beneficiario.php", "icon" => "../../Icons/Beneficiario.png", "alt" => "Registar Beneficiários", "label" => "Registar Beneficiários"]
                 ];
 

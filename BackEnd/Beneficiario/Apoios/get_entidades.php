@@ -7,13 +7,16 @@
      header('Content-Type: application/json');
 
      try {
-          $query = "SELECT Sigla FROM entidades ORDER BY Id_Enti ASC";
+          $query = "SELECT * FROM entidades ORDER BY Id_Enti ASC";
           $result = $conn->query($query);
 
           if ($result) {
                 $entidades = [];
                 while ($row = $result->fetch_assoc()) {
-                     $entidades[] = $row['Sigla'];
+                    $entidades[] = [
+                         'sigla' => $row['Sigla'],
+                         'id' => $row['Id_Enti']
+                    ];
                 }
                 echo json_encode($entidades);
           } else {

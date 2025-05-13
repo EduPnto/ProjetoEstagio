@@ -16,6 +16,7 @@
         $paises[] = [
             'sigla' => $row['Sigla'],
             'nome' => $row['nome'],
+            'id' => $row['Id_Sigla']
         ];
     }
 
