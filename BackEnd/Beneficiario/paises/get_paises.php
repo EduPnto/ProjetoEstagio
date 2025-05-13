@@ -15,8 +15,7 @@
     while ($row = $result->fetch_assoc()) {
         $paises[] = [
             'sigla' => $row['Sigla'],
-            'nome' => $row['nome'],
-            'id' => $row['Id_Sigla']
+            'nome' => $row['nome']
         ];
     }
 

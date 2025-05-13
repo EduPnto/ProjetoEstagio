@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>CLIS - Registo de Beneficiário</title>
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Beneficiario/Register/BeneficiarioRegister.css">
-    <script src='/ProjetoEstagio/BackEnd/Beneficiario/VerAtualizarBeneficiario.js' defer></script>
+    <script src='/ProjetoEstagio/BackEnd/Beneficiario/VerAtualizarBeneficiarios.js' defer></script>
 </head>
 <body>
     <div class="top-bar">
@@ -92,53 +92,6 @@
                 <label for="data_saida">Data de Saída</label>
                 <input type="date" name="data_saida" id="data_saida" style="width: 25%;">
             </div>
-        </div>
-
-        <br>
-        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
-
-        <div class="form-section agregado">
-            <h3 style="width: 15%;">Agregado Familiar</h3>
-            <label for="num_elementos">Nº de elementos</label>
-            <input type="number" id="num_elementos" min="0" max="20" style="width: 50px;">
-            <script>
-                const input = document.getElementById('num_elementos');
-                const max = 20;
-
-                input.addEventListener('input', () => {
-                    const valor = parseInt(input.value, 10);
-
-                    if (!isNaN(valor) && valor > max) {
-                    input.value = max;
-                    }
-                });
-            </script>
-            <div id="agregado_campos"></div>
-            <form method="POST" id="familiarForm">
-                <button type="button" id="Inserir_Familiar" style="float: right;">Inserir no registo</button>
-            </form>
-            <script>
-                document.getElementById("Inserir_Familiar").addEventListener("click", () => {
-                    const niss = Array.from(document.querySelectorAll("#agregado_niss")).map(input => input.value);
-                    const datas = Array.from(document.querySelectorAll("#agregado_data")).map(input => input.value);
-                    const generos = Array.from(document.querySelectorAll("[name='agregado_genero']")).map(select => select.value);
-
-                    const formData = new FormData();
-                    niss.forEach((v, i) => {
-                        formData.append(`agregado_niss[]`, v);
-                        formData.append(`agregado_data[]`, datas[i]);
-                        formData.append(`agregado_genero[]`, generos[i]);
-                    });
-
-                    fetch("/ProjetoEstagio/BackEnd/Beneficiario/Familiar/inserir_familiar.php", {
-                        method: "POST",
-                        body: formData
-                    }).then(response => response.text())
-                    .then(result => alert(result))
-                    .catch(error => alert("Erro ao inserir: " + error));
-                });
-            </script>
         </div>
 
         <br>
@@ -323,56 +276,9 @@
             <h3 style="width: 11%;">Observações</h3>
             <textarea name="observacoes" id="observacoes" rows="10" cols="80" maxlength="300" style="resize: none; width: 75%;"></textarea>
         </div>
-        <form method="POST">
-            <button type="submit" id="btn_criar">Criar Beneficiário</button>
+        <form method="">
+            <button type="submit" id="btn_Update">Atualizar Beneficiário</button>
         </form>
-        <script>
-            document.getElementById("btn_criar").addEventListener("click", function(event) {
-                event.preventDefault(); // Impede envio tradicional
-
-                const data = {
-                    nome: document.getElementById("nome").value,
-                    genero: document.getElementById("genero").value,
-                    contacto: document.getElementById("contacto").value,
-                    nif: document.getElementById("nif").value,
-                    niss: document.getElementById("niss").value,
-                    bi_cc: document.getElementById("bi_cc").value,
-                    morada: document.getElementById("morada").value,
-                    cod_postal: document.getElementById("cod_postal").value,
-                    data_nasc: document.getElementById("data_nasc").value,
-                    data_admissao: document.getElementById("data_admissao").value,
-                    data_saida: document.getElementById("data_saida").value,
-                    tipo_apoio: document.getElementById("tipo_apoio").value,
-                    apoio_entidade: document.getElementById("apoio_entidade").value,
-                    deficiencia: document.getElementById("deficiencia_sim").checked ? 1 : (document.getElementById("deficiencia_nao").checked ? 0 : null),
-                    sem_abrigo: document.getElementById("sem_abrigo_sim").checked ? 1 : (document.getElementById("sem_abrigo_nao").checked ? 0 : null),
-                    autonomia: document.getElementById("auto").checked ? 1 : (document.getElementById("depen").checked ? 0 : null),
-                    emprego: document.getElementById("Empre").checked ? 1 : (document.getElementById("Desemp").checked ? 0 : null),
-                    imigrante: document.getElementById("imigrante_sim").checked ? 1 : (document.getElementById("imigrante_nao").checked ? 0 : null),
-                    pais_origem: document.getElementById("pais_origem_select").value,
-                    observacoes: document.getElementById("observacoes").value
-                };
-
-                fetch('/ProjetoEstagio/BackEnd/Beneficiario/registar_beneficiario.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(response => response.json())
-                .then(result => {
-                    if (result.success) {
-                        alert(result.message);
-                    } else {
-                        alert("Erro: " + result.message);
-                    }
-                })
-                .catch(error => {
-                    alert("Erro na requisição: " + error);
-                });
-            });
-        </script>    
     </main>
 
     <footer>
@@ -386,5 +292,7 @@
             <img src="../../../Imagens/rfe.png" alt="Refood">
         </div>
     </footer>
+    
+    </script>
 </body>
 </html>

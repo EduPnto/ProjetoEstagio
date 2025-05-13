@@ -18,17 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $inserted_familiares_ids = [];
-    
-    // Inserção de familiares
-    $id_familiar = null;
+    $inserted_familiares_ids = [];    
 
     for ($i = 0; $i < count($niss); $i++) {
         // Insere o familiar com o ID_Familiar atual
         $stmt = $conn->prepare("INSERT INTO `composicao_familiar` (`NISS`, `Data_nasc`, `Genero`, `Id_Bene`) VALUES (?, ?, ?, ?)");
         if ($stmt) {
-            $id_bene = null; // Replace with the actual value for `Id_Bene` if available
-            $stmt->bind_param("sssi", $niss[$i], $datas[$i], $generos[$i], $id_bene);
+            $stmt->bind_param("sssi", $niss[$i], $datas[$i], $generos[$i], $new_id_bene);
             if ($stmt->execute()) {
                 $inserted_familiares_ids[] = $conn->insert_id; // Pega o ID do familiar inserido
             } else {

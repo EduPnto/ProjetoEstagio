@@ -18,8 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (Array.isArray(data)) {
                     data.forEach(tipo => {
                         const opt = document.createElement("option");
-                        opt.value = tipo.id;
-                        opt.textContent = tipo.nome;
+                        opt.textContent = tipo.nomeApoio;
                         tipoApoioSelect.appendChild(opt);
                     });
                 } else {
@@ -40,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (Array.isArray(data)) {
             data.forEach(entidade => {
                 const opt = document.createElement("option");
-                opt.value = entidade.id;
                 opt.textContent = entidade.sigla;
                 entidadeSelect.appendChild(opt);
             });
@@ -75,8 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const select = document.getElementById("pais_origem_select");
         data.forEach(pais => {
             const opt = document.createElement("option");
-            opt.value = pais.id;
-            opt.textContent = `${pais.sigla} - ${pais.nome}`;
+            opt.textContent = `${pais.nome}`;
             select.appendChild(opt);
         });
     });

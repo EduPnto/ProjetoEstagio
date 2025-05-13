@@ -14,8 +14,7 @@
                 $entidades = [];
                 while ($row = $result->fetch_assoc()) {
                     $entidades[] = [
-                         'sigla' => $row['Sigla'],
-                         'id' => $row['Id_Enti']
+                         'sigla' => $row['Sigla']
                     ];
                 }
                 echo json_encode($entidades);

@@ -1,24 +1,6 @@
 <?php
     header('Content-Type: application/json');
     $data = json_decode(file_get_contents("php://input"), true);
-    error_log("nome: " . $data['nome']);
-    error_log("genero: " . $data['genero']);
-    error_log("nif: " . $data['nif']);
-    error_log("niss: " . $data['niss']);
-    error_log("bi_cc: " . $data['bi_cc']);
-    error_log("morada: " . $data['morada']);
-    error_log("contacto: " . $data['contacto']);
-    error_log("cod_postal: " . $data['cod_postal']);
-    error_log("data_nasc: " . $data['data_nasc']);
-    error_log("data_admissao: " . $data['data_admissao']);
-    error_log("data_saida: " . $data['data_saida']);
-    error_log("deficiencia: " . $data['deficiencia']);
-    error_log("autonomia: " . $data['autonomia']);
-    error_log("sem_abrigo: " . $data['sem_abrigo']);
-    error_log("emprego: " . $data['emprego']);
-    error_log("imigrante: " . $data['imigrante']);
-    error_log("id_sigla: " . $data['id_sigla']);
-    error_log("observacoes: " . $data['observacoes']);
     require $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/DataBase/db_connect.php';
 
     if ($conn->connect_error) {
@@ -40,26 +22,39 @@
     }
     $check_stmt->close();
 
-    // Fetch the maximum Id_Bene and increment it by 1
-    $result = $conn->query("SELECT MAX(Id_Bene) AS max_id FROM beneficiarios");
-    $row = $result->fetch_assoc();
-    $new_id_bene = $row['max_id'] + 1;
+    // Fetch Id_Enti based on Sigla
+    $result2 = $conn->query("SELECT Id_Enti FROM entidades WHERE Sigla = '" . $data['apoio_entidade'] . "'");
+    $row2 = $result2->fetch_assoc();
+    $id_Enti = $row2['Id_Enti'];
+    
 
+    // Fetch Id_Apoio based on nome
+    $result3 = $conn->query("SELECT Id_Apoio FROM apoio WHERE nome = '" . $data['tipo_apoio'] . "'");
+    $row3 = $result3->fetch_assoc();
+    $id_apoio = $row3['Id_Apoio'];
 
+    // Fetch Id_Apoio based on nome
+    $result4 = $conn->query("SELECT Id_Sigla FROM paises WHERE nome = '" . $data['pais_origem'] . "'");
+    $row4 = $result4->fetch_assoc();
+    $id_Sigla = $row4['Id_Sigla'];
+    
+
+    // Prepare and bind the insert statement
     $stmt = $conn->prepare("INSERT INTO beneficiarios (Id_Bene,
         nome_Bene, Genero, NIF, NISS, BI, Morada, Contacto, Cod_Postal,
-        Data_nasc, Data_Admissao, Data_Saida,
+        Data_nasc, Data_Admissao, Data_Saida, Id_Enti, Id_Apoio,
         Incap_Defec, Auto_Depen, Sit_sem_abrigo,
-        Sit_Emprego, Imigrante, Id_Sigla, Observacao
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        Sit_Emprego, Imigrante, Id_Sigla, rendi_Capita, Observacao
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $stmt->bind_param("issssssssssiiiiiiis",
-        $new_id_bene, $data['nome'], $data['genero'], 
+    $stmt->bind_param("isssssssssssiiiiiiiids",
+        $data['Id_Bene'], $data['nome'], $data['genero'], 
         $data['nif'], $data['niss'], $data['bi_cc'],
         $data['morada'], $data['contacto'], $data['cod_postal'], 
-        $data['data_nasc'], $data['data_admissao'], $data['data_saida'], $data['deficiencia'],
+        $data['data_nasc'], $data['data_admissao'], $data['data_saida'], 
+        $id_Enti, $id_apoio, $data['deficiencia'],
         $data['autonomia'], $data['sem_abrigo'], $data['emprego'],
-        $data['imigrante'], $data['id_sigla'], $data['observacoes']
+        $data['imigrante'], $id_Sigla, $data['rendimento_per_Capita'],$data['observacoes']
     );
 
     if ($stmt->execute()) {

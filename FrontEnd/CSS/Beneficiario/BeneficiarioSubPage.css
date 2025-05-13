@@ -8,7 +8,7 @@ html, body {
   body {
     flex: 1;
     font-family: Arial, sans-serif;
-    background: url('../../../Imagens/juntaIMG.jpg') no-repeat center center fixed;
+    background: url('../../Imagens/juntaIMG.jpg') no-repeat center center fixed;
     background-size: cover;
   }
   

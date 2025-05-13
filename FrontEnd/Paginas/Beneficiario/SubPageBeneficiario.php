@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>CLIS - Beneficiário</title>
-    <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Beneficiario/SubPagina/BeneficiarioSubPage.css">
+    <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Beneficiario/BeneficiarioSubPage.css">
     <script src='/ProjetoEstagio/BackEnd/Beneficiario/Beneficiario.js'></script>
 </head>
 <body>

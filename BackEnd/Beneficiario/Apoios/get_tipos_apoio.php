@@ -16,7 +16,7 @@
     $query = "
         SELECT a.nome, a.Id_Apoio
         FROM apoio a, entidades e
-        WHERE a.Id_Enti = e.Id_Enti AND e.Id_Enti = '$entidade'
+        WHERE a.Id_Enti = e.Id_Enti AND e.Sigla = '$entidade'
     ";
 
     $result = $conn->query($query);
@@ -25,8 +25,7 @@
         $tipos = [];
         while ($row = $result->fetch_assoc()) {
             $tipos[] = [
-                'nome' => $row['nome'],
-                'id' => $row['Id_Apoio']               
+                'nomeApoio' => $row['nome']               
             ];
         }
         echo json_encode($tipos);

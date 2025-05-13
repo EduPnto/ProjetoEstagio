@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>CLIS - Beneficiário</title>
-    <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Beneficiario/SubPagina/BeneficiarioSubPage.css">
+    <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Beneficiario/VerBeneficiarios/VerBeneficiarios.css">
     
 </head>
 <body>
@@ -16,7 +16,8 @@
 
     <main>
         <div class="menu-container">
-            
+            <input type="text" id="search-niss" placeholder="Pesquisar por NISS..." style="width: 100%; padding: 10px; margin-bottom: 20px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+            <div id="cards-container"></div>
         </div>
     </main>
 
@@ -31,5 +32,68 @@
             <img src="../../../Imagens/rfe.png" alt="Refood">
         </div>
     </footer>
+    <script>
+        let todosBeneficiarios = [];
+
+        function verDetalhes(niss) {
+            window.location.href = `././VerDetalhes/DetalhesBeneficiario.php?niss=${niss}`;
+        }
+
+        function formatarDataBr(dataIso) {
+            if (!dataIso) return "Não disponível";
+            const data = new Date(dataIso);
+            return data.toLocaleDateString('pt-BR');
+        }
+
+        function criarCard(beneficiario) {
+            return `
+            <div class="card-custom" data-niss="${beneficiario.NISS}">
+                <div class="card-header">
+                    <strong>NISS:</strong> ${beneficiario.NISS}
+                </div>
+                <div class="card-content">
+                    <div class="data-column">
+                        <p><strong>Data de Admissão:</strong> ${formatarDataBr(beneficiario.Data_Admissao)}</p>
+                    </div>
+                    <div class="data-column">
+                        <p><strong>Data de Saída:</strong> ${formatarDataBr(beneficiario.Data_Saida)}</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button onclick="verDetalhes('${beneficiario.NISS}')">Ver Detalhes</button>
+                </div>
+            </div>
+            `;
+        }
+
+        function renderCards(filtrados) {
+            const container = document.getElementById('cards-container');
+            container.innerHTML = "";
+            filtrados.forEach(beneficiario => {
+                container.innerHTML += criarCard(beneficiario);
+            });
+        }
+
+        function setupSearch() {
+            const input = document.getElementById('search-niss');
+            input.addEventListener('input', () => {
+                const termo = input.value.trim();
+                const filtrados = todosBeneficiarios.filter(b => b.NISS.includes(termo));
+                renderCards(filtrados);
+            });
+        }
+
+        // Carregar dados e inicializar tudo
+        fetch('/ProjetoEstagio/BackEnd/Beneficiario/Data/getBeneficiarios.php')
+            .then(res => res.json())
+            .then(data => {
+                todosBeneficiarios = data;
+                renderCards(todosBeneficiarios);
+                setupSearch();
+            })
+            .catch(error => {
+                console.error('Erro ao buscar beneficiários:', error);
+            });
+    </script>
 </body>
 </html>

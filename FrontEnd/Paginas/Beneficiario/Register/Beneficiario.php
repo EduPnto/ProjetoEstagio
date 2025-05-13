@@ -7,6 +7,18 @@
     <script src='/ProjetoEstagio/BackEnd/Beneficiario/Beneficiario.js' defer></script>
 </head>
 <body>
+    <?php
+        $data = json_decode(file_get_contents("php://input"), true);
+        require $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/DataBase/db_connect.php';
+
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $result = $conn->query("SELECT MAX(Id_Bene) AS max_id FROM beneficiarios");
+        $row = $result->fetch_assoc();
+        $new_id_bene = $row['max_id'] + 1;
+    ?>
     <div class="top-bar">
         <div class="logo" style="background-color: white; display: flex; align-items: center; justify-content: center; padding: 10px; border-radius: 5px;">
             <img src="/ProjetoEstagio/FrontEnd/Imagens/LogotipoJunta.png">
@@ -47,6 +59,7 @@
                 <div><label for="nome">Nome</label><input type="text" name="nome" id="nome"></div>
                 <div style="width: 75%;"><label for="genero">Género</label>
                     <select name="genero" id="genero">
+                        <option>------</option>
                         <option>Masculino</option>
                         <option>Feminino</option>
                     </select>
@@ -317,6 +330,15 @@
             </div>
         </div>
         <br>
+        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
+        <br>
+        <div class="form-section rendimento">
+            <h3 style="width: 9.5%;">Rendimento</h3>
+            <div class="grid-4">
+                <div><label for="rendimento_per_Capita">Rendimento per Capita</label><input type="text" name="rendimento_per_Capita" id="rendimento_per_Capita"></div>
+            </div>
+        </div>
+        <br>
             <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
         <br>
         <div class="form-section observacoes">
@@ -331,6 +353,7 @@
                 event.preventDefault(); 
 
                 const data = {
+                    Id_Bene: <?php echo $new_id_bene; ?>,
                     nome: document.getElementById("nome").value,
                     genero: document.getElementById("genero").value,
                     contacto: document.getElementById("contacto").value,
@@ -350,6 +373,7 @@
                     emprego: document.getElementById("Empre").checked ? 1 : (document.getElementById("Desemp").checked ? 0 : null),
                     imigrante: document.getElementById("imigrante_sim").checked ? 1 : (document.getElementById("imigrante_nao").checked ? 0 : null),
                     pais_origem: document.getElementById("pais_origem_select").value,
+                    rendimento_per_Capita: document.getElementById("rendimento_per_Capita").value,
                     observacoes: document.getElementById("observacoes").value
                 };
 
