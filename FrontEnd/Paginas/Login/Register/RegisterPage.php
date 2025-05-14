@@ -7,7 +7,7 @@ session_start();
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>CLIS - Login</title>
+  <title>CLIS - Registar</title>
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>FrontEnd/CSS/Login/Login.css">
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -17,7 +17,7 @@ session_start();
         const name = document.getElementById('name').value;
         const password = document.getElementById('password').value;
 
-        fetch('<?php echo BASE_URL; ?>BackEnd/Login/LoginVerify.php', {
+        fetch('<?php echo BASE_URL; ?>BackEnd/Login/Register/RegisterAccount.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -27,9 +27,9 @@ session_start();
         .then(response => response.json())
         .then(data => {
           if (data.success) {
-            window.location.replace('<?php echo BASE_URL; ?>FrontEnd/Paginas/MainPage/MainPage.php');
+            window.location.replace('<?php echo BASE_URL; ?>FrontEnd/Paginas/Login/LoginPage.php');
           } else {
-            alert(data.message || 'Login falhou.');
+            alert(data.message || 'Registo falhou.');
           }
         })
         .catch(error => console.error('Erro na requisição:', error));
@@ -39,7 +39,7 @@ session_start();
 </head>
 <body>
   <div class="header">
-    <img src="../../Imagens/LogotipoJunta.png" alt="Logotipo Ermesinde" class="logo">
+    <img src="../../../Imagens/LogotipoJunta.png" alt="Logotipo Ermesinde" class="logo">
   </div>
   <main>
     <div class="login-box">
@@ -58,22 +58,20 @@ session_start();
           <a href="../Login/EsqueceuSenha/ForgotPassword.php">Esqueceu-se da senha?</a>
         </div>
 
-        <button type="submit">Entrar</button>
-        <label style="display: flex; justify-content:center; padding-top: 10px; padding-bottom: 20px;">________________ ou ________________</label>
-        <button type="button" onclick="window.location.href='<?php echo BASE_URL; ?>FrontEnd/Paginas/Login/Register/RegisterPage.php'">Registar</button>
+        <button type="submit">Registar</button>
       </form>
     </div>
-  </main>
-  <footer>
+    </main>
+    <footer>
         <p>Contacto: geral@clis.jfe.pt | Tel: 227 344 418</p>
         <div class="redes">
             <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
         </div>
         <div class="logos">
-            <img src="../../Imagens/logo_adice.png" alt="ADICE">
-            <img src="../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
-            <img src="../../Imagens/rfe.png" alt="Refood">
+            <img src="../../../Imagens/logo_adice.png" alt="ADICE">
+            <img src="../../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
+            <img src="../../../Imagens/rfe.png" alt="Refood">
         </div>
-  </footer>
+    </footer>
 </body>
 </html>

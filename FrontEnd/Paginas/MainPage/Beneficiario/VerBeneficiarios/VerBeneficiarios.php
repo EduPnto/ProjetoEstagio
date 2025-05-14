@@ -27,9 +27,9 @@
             <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
         </div>
         <div class="logos">
-            <img src="../../../Imagens/logo_adice.png" alt="ADICE">
-            <img src="../../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
-            <img src="../../../Imagens/rfe.png" alt="Refood">
+            <img src="../../../../Imagens/logo_adice.png" alt="ADICE">
+            <img src="../../../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
+            <img src="../../../../Imagens/rfe.png" alt="Refood">
         </div>
     </footer>
     <script>
@@ -46,24 +46,52 @@
         }
 
         function criarCard(beneficiario) {
+            const hoje = new Date().toISOString().split('T')[0]; // Data no formato 'YYYY-MM-DD'
+            const dataSaida = beneficiario.Data_Saida ? beneficiario.Data_Saida.split('T')[0] : null;
+
+            const mostrarBotaoEliminar = dataSaida === hoje;
+
             return `
-            <div class="card-custom" data-niss="${beneficiario.NISS}">
-                <div class="card-header">
-                    <strong>NISS:</strong> ${beneficiario.NISS}
-                </div>
-                <div class="card-content">
-                    <div class="data-column">
-                        <p><strong>Data de Admissão:</strong> ${formatarDataBr(beneficiario.Data_Admissao)}</p>
+                <div class="card-custom" data-niss="${beneficiario.NISS}">
+                    <div class="card-header">
+                        <strong>NISS:</strong> ${beneficiario.NISS}
                     </div>
-                    <div class="data-column">
-                        <p><strong>Data de Saída:</strong> ${formatarDataBr(beneficiario.Data_Saida)}</p>
+                    <div class="card-content">
+                        <div class="data-column">
+                            <p><strong>Data de Admissão:</strong> ${formatarDataBr(beneficiario.Data_Admissao)}</p>
+                        </div>
+                        <div class="data-column">
+                            <p><strong>Data de Saída:</strong> ${formatarDataBr(beneficiario.Data_Saida)}</p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button onclick="verDetalhes('${beneficiario.NISS}')">Ver Detalhes</button>
+                        ${mostrarBotaoEliminar ? `<button style="margin-left: 10px; background-color: red;" onclick="eliminarBeneficiario('${beneficiario.NISS}')">Eliminar</button>` : ''}
                     </div>
                 </div>
-                <div class="card-footer">
-                    <button onclick="verDetalhes('${beneficiario.NISS}')">Ver Detalhes</button>
-                </div>
-            </div>
             `;
+        }
+
+        function eliminarBeneficiario(niss) {
+            if (confirm("Tem certeza que deseja eliminar este beneficiário?")) {
+                fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Data/eliminarBeneficiario.php?niss=${niss}`, {
+                    method: 'DELETE'
+                })
+                .then(res => {
+                    if (res.ok) {
+                        // Remove da lista local e atualiza
+                        todosBeneficiarios = todosBeneficiarios.filter(b => b.NISS !== niss);
+                        renderCards(todosBeneficiarios);
+                        alert("Beneficiário eliminado com sucesso.");
+                    } else {
+                        alert("Erro ao eliminar beneficiário.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert("Erro ao eliminar beneficiário.");
+                });
+            }
         }
 
         function renderCards(filtrados) {

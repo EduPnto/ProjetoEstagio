@@ -5,7 +5,7 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT nome_Bene, Genero, NIF, NISS, BI, Morada, Contacto, Cod_Postal, Data_nasc, Data_Admissao, Data_Saida, Id_Enti, Id_Apoio, Incap_Defec, Auto_Depen, Sit_sem_abrigo, Sit_Emprego, Imigrante, Id_Sigla, Observacao FROM beneficiarios";
+    $sql = "SELECT * FROM beneficiarios";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
