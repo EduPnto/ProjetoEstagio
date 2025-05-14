@@ -65,15 +65,16 @@ session_start();
     </div>
   </main>
   <footer>
-        <p>Contacto: geral@clis.jfe.pt | Tel: 227 344 418</p>
-        <div class="redes">
-            <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
-        </div>
-        <div class="logos">
-            <img src="../../Imagens/logo_adice.png" alt="ADICE">
-            <img src="../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
-            <img src="../../Imagens/rfe.png" alt="Refood">
-        </div>
+    <p>Contacto: geral@clis.jfe.pt | Tel: 227 344 418</p>
+    <br>
+    <div class="redes">
+      <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
+    </div>
+    <div class="logos">
+      <img src="../../Imagens/logo_adice.png" alt="ADICE">
+      <img src="../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
+      <img src="../../Imagens/rfe.png" alt="Refood">
+    </div>
   </footer>
 </body>
 </html>

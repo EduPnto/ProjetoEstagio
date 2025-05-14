@@ -160,14 +160,13 @@ footer {
     color: white;
 }
 
-footer .redes a {
+    footer .redes a {
     color: white;
     margin: 0 5px;
     text-decoration: none;
 }
 
-footer .logos img {
+    footer .logos img {
     height: 55px;
-    margin: 10px;
-    justify-content: center;
+    margin: 5px;
 }

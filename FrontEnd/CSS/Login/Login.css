@@ -102,16 +102,12 @@ button:hover {
   background-color: #5cbf2a;
 }
 
-/* Footer sempre fixo embaixo */
 footer {
-  width: 100%;
-  background: #333;
-  color: white;
+  margin-top: auto;
   text-align: center;
   padding: 20px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
+  background: #333;
+  color: white;
 }
 
 footer .redes a {

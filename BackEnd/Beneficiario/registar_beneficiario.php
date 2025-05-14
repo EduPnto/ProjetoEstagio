@@ -37,22 +37,26 @@
     $result4 = $conn->query("SELECT Id_Sigla FROM paises WHERE nome = '" . $data['pais_origem'] . "'");
     $row4 = $result4->fetch_assoc();
     $id_Sigla = $row4['Id_Sigla'];
+
+    $result5 = $conn->query("SELECT Id_Alimentar FROM apoio_alimentar WHERE nome = '" . $data['tipo_alimentar'] . "'");
+    $row5 = $result5->fetch_assoc();
+    $id_Alimentar = $row5['Id_Alimentar'];
     
 
     // Prepare and bind the insert statement
     $stmt = $conn->prepare("INSERT INTO beneficiarios (Id_Bene,
         nome_Bene, Genero, NIF, NISS, BI, Morada, Contacto, Cod_Postal,
         Data_nasc, Data_Admissao, Data_Saida, Id_Enti, Id_Apoio,
-        Incap_Defec, Auto_Depen, Sit_sem_abrigo,
+        Id_Alimentar, Incap_Defec, Auto_Depen, Sit_sem_abrigo,
         Sit_Emprego, Imigrante, Id_Sigla, rendi_Capita, Observacao
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $stmt->bind_param("isssssssssssiiiiiiiids",
+    $stmt->bind_param("isssssssssssiiiiiiiiids",
         $data['Id_Bene'], $data['nome'], $data['genero'], 
         $data['nif'], $data['niss'], $data['bi_cc'],
         $data['morada'], $data['contacto'], $data['cod_postal'], 
         $data['data_nasc'], $data['data_admissao'], $data['data_saida'], 
-        $id_Enti, $id_apoio, $data['deficiencia'],
+        $id_Enti, $id_apoio,$id_Alimentar, $data['deficiencia'],
         $data['autonomia'], $data['sem_abrigo'], $data['emprego'],
         $data['imigrante'], $id_Sigla, $data['rendimento_per_Capita'],$data['observacoes']
     );

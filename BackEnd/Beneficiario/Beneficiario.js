@@ -2,19 +2,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const apoioData = {};
     const entidadeSelect = document.getElementById("apoio_entidade");
     const tipoApoioSelect = document.getElementById("tipo_apoio");
+    const alimentarSelect = document.getElementById("tipo_alimentar");
 
     entidadeSelect.addEventListener("change", () => {
         const entidade = entidadeSelect.value;
         tipoApoioSelect.innerHTML = "";
 
         if (entidade === "Default_Value") {
-            tipoApoioSelect.innerHTML = `<option value="">------</option>`;
+            tipoApoioSelect.innerHTML = `<option value="Default_Value">------</option>`;
             return;
         }
 
         fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Apoios/get_tipos_apoio.php?entidade=${encodeURIComponent(entidade)}`)
             .then(res => res.json())
             .then(data => {
+                tipoApoioSelect.innerHTML = `<option value="">------</option>`;
                 if (Array.isArray(data)) {
                     data.forEach(tipo => {
                         const opt = document.createElement("option");
@@ -28,6 +30,39 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(err => {
                 console.error("Erro:", err);
                 tipoApoioSelect.innerHTML = `<option value="">Erro ao carregar</option>`;
+            });
+            tipoApoioSelect.addEventListener("change", () => {
+                const entidade = entidadeSelect.value;
+                const alimentar = tipoApoioSelect.value;
+
+                if (alimentar === "Default_Value") {
+                    tipoApoioSelect.innerHTML = `<option value="Default_Value">------</option>`;
+                    return;
+                }
+
+                if (alimentar === "Apoio Alimentar") {
+                    fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Apoios/get_apoios_alimentares.php?alimentar=${encodeURIComponent(alimentar)}&entidade=${encodeURIComponent(entidade)}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        alimentarSelect.innerHTML = `<option value="">------</option>`;
+
+                        if (Array.isArray(data)) {
+                            data.forEach(alimentar => {
+                                const opt = document.createElement("option");
+                                opt.textContent = alimentar.nome;
+                                alimentarSelect.appendChild(opt);
+                            });
+                        } else {
+                            alimentarSelect.innerHTML = `<option value="">Erro ao carregar</option>`;
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Erro:", err);
+                        alimentarSelect.innerHTML = `<option value="">Erro ao carregar</option>`;
+                    });
+                } else {
+                    console.log(`Selected tipo_apoio value: ${alimentar}`);
+                }
             });
     });
 

@@ -46,7 +46,7 @@
         }
 
         function criarCard(beneficiario) {
-            const hoje = new Date().toISOString().split('T')[0]; // Data no formato 'YYYY-MM-DD'
+            const hoje = new Date().toISOString().split('T')[0];
             const dataSaida = beneficiario.Data_Saida ? beneficiario.Data_Saida.split('T')[0] : null;
 
             const mostrarBotaoEliminar = dataSaida === hoje;
@@ -62,6 +62,9 @@
                         </div>
                         <div class="data-column">
                             <p><strong>Data de Saída:</strong> ${formatarDataBr(beneficiario.Data_Saida)}</p>
+                        </div>
+                        <div class="data-column">
+                            <p><strong>Contacto:</strong> ${beneficiario.Contacto}</p>
                         </div>
                     </div>
                     <div class="card-footer">

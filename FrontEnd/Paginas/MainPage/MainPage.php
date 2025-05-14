@@ -71,10 +71,6 @@
         echo '</a>';
       }
     ?>
-    <br>
-    <div class="submenu-container">
-      <label>adadadasdas</label>
-    </div>
   </div>
 
   <footer>

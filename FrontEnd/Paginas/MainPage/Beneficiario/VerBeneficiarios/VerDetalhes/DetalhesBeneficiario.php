@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>CLIS - Registo de Beneficiário</title>
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Beneficiario/Register/BeneficiarioRegister.css">
-    <script src='/ProjetoEstagio/BackEnd/Beneficiario/VerAtualizarBeneficiarios.js' defer></script>
+    <script src='/ProjetoEstagio/BackEnd/Beneficiario/VerAtualizarBeneficiarios.js'></script>
 </head>
 <body>
     <div class="top-bar">
@@ -111,6 +111,30 @@
                         <option value="">------</option>
                     </select>
                 </div>
+                <script>
+                    const tipoApoioSelect = document.getElementById('tipo_apoio');
+                    const apoioContainer = document.createElement('div');
+                    apoioContainer.style.width = '70%';
+                    apoioContainer.innerHTML = `
+                        <label for="tipo_alimentar">Tipo de Apoio Alimentar</label>
+                        <select id="tipo_alimentar" name="tipo_alimentar">
+                            <option value="">------</option>
+                            <!-- Adiciona opções no carregamento -->
+                        </select>
+                    `;
+
+                    tipoApoioSelect.addEventListener('change', () => {
+                        const parent = tipoApoioSelect.closest('.grid-4');
+                        const existingApoio = document.getElementById('tipo_alimentar');
+                        if (tipoApoioSelect.value === "Apoio Alimentar") {
+                            if (!existingApoio) {
+                                parent.appendChild(apoioContainer);
+                            }
+                        } else if (existingApoio) {
+                            apoioContainer.remove();
+                        }
+                    });
+                </script>
             </div>
         </div>
         <br>
@@ -268,6 +292,13 @@
                     });
                 </script>
             </div>
+        </div>
+        <br>
+            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
+        <br>
+        <div class="form-section rendimento">
+            <label for="rendi_capita">Rendimento Per Capita</label>
+            <input type="text" id="rendi_capita" name="rendi_capita">
         </div>
         <br>
             <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>

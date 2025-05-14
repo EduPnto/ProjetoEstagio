@@ -170,8 +170,27 @@
                     <label for="tipo_apoio">Tipo de Apoio</label>
                     <select id="tipo_apoio" name="tipo_apoio">
                         <option value="">------</option>
+                        <option value="Apoio Alimentar">Apoio Alimentar</option>
+                        <option value="Outro Apoio">Outro Apoio</option>
                     </select>
                 </div>
+                <div id="apoio_alimentar_container" style="width: 80%; display: none;">
+                    <label for="tipo_alimentar">Tipo de Apoio Alimentar</label>
+                    <select id="tipo_alimentar" name="tipo_apoio_alimentar">
+                    </select>
+                </div>
+                <script>
+                    const tipoApoioSelect = document.getElementById('tipo_apoio');
+                    const apoioAlimentarContainer = document.getElementById('apoio_alimentar_container');
+
+                    tipoApoioSelect.addEventListener('change', () => {
+                        if (tipoApoioSelect.value === "Apoio Alimentar") {
+                            apoioAlimentarContainer.style.display = 'block';
+                        } else {
+                            apoioAlimentarContainer.style.display = 'none';
+                        }
+                    });
+                </script>
             </div>
         </div>
         <br>
@@ -368,6 +387,7 @@
                     data_saida: document.getElementById("data_saida").value,
                     tipo_apoio: document.getElementById("tipo_apoio").value,
                     apoio_entidade: document.getElementById("apoio_entidade").value,
+                    tipo_alimentar: document.getElementById("tipo_alimentar").value,
                     deficiencia: document.getElementById("deficiencia_sim").checked ? 1 : (document.getElementById("deficiencia_nao").checked ? 0 : null),
                     sem_abrigo: document.getElementById("sem_abrigo_sim").checked ? 1 : (document.getElementById("sem_abrigo_nao").checked ? 0 : null),
                     autonomia: document.getElementById("auto").checked ? 1 : (document.getElementById("depen").checked ? 0 : null),
@@ -403,9 +423,9 @@
             <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
         </div>
         <div class="logos">
-            <img src="../../../Imagens/logo_adice.png" alt="ADICE">
-            <img src="../../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
-            <img src="../../../Imagens/rfe.png" alt="Refood">
+            <img src="../../../../Imagens/logo_adice.png" alt="ADICE">
+            <img src="../../../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
+            <img src="../../../../Imagens/rfe.png" alt="Refood">
         </div>
     </footer>
 </body>
