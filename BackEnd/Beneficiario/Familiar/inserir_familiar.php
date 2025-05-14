@@ -9,6 +9,7 @@ if (!$conn || $conn->connect_error) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $Id_Bene = isset($_POST['Id_Bene']) ? $_POST['Id_Bene'] : null;
     $niss = isset($_POST['agregado_niss']) && is_array($_POST['agregado_niss']) ? $_POST['agregado_niss'] : [];
     $datas = isset($_POST['agregado_data']) && is_array($_POST['agregado_data']) ? $_POST['agregado_data'] : [];
     $generos = isset($_POST['agregado_genero']) && is_array($_POST['agregado_genero']) ? $_POST['agregado_genero'] : [];
@@ -18,13 +19,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    
+    
     $inserted_familiares_ids = [];    
 
     for ($i = 0; $i < count($niss); $i++) {
         // Insere o familiar com o ID_Familiar atual
-        $stmt = $conn->prepare("INSERT INTO `composicao_familiar` (`NISS`, `Data_nasc`, `Genero`, `Id_Bene`) VALUES (?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO `composicao_familiar` (`Id_familiar`,`NISS`, `Data_nasc`, `Genero`, `Id_Bene`) VALUES (?, ?, ?, ?, ?)");
+        $result = $conn->query("SELECT MAX(Id_familiar) AS max_id FROM composicao_familiar");
+        $row = $result->fetch_assoc();
+        $new_id_familiar = $row['max_id'] + 1;
+        
         if ($stmt) {
-            $stmt->bind_param("sssi", $niss[$i], $datas[$i], $generos[$i], $new_id_bene);
+            $stmt->bind_param("isssi", $new_id_familiar, $niss[$i], $datas[$i], $generos[$i], $Id_Bene);
             if ($stmt->execute()) {
                 $inserted_familiares_ids[] = $conn->insert_id; // Pega o ID do familiar inserido
             } else {
@@ -40,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
     }
-    echo json_encode(['success' => true, 'message' => 'Família inserida com sucesso!', 'id_familiar' => $id_familiar]);
+    echo json_encode(['success' => true, 'message' => 'Família inserida com sucesso!']);
 } else {
     echo json_encode(['success' => false, 'message' => 'Método inválido.']);
 }

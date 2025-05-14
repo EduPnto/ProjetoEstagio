@@ -139,6 +139,7 @@
 
                     const formData = new FormData();
                     niss.forEach((v, i) => {
+                        formData.append('Id_Bene', <?php echo $new_id_bene; ?>);
                         formData.append(`agregado_niss[]`, v);
                         formData.append(`agregado_data[]`, datas[i]);
                         formData.append(`agregado_genero[]`, generos[i]);
@@ -392,9 +393,6 @@
                         alert("Erro: " + result.message);
                     }
                 })
-                .catch(error => {
-                    alert("Erro na requisição: " + error);
-                });
             });
         </script>    
     </main>
