@@ -1,0 +1,186 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('../../../Imagens/juntaIMG.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #5CC535;
+    padding: 10px 20px;
+    height: 80px;
+}
+
+.logo img {
+    height: 60px;
+}
+
+.title {
+    background-color: #8DCD5C;
+    padding: 15px 40px;
+    border-radius: 10px;
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    color: #333;
+}
+
+.user-info .user-img {
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    margin-left: 10px;
+    border: 2px solid #fff;
+}
+
+main {
+    padding: 20px;
+    background: rgb(240, 240, 240);
+    max-width: 1100px;
+    margin: auto;
+    box-shadow: 0 0 10px #ccc;
+}
+
+h2 {
+    color: #2e6e2e;
+}
+
+h3{
+    color: white;
+    border-radius: 5px;
+    background-color: #7AB242;
+    padding: 5px 10px;
+}
+
+.form-section {
+    margin-bottom: 30px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+select[name="genero"] {
+    width: 50%;
+    display: inline-block;
+}
+
+.Postal {
+    width: 50%;
+}
+
+.Nascimento {
+    width: 50%;
+    display: inline-block;
+}
+
+.idade-display {
+    display: inline-block;
+    margin-left: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+.grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+
+.agregado-item {
+    border: 1px solid #aaaaaa;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    background: #dfdfdf;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #66cc66;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+footer {
+    margin-top: auto;
+    text-align: center;
+    padding: 20px;
+    background: #333;
+    color: white;
+}
+
+footer .redes a {
+    color: white;
+    margin: 0 5px;
+    text-decoration: none;
+}
+
+footer .logos img {
+    height: 55px;
+    margin: 5px;
+}
+
+.resposta-item {
+    margin-bottom: 10px;
+    border-radius: 5px;
+    width: 25%;
+}
+
+.resposta-btn {
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    background: #5CC535;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.resposta-detalhes {
+    display: none;
+    padding: 10px;
+    width: 250px;
+    background: #ccc;
+}
+
+.resposta-detalhes ul {
+    margin: 0;
+    padding-left: 20px;
+}
