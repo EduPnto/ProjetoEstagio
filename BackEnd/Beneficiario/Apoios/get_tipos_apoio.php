@@ -25,6 +25,7 @@
         $tipos = [];
         while ($row = $result->fetch_assoc()) {
             $tipos[] = [
+                'Id_Apoio' => $row['Id_Apoio'],
                 'nomeApoio' => $row['nome']               
             ];
         }

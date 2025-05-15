@@ -11,18 +11,15 @@ session_start();
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>FrontEnd/CSS/Login/Login.css">
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('loginForm').addEventListener('submit', function(event) {
+      document.getElementById('RegisterForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
-        const name = document.getElementById('name').value;
-        const password = document.getElementById('password').value;
+        const form = document.getElementById('RegisterForm');
+        const formData = new FormData(form);
 
         fetch('<?php echo BASE_URL; ?>BackEnd/Login/Register/RegisterAccount.php', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: `name=${encodeURIComponent(name)}&password=${encodeURIComponent(password)}`
+          body: formData
         })
         .then(response => response.json())
         .then(data => {
@@ -43,20 +40,38 @@ session_start();
   </div>
   <main>
     <div class="login-box">
-      <h2>Login</h2>
-      <form id="loginForm" method="POST">
-        <label for="name">Nome/Email:</label>
-        <input type="text" id="name" name="name" required>
+      <h2>Registar</h2>
+      <form id="RegisterForm" method="POST" enctype="multipart/form-data">
+        <label for="name">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+        <label for="name">Email:</label>
+        <input type="text" id="email" name="email" required>
 
         <label for="password">Senha:</label>
-        <input type="password" id="password" name="password" required oninput="this.value = this.value.trim()">
+        <input type="password" id="senha" name="senha" required oninput="this.value = this.value.trim()">
 
-        <div class="options">
-          <label>
-            <input type="checkbox" id="remember"> Lembrar senha
-          </label>
-          <a href="../Login/EsqueceuSenha/ForgotPassword.php">Esqueceu-se da senha?</a>
-        </div>
+        <label for="foto_perfil">Foto de Perfil:</label>
+        <input type="file" id="foto_perfil" name="foto_perfil" accept="image/*" onchange="previewImage(event)">
+        <br>
+        <img id="foto_perfil_preview" src="#" alt="Pré-visualização da Foto de Perfil" style="display:none; max-width:150px; max-height:150px; margin-top:10px;"/>
+
+        <script>
+          function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('foto_perfil_preview');
+            if (input.files && input.files[0]) {
+              const reader = new FileReader();
+              reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+              }
+              reader.readAsDataURL(input.files[0]);
+            } else {
+              preview.src = '#';
+              preview.style.display = 'none';
+            }
+          }
+        </script>
 
         <button type="submit">Registar</button>
       </form>

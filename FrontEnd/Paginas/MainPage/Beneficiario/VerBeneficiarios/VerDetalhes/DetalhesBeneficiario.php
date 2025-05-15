@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>CLIS - Registo de Beneficiário</title>
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Beneficiario/Register/BeneficiarioRegister.css">
-    <script src='/ProjetoEstagio/BackEnd/Beneficiario/VerAtualizarBeneficiarios.js'></script>
+    <script src='/ProjetoEstagio/BackEnd/Beneficiario/VerAtualizarBeneficiario.js'></script>
 </head>
 <body>
     <div class="top-bar">
@@ -297,8 +297,48 @@
             <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
         <br>
         <div class="form-section rendimento">
-            <label for="rendi_capita">Rendimento Per Capita</label>
-            <input type="text" id="rendi_capita" name="rendi_capita">
+            <h3 style="width: 9.5%;">Rendimento</h3>
+            <div class="grid-4">
+                <div><label for="rendimento_per_Capita">Rendimento per Capita</label><input type="text" name="rendimento_per_Capita" id="rendimento_per_Capita"></div>
+            </div>
+        </div>
+        <br>
+            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
+        <br>
+        <div class="form-section SAAS">
+            <h3 style="width: 21%;">Acompanhamento SAAS</h3>
+            <div class="grid-2">
+                <div>
+                    <label for="apoiosaas_sim">Tem acompanhamento SAAS?</label><br>
+                    <input type="checkbox" name="apoiosaas_sim" id="apoiosaas_sim"> Sim
+                    <input type="checkbox" name="apoiosaas_nao" id="apoiosaas_nao"> Não
+                </div>
+                <div id="apoioadoSAAS" style="display: none;">
+                    <label for="SAASTitular">Nome:</label>
+                    <input type="text" name="SAASTitular" id="SAASTitular">
+                </div>
+                <script>
+                    const Apoioado = document.getElementById('apoiosaas_sim');
+                    const NApoioado = document.getElementById('apoiosaas_nao');
+                    const apoioadoSAASDiv = document.getElementById('apoioadoSAAS');
+
+                    Apoioado.addEventListener('change', () => {
+                        if (Apoioado.checked) {
+                            NApoioado.checked = false;
+                            apoioadoSAASDiv.style.display = 'block';
+                        } else {
+                            apoioadoSAASDiv.style.display = 'none';
+                        }
+                    });
+
+                    NApoioado.addEventListener('change', () => {
+                        if (NApoioado.checked) {
+                            Apoioado.checked = false;
+                            apoioadoSAASDiv.style.display = 'none';
+                        }
+                    });
+                </script>
+            </div>
         </div>
         <br>
             <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
@@ -318,12 +358,11 @@
             <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
         </div>
         <div class="logos">
-            <img src="../../../Imagens/logo_adice.png" alt="ADICE">
-            <img src="../../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
-            <img src="../../../Imagens/rfe.png" alt="Refood">
+            <img src="../../../../../Imagens/logo_adice.png" alt="ADICE">
+            <img src="../../../../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
+            <img src="../../../../../Imagens/rfe.png" alt="Refood">
         </div>
     </footer>
     
-    </script>
 </body>
 </html>

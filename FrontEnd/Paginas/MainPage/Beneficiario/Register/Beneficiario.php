@@ -56,36 +56,36 @@
         <div class="form-section titular">
             <h3 style="width: 5.5%;">Titular</h3>
             <div class="grid-2">
-                <div><label for="nome">Nome</label><input type="text" name="nome" id="nome"></div>
+                <div><label for="nome">Nome</label><input type="text" name="nome" id="nome" required></div>
                 <div style="width: 75%;"><label for="genero">Género</label>
-                    <select name="genero" id="genero">
+                    <select name="genero" id="genero" required>
                         <option>------</option>
                         <option>Masculino</option>
                         <option>Feminino</option>
                     </select>
                 </div>
-                <div style="width: 60%;"><label for="contacto">Contacto</label><input type="text" name="contacto" id="contacto"></div>
+                <div style="width: 60%;"><label for="contacto">Contacto</label><input type="text" name="contacto" id="contacto" required></div>
             </div>
             <div class="grid-3">
                 <div>
                     <label for="nif">NIF</label>
-                    <input type="text" name="nif" id="nif" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <input type="text" name="nif" id="nif" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                 </div>
                 <div>
                     <label for="niss">NISS</label>
-                    <input type="text" name="niss" id="niss" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <input type="text" name="niss" id="niss" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                 </div>
                 <div>
                     <label for="bi_cc">BI/CC</label>
-                    <input type="text" name="bi/cc" id="bi_cc" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <input type="text" name="bi/cc" id="bi_cc" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                 </div>
             </div>
             <div class="grid-3">
-                <div><label for="morada">Morada</label><input type="text" name="morada" id="morada"></div>
-                <div class="Postal"><label for="cod_postal">Código Postal</label><input type="text" name="cod_postal" id="cod_postal"></div>
+                <div><label for="morada">Morada</label><input type="text" name="morada" id="morada" required></div>
+                <div class="Postal"><label for="cod_postal">Código Postal</label><input type="text" name="cod_postal" id="cod_postal" required></div>
                 <div class="Nascimento">
                     <label for="data_nasc">Data de Nascimento</label>
-                    <input type="date" name="data_nasc" id="data_nasc">
+                    <input type="date" name="data_nasc" id="data_nasc" required>
                     <span class="idade-display" id="idade_display">Idade: --</span>
                 </div>
             </div>
@@ -99,11 +99,11 @@
             <h3 style="width: 21%;">Admissão do Beneficiário</h3>
             <div>
                 <label for="data_admissao">Data de Admissão</label>
-                <input type="date" name="data_admissao" id="data_admissao" style="width: 25%;">
+                <input type="date" name="data_admissao" id="data_admissao" style="width: 25%;" required>
             </div>
             <div>
                 <label for="data_saida">Data de Saída</label>
-                <input type="date" name="data_saida" id="data_saida" style="width: 25%;">
+                <input type="date" name="data_saida" id="data_saida" style="width: 25%;" required>
             </div>
         </div>
 
@@ -164,19 +164,17 @@
             <div class="grid-4">
                 <div style="width: 60%;">
                     <label for="apoio_entidade">Entidade</label>
-                    <select id="apoio_entidade" name="apoio_entidade"></select>
+                    <select id="apoio_entidade" name="apoio_entidade" required></select>
                 </div>
                 <div style="width: 70%;">
                     <label for="tipo_apoio">Tipo de Apoio</label>
-                    <select id="tipo_apoio" name="tipo_apoio">
+                    <select id="tipo_apoio" name="tipo_apoio" required>
                         <option value="">------</option>
-                        <option value="Apoio Alimentar">Apoio Alimentar</option>
-                        <option value="Outro Apoio">Outro Apoio</option>
                     </select>
                 </div>
                 <div id="apoio_alimentar_container" style="width: 80%; display: none;">
                     <label for="tipo_alimentar">Tipo de Apoio Alimentar</label>
-                    <select id="tipo_alimentar" name="tipo_apoio_alimentar">
+                    <select id="tipo_alimentar" name="tipo_apoio_alimentar" required>
                     </select>
                 </div>
                 <script>
@@ -201,8 +199,8 @@
             <div class="grid-2">
                 <div>
                     <label for="deficiencia_sim">Deficiência/incapacidade:</label><br>
-                    <input type="checkbox" name="deficiencia" id="deficiencia_sim"> Sim
-                    <input type="checkbox" name="deficiencia" id="deficiencia_nao"> Não
+                    <input type="checkbox" name="deficiencia" id="deficiencia_sim" required> Sim
+                    <input type="checkbox" name="deficiencia" id="deficiencia_nao" required> Não
                     <script>
                         const deficienciaSim = document.getElementById('deficiencia_sim');
                         const deficienciaNao = document.getElementById('deficiencia_nao');
@@ -361,6 +359,44 @@
         <br>
             <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
         <br>
+        <div class="form-section SAAS">
+            <h3 style="width: 21%;">Acompanhamento SAAS</h3>
+            <div class="grid-2">
+                <div>
+                    <label for="apoiosaas_sim">Tem acompanhamento SAAS?</label><br>
+                    <input type="checkbox" name="apoiosaas_sim" id="apoiosaas_sim"> Sim
+                    <input type="checkbox" name="apoiosaas_nao" id="apoiosaas_nao"> Não
+                </div>
+                <div id="apoioadoSAAS" style="display: none;">
+                    <label for="SAASTitular">Nome:</label>
+                    <input type="text" name="SAASTitular" id="SAASTitular">
+                </div>
+                <script>
+                    const Apoioado = document.getElementById('apoiosaas_sim');
+                    const NApoioado = document.getElementById('apoiosaas_nao');
+                    const apoioadoSAASDiv = document.getElementById('apoioadoSAAS');
+
+                    Apoioado.addEventListener('change', () => {
+                        if (Apoioado.checked) {
+                            NApoioado.checked = false;
+                            apoioadoSAASDiv.style.display = 'block';
+                        } else {
+                            apoioadoSAASDiv.style.display = 'none';
+                        }
+                    });
+
+                    NApoioado.addEventListener('change', () => {
+                        if (NApoioado.checked) {
+                            Apoioado.checked = false;
+                            apoioadoSAASDiv.style.display = 'none';
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+        <br>
+            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
+        <br>
         <div class="form-section observacoes">
             <h3 style="width: 11%;">Observações</h3>
             <textarea name="observacoes" id="observacoes" rows="10" cols="80" maxlength="300" style="resize: none; width: 75%;"></textarea>
@@ -395,6 +431,8 @@
                     imigrante: document.getElementById("imigrante_sim").checked ? 1 : (document.getElementById("imigrante_nao").checked ? 0 : null),
                     pais_origem: document.getElementById("pais_origem_select").value,
                     rendimento_per_Capita: document.getElementById("rendimento_per_Capita").value,
+                    apoio_saas: document.getElementById("apoiosaas_sim").checked ? 1 : (document.getElementById("apoiosaas_nao").checked ? 0 : null),
+                    SAASTitular: document.getElementById("SAASTitular").value ? '' : null,
                     observacoes: document.getElementById("observacoes").value
                 };
 

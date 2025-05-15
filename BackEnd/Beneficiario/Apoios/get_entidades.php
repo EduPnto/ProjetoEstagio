@@ -14,6 +14,7 @@
                 $entidades = [];
                 while ($row = $result->fetch_assoc()) {
                     $entidades[] = [
+                         'Id_Enti' => $row['Id_Enti'],
                          'sigla' => $row['Sigla']
                     ];
                 }

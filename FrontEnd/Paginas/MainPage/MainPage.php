@@ -24,7 +24,7 @@
         session_start();
         $username = isset($_SESSION['user']) ? $_SESSION['user'] : 'Visitante';
       ?>
-      <div class="user-dropdown" style="background-color: #ccc; padding: 5px 15px 10px 15px; border-radius: 10px; border: 1px solid #111111;">
+      <div class="user-dropdown" style="background-color: #ccc; padding: 3px 10px 3px 10px; border-radius: 10px; border: 1px solid #111111;">
         <div class="user-trigger">
           <div>Bem-Vindo,<br><strong><?php echo htmlspecialchars($username, ENT_QUOTES, 'UTF-8'); ?></strong></div>
           <?php
@@ -35,10 +35,12 @@
               $stmt = $conn->prepare($query);
               $stmt->bind_param("s", $username);
               $stmt->execute();
+              $stmt->store_result();
               $stmt->bind_result($profileImage);
 
               if ($stmt->fetch() && !empty($profileImage)) {
-                $userImg = htmlspecialchars($profileImage, ENT_QUOTES, 'UTF-8');
+              // Convert the blob to base64 and use as a data URI
+              $userImg = 'data:image/png;base64,' . base64_encode($profileImage);
               }
 
               $stmt->close();
