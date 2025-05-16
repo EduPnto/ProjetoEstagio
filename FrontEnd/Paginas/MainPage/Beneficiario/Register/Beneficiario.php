@@ -18,6 +18,10 @@
         $result = $conn->query("SELECT MAX(Id_Bene) AS max_id FROM beneficiarios");
         $row = $result->fetch_assoc();
         $new_id_bene = $row['max_id'] + 1;
+
+        $result6 = $conn->query("SELECT MAX(Id_Titular) FROM acompanhamento_saas ");
+        $row6 = $result6->fetch_assoc();
+        $id_titular = $row6['Id_Titular'] + 1;
     ?>
     <div class="top-bar">
         <div class="logo" style="background-color: white; display: flex; align-items: center; justify-content: center; padding: 10px; border-radius: 5px;">
@@ -432,10 +436,11 @@
                     pais_origem: document.getElementById("pais_origem_select").value,
                     rendimento_per_Capita: document.getElementById("rendimento_per_Capita").value,
                     apoio_saas: document.getElementById("apoiosaas_sim").checked ? 1 : (document.getElementById("apoiosaas_nao").checked ? 0 : null),
-                    SAASTitular: document.getElementById("SAASTitular").value ? '' : null,
+                    SAASTitular: document.getElementById("SAASTitular").value,
+                    titular: <?php echo $id_titular; ?>,
                     observacoes: document.getElementById("observacoes").value
                 };
-
+                console.log(data);
                 fetch('/ProjetoEstagio/BackEnd/Beneficiario/registar_beneficiario.php', {
                     method: 'POST',
                     headers: {

@@ -41,11 +41,6 @@
     $result5 = $conn->query("SELECT Id_Alimentar FROM apoio_alimentar WHERE nome = '" . $data['tipo_alimentar'] . "'");
     $row5 = $result5->fetch_assoc();
     $id_Alimentar = $row5['Id_Alimentar'];
-
-    $result6 = $conn->query("SELECT MAX(Id_Titular) FROM acompanhamento_saas ");
-    $row6 = $result6->fetch_assoc();
-    $id_titular = $row6['Id_Titular'] + 1;
-
     
 
     // Prepare and bind the insert statement
@@ -63,18 +58,14 @@
         $data['data_nasc'], $data['data_admissao'], $data['data_saida'], 
         $id_Enti, $id_apoio,$id_Alimentar, $data['deficiencia'],
         $data['autonomia'], $data['sem_abrigo'], $data['emprego'],
-        $data['imigrante'], $id_Sigla, $data['rendimento_per_Capita'], $data['apoio_saas'], $id_titular, $data['observacoes']
+        $data['imigrante'], $id_Sigla, $data['rendimento_per_Capita'], $data['apoio_saas'], $data['titular'], $data['observacoes']
     );
 
     if ($stmt->execute()) {
         if($data['apoio_saas'] == 1){
             $stmt2 = $conn->prepare("INSERT INTO acompanhamento_saas (Id_Titular, Id_Bene, nome) VALUES (?, ?, ?)");
-            $stmt2->bind_param("iis", $id_titular, $data['Id_Bene'], $data['SAASTitular']);
-            if ($stmt2->execute()) {
-                echo json_encode(['success' => true, 'message' => 'Acompanhamento Inserido!']);
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Erro ao registar acompanhamento: ' . $stmt2->error]);
-            }
+            $stmt2->bind_param("iis", $data['titular'], $data['Id_Bene'], $data['SAASTitular']);
+            $stmt2->execute();
         }
         echo json_encode(['success' => true, 'message' => 'Beneficiário registado com sucesso!']);
     } else {
