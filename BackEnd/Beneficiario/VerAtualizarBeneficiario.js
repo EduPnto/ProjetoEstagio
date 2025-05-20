@@ -1,5 +1,24 @@
-// Carregamento automático ao abrir a página
-// Função para obter o NISS da URL
+document.addEventListener('DOMContentLoaded', () => {
+    const niss = getNISSFromURL();
+    if (!niss) return;
+
+    fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Data/getBeneficiarioPorNiss.php?NISS=${niss}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Se o PHP retorna um array, pegue o primeiro elemento
+            const beneficiario = Array.isArray(data) ? data[0] : data;
+            if (beneficiario && !beneficiario.erro) {
+                preencherFormulario(beneficiario);
+            } else {
+                console.error('Beneficiário não encontrado.');
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao carregar beneficiário:', error);
+        });
+});
+
 function getNISSFromURL() {
     const params = new URLSearchParams(window.location.search);
     return params.get('niss');
@@ -29,7 +48,7 @@ function preencherFormulario(data) {
     setValue('data_nasc', data.Data_nasc || data.data_nasc || '');
     setValue('data_admissao', data.Data_Admissao || data.data_admissao || '');
     setValue('data_saida', data.Data_Saida || data.data_saida || '');
-    setValue('Observacao', data.Observacao || data.observacoes || '');
+    setValue('observacoes', data.Observacao || data.observacoes || '');
 
     fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Apoios/get_entidades.php`)
         .then(response => response.json())
@@ -54,7 +73,7 @@ function preencherFormulario(data) {
         });
 
     // Preencher o select de tipo de apoio (tipo_apoio) baseado na entidade selecionada
-    if (data.Id_Enti && data.Id_Apoio) {
+    if (data.Id_Enti) {
         fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Data/getNomeApoioPorEntidade.php?idEntidade=${data.Id_Enti}&idApoio=${data.Id_Apoio}`)
             .then(response => response.json())
             .then(apoios => {
@@ -68,7 +87,7 @@ function preencherFormulario(data) {
                         select.appendChild(option);
                     });
                     // Set the selected value after options are added
-                    select.value = data.Id_Apoio;
+                    select.value = apoios.find(apoio => apoio.nome)?.Id_Apoio || '';
                 }
             })
             .catch(() => {
@@ -83,61 +102,55 @@ function preencherFormulario(data) {
     setValue('Id_Titular', data.Id_Titular || '');
 
     // Checkboxes and radio buttons
-    setChecked('deficiencia_sim', data.Incap_Defec === '1');
-    setChecked('deficiencia_nao', data.Incap_Defec === '0');
+    setChecked('deficiencia_sim', data.Incap_Defec === 1);
+    setChecked('deficiencia_nao', data.Incap_Defec === 0);
 
-    setChecked('sem_abrigo_sim', data.Sit_sem_abrigo === '1');
-    setChecked('sem_abrigo_nao', data.Sit_sem_abrigo === '0');
+    setChecked('sem_abrigo_sim', data.Sit_sem_abrigo === 1);
+    setChecked('sem_abrigo_nao', data.Sit_sem_abrigo === 0);
 
-    setChecked('apoiosaas_sim', data.SAAS === '1');
-    setChecked('apoiosaas_nao', data.SAAS === '0');
+    setChecked('apoiosaas_sim', data.SAAS === 1);
+    setChecked('apoiosaas_nao', data.SAAS === 0);
 
-    setChecked('auto', data.Auto_Depen === '1');
-    setChecked('depen', data.Auto_Depen === '0');
+    setChecked('auto', data.Auto_Depen === 1);
+    setChecked('depen', data.Auto_Depen === 0);
 
-    setChecked('Empre', data.Sit_Emprego === '1');
-    setChecked('Desemp', data.Sit_Emprego === '0');
+    setChecked('Empre', data.Sit_Emprego === 1);
+    setChecked('Desemp', data.Sit_Emprego === 0);
 
-    if (data.Imigrante === '1') {
+    if (data.Imigrante === 1) {
         setChecked('imigrante_sim', true);
         const container = document.getElementById('pais_origem_container');
         if (container) container.style.display = 'block';
-        if (data.pais_origem) {
-            fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Data/getPaisPorId.php?id=${data.pais_origem}`)
+        if (data.Id_Sigla) {
+            fetch(`/ProjetoEstagio/BackEnd/Beneficiario/paises/getPaisPorId.php?id=${data.Id_Sigla}`)
                 .then(response => response.json())
                 .then(paisData => {
-                    setValue('pais_origem_select', paisData.nome || 'Default_Value');
+                    console.log(paisData);
+                    setValue('pais_origem_select', paisData || '');
+                    const select = document.getElementById('pais_origem_select');
+                    if (select) {
+                        select.innerHTML = '<option value="">Selecione</option>';
+                        paisData.forEach(pais => {
+                            const option = document.createElement('option');
+                            option.value = pais.Id_Sigla;
+                            option.textContent = pais.nome;
+                            select.appendChild(option);
+                        });
+                        // Set the selected value after options are added
+                        select.value = paisData.find(pais => pais.nome)?.Id_Sigla || '';
+                        
+                    
+                    }
                 })
                 .catch(() => {
-                    setValue('pais_origem_select', 'Default_Value');
+                    setValue('pais_origem_select', '');
                 });
         } else {
             setValue('pais_origem_select', 'Default_Value');
         }
-    } else if (data.Imigrante === '0') {
+    } else if (data.Imigrante === 0) {
         setChecked('imigrante_nao', true);
         const container = document.getElementById('pais_origem_container');
         if (container) container.style.display = 'none';
     }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    const niss = getNISSFromURL();
-    if (!niss) return;
-
-    fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Data/getBeneficiarioPorNiss.php?NISS=${niss}`)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            // Se o PHP retorna um array, pegue o primeiro elemento
-            const beneficiario = Array.isArray(data) ? data[0] : data;
-            if (beneficiario && !beneficiario.erro) {
-                preencherFormulario(beneficiario);
-            } else {
-                console.error('Beneficiário não encontrado.');
-            }
-        })
-        .catch(error => {
-            console.error('Erro ao carregar beneficiário:', error);
-        });
-});

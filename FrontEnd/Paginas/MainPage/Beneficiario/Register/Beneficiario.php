@@ -19,9 +19,9 @@
         $row = $result->fetch_assoc();
         $new_id_bene = $row['max_id'] + 1;
 
-        $result6 = $conn->query("SELECT MAX(Id_Titular) FROM acompanhamento_saas ");
+        $result6 = $conn->query("SELECT MAX(Id_Titular) AS id_max FROM acompanhamento_saas ");
         $row6 = $result6->fetch_assoc();
-        $id_titular = $row6['Id_Titular'] + 1;
+        $id_titular = $row6['id_max'] + 1;
     ?>
     <div class="top-bar">
         <div class="logo" style="background-color: white; display: flex; align-items: center; justify-content: center; padding: 10px; border-radius: 5px;">

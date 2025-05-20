@@ -5,11 +5,23 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT * FROM beneficiarios";
-    $result = $conn->query($sql);
+    $niss = $_GET['NISS'] ?? null;
+    if (empty($niss)) {
+        echo json_encode(['erro' => 'NISS não informado']);
+        exit;
+    }
 
-    if ($result->num_rows > 0) {
+    $sql = "SELECT * FROM beneficiarios WHERE NISS = ?";
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) {
+        die("Prepare failed: " . htmlspecialchars($conn->error));
+    }
+    
+    $stmt->bind_param("s", $niss);
+
+    if ($stmt->execute()) {
         $beneficiarios = [];
+        $result = $stmt->get_result();
         while ($row = $result->fetch_assoc()) {
             $beneficiarios[] = $row;
         }

@@ -15,9 +15,6 @@
     // Check if file was uploaded
     if (isset($_FILES['foto_perfil']) && $_FILES['foto_perfil']['error'] === UPLOAD_ERR_OK) {
         $foto_perfil = file_get_contents($_FILES['foto_perfil']['tmp_name']);
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Erro ao fazer upload da foto de perfil.']);
-        exit;
     }
 
     $result = $conn->query("SELECT MAX(ID) AS max_id FROM users");

@@ -267,7 +267,7 @@
                 <div id="pais_origem_container" style="display: none;">
                     <label for="pais_origem_select">País:</label>
                     <select name="pais_origem" id="pais_origem_select" style="width: 200px;">
-                        <option value="Default_Value">Selecione</option>
+                        <option>Selecione</option>
                     </select>
                 </div>
                 <script>
@@ -287,7 +287,7 @@
                         if (imigranteNao.checked) {
                             paisOrigemContainer.style.display = 'none';
                             imigranteSim.checked = false;
-                            paisOrigemSelect.value = "Default_Value";
+                            paisOrigemSelect.value = "";
                         }
                     });
                 </script>

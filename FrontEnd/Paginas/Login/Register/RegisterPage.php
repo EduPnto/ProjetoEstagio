@@ -24,7 +24,7 @@ session_start();
         .then(response => response.json())
         .then(data => {
           if (data.success) {
-            window.location.replace('<?php echo BASE_URL; ?>FrontEnd/Paginas/Login/LoginPage.php');
+            window.location.replace('<?php echo BASE_URL; ?>FrontEnd/Paginas/MainPage/MainPage.php');
           } else {
             alert(data.message || 'Registo falhou.');
           }
