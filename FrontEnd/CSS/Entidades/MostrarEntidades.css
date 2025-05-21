@@ -8,6 +8,8 @@ html, body {
 body {
   flex: 1;
   font-family: Arial, sans-serif;
+  background: url('../../Imagens/juntaIMG.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
 
 .user-dropdown {
@@ -25,7 +27,7 @@ body {
   position: absolute;
   right: 0;
   top: 70px;
-  background-color: #9eec9e;
+  background-color: white;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   border-radius: 8px;
   overflow: hidden;
@@ -38,7 +40,7 @@ body {
   padding: 12px;
   color: black;
   text-decoration: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #eee;
 }
 
 .dropdown-menu a:hover {
@@ -50,9 +52,8 @@ body {
   justify-content: space-between;
   align-items: center;
   background-color: #5CC535;
-  padding: 10px;
-  padding-top: 0px;
-  height: 65px;
+  padding: 10px 5%;
+  height: 80px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   flex-wrap: wrap;
 }
@@ -78,6 +79,7 @@ li a {
   text-align: center;
   padding: 5px 16px;
   border-color: black;
+  border-right: 1px solid;
   text-decoration: none;
 }
 
@@ -89,9 +91,8 @@ li a {
   justify-content: center;
   background-color: #eee;
   padding: 5px 5%;
-  border-radius: 0px 0px 45px 45px;
-  width: 600px;
-  max-width: 100%;
+  border-radius: 0px 0px 20px 20px;
+  width: 1850px;
   box-sizing: border-box;
 }
 

@@ -4,7 +4,6 @@
     die("Connection failed: " . $conn->connect_error);
   }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -15,7 +14,7 @@
 </head>
 <body>
   <div class="top-bar">
-    <div class="logo" style="padding: 10px; border-radius: 5px;">
+    <div class="logo" style="padding: 5px; border-radius: 5px;">
       <img src="../../Imagens/CLIS.png">
     </div>
     <div class="user-info">
@@ -24,8 +23,7 @@
         $username = isset($_SESSION['user']) ? $_SESSION['user'] : null;
 
         if ($username) {
-          // Se o utilizador estiver autenticado, mostrar "Bem-vindo"
-          $userImg = '../../Icons/user.png'; // Imagem por defeito
+          $userImg = '../../Icons/user.png';
 
           $query = "SELECT foto_perfil FROM users WHERE nome = ?";
           $stmt = $conn->prepare($query);
@@ -53,7 +51,6 @@
       </div>
       <?php
         } else {
-          // Se não estiver autenticado, mostrar botões de Login e Registo
       ?>
           <div class="auth-buttons" style="display: flex; gap: 10px;">
             <a href="/ProjetoEstagio/FrontEnd/Paginas/Login/LoginPage.php" class="btn-login">Login</a>
@@ -64,24 +61,45 @@
       ?>
     </div>
   </div>
-  <div class="contact-bar">
-      
+  <div class="contact-bar" style="display: center;">
+      <ul>
+          <li><a href=" " style="border-right: 1px solid;">Início</a></li>
+          <li><a href="#contact" style="border-right: 1px solid;">Entidades e Parceiros</a></li>
+          <li><a href="#about">Sobre nós</a></li>
+      </ul>
   </div>
   <div class="menu-container">
     <?php
-      $menuItems = [
-        ["href" => "entidades.php", "icon" => "../../Icons/Entidades.png", "alt" => "Entidades", "label" => "Entidades"],
-        ["href" => "././Beneficiario/SubPageBeneficiario.php", "icon" => "../../Icons/Beneficiario.png", "alt" => "Beneficiários", "label" => "Beneficiários"],
-        ["href" => "documentacao.php", "icon" => "../../Icons/Documentos.png", "alt" => "Documentação", "label" => "Documentação"],
-        ["href" => "comunicacao.php", "icon" => "../../Icons/comunicacao.png", "alt" => "Comunicação", "label" => "Comunicação"],
-        ["href" => "resultados.php", "icon" => "../../Icons/resultados.svg", "alt" => "Resultados", "label" => "Resultados"]
-      ];
+      if (isset($_SESSION['user'])) {
+        $menuItems = [
+          ["href" => "Entidades/MostrarEntidades.php", "icon" => "../../Icons/Entidades.png", "alt" => "Entidades", "label" => "Entidades"],
+          ["href" => "././Beneficiario/SubPageBeneficiario.php", "icon" => "../../Icons/Beneficiario.png", "alt" => "Beneficiários", "label" => "Beneficiários"],
+          ["href" => "documentacao.php", "icon" => "../../Icons/Documentos.png", "alt" => "Documentação", "label" => "Documentação"],
+          ["href" => "comunicacao.php", "icon" => "../../Icons/comunicacao.png", "alt" => "Comunicação", "label" => "Comunicação"],
+          ["href" => "resultados.php", "icon" => "../../Icons/resultados.svg", "alt" => "Resultados", "label" => "Resultados"]
+        ];
 
-      foreach ($menuItems as $item) {
-        echo '<a href="' . $item["href"] . '" class="menu-btn">';
-        echo '<img src="' . $item["icon"] . '" alt="' . $item["alt"] . '">';
-        echo '<span>' . $item["label"] . '</span>';
-        echo '</a>';
+        foreach ($menuItems as $item) {
+          echo '<a href="' . $item["href"] . '" class="menu-btn">';
+          echo '<img src="' . $item["icon"] . '" alt="' . $item["alt"] . '">';
+          echo '<span>' . $item["label"] . '</span>';
+          echo '</a>';
+        }
+      } else {
+        $menuItems = [
+          ["href" => "Entidades/MostrarEntidades.php", "icon" => "../../Icons/Entidades.png", "alt" => "Entidades", "label" => "Entidades"],
+          ["href" => "#", "icon" => "../../Icons/Beneficiario.png", "alt" => "Beneficiários", "label" => "Beneficiários"],
+          ["href" => "#", "icon" => "../../Icons/Documentos.png", "alt" => "Documentação", "label" => "Documentação"],
+          ["href" => "#", "icon" => "../../Icons/comunicacao.png", "alt" => "Comunicação", "label" => "Comunicação"],
+          ["href" => "#", "icon" => "../../Icons/resultados.svg", "alt" => "Resultados", "label" => "Resultados"]
+        ];
+
+        foreach ($menuItems as $item) {
+          echo '<a href="' . $item["href"] . '" class="menu-btn">';
+          echo '<img src="' . $item["icon"] . '" alt="' . $item["alt"] . '">';
+          echo '<span>' . $item["label"] . '</span>';
+          echo '</a>';
+        }
       }
     ?>
   </div>
