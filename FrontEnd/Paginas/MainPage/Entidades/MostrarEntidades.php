@@ -1,5 +1,5 @@
 <?php
-  require $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/DataBase/db_connect.php'; // Adjusted path to db_connect.php
+  require $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/DataBase/db_connect.php';
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
@@ -8,71 +8,64 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>CLIS - Beneficiário</title>
+    <title>CLIS - Entidades</title>
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Entidades/MostrarEntidades.css">
-    <script src=""></script>
 </head>
 <body>
     <div class="top-bar">
         <div class="logo" style="padding: 10px; border-radius: 5px;">
-        <img src="../../../Imagens/CLIS.png">
+            <img src="../../../Imagens/CLIS.png">
         </div>
         <div class="user-info">
         <?php
             session_start();
-            $username = isset($_SESSION['user']) ? $_SESSION['user'] : null;
+            $username = $_SESSION['user'] ?? null;
 
             if ($username) {
-            // Se o utilizador estiver autenticado, mostrar "Bem-vindo"
-            $userImg = '../../Icons/user.png'; // Imagem por defeito
-
-            $query = "SELECT foto_perfil FROM users WHERE nome = ?";
-            $stmt = $conn->prepare($query);
-            $stmt->bind_param("s", $username);
-            $stmt->execute();
-            $stmt->store_result();
-            $stmt->bind_result($profileImage);
-
-            if ($stmt->fetch() && !empty($profileImage)) {
-                $userImg = 'data:image/png;base64,' . base64_encode($profileImage);
-            }
-
-            $stmt->close();
+                $userImg = '../../Icons/user.png';
+                $query = "SELECT foto_perfil FROM users WHERE nome = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("s", $username);
+                $stmt->execute();
+                $stmt->store_result();
+                $stmt->bind_result($profileImage);
+                if ($stmt->fetch() && !empty($profileImage)) {
+                    $userImg = 'data:image/png;base64,' . base64_encode($profileImage);
+                }
+                $stmt->close();
         ?>
         <div class="user-dropdown">
-            <div class="user-trigger" >
-            <div>Bem-Vindo,<br><strong><?php echo htmlspecialchars($username, ENT_QUOTES, 'UTF-8'); ?></strong></div>
-            <img src="<?php echo $userImg; ?>" alt="User" class="user-img" onclick="toggleDropdown()">
+            <div class="user-trigger">
+                <div>Bem-Vindo,<br><strong><?php echo htmlspecialchars($username, ENT_QUOTES, 'UTF-8'); ?></strong></div>
+                <img src="<?php echo $userImg; ?>" alt="User" class="user-img" onclick="toggleDropdown()">
             </div>
             <div class="dropdown-menu" id="dropdownMenu">
                 <a href="/ProjetoEstagio/FrontEnd/Perfil/detalhesConta.php">Ver Detalhes da Conta</a>
                 <a href="/ProjetoEstagio/BackEnd/Login/Logout.php">Logout</a>
             </div>
-            </div>
         </div>
         <?php
             } else {
-            // Se não estiver autenticado, mostrar botões de Login e Registo
         ?>
-            <div class="auth-buttons" style="display: flex; gap: 10px;">
-                <a href="/ProjetoEstagio/FrontEnd/Paginas/Login/LoginPage.php" class="btn-login">Login</a>
-                <a href="/ProjetoEstagio/FrontEnd/Paginas/Login/Register/RegisterPage.php" class="btn-register">Registar</a>
-            </div>
-        <?php
-            }
-        ?>
+        <div class="auth-buttons" style="display: flex; gap: 10px;">
+            <a href="/ProjetoEstagio/FrontEnd/Paginas/Login/LoginPage.php" class="btn-login">Login</a>
+            <a href="/ProjetoEstagio/FrontEnd/Paginas/Login/Register/RegisterPage.php" class="btn-register">Registar</a>
+        </div>
+        <?php } ?>
         </div>
     </div>
-    <div class="contact-bar" style="display: center;">
+
+    <div class="contact-bar">
         <ul>
             <li><a href="/ProjetoEstagio/FrontEnd/Paginas/MainPage/MainPage.php">Início</a></li>
             <li><a href="#contact">Entidades e Parceiros</a></li>
             <li><a href="#about">Sobre nós</a></li>
         </ul>
     </div>
+
     <main>
         <div class="menu-container">
-            <input type="text" id="search-niss" placeholder="Pesquisar por NISS..." style="width: 100%; padding: 10px; margin-bottom: 20px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+            <input type="text" id="search-entidade" placeholder="Pesquisar por nome ou sigla..." style="width: 100%; padding: 10px; margin-bottom: 20px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
             <div id="cards-container"></div>
         </div>
     </main>
@@ -83,176 +76,76 @@
             <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
         </div>
         <div class="logos">
-            <img src=" ../../../Imagens/logo_adice.png" alt="ADICE">
+            <img src="../../../Imagens/logo_adice.png" alt="ADICE">
             <img src="../../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
             <img src="../../../Imagens/rfe.png" alt="Refood">
         </div>
     </footer>
+
     <script>
-        let todosBeneficiarios = [];
+        let todasEntidades = [];
 
-        function verDetalhes(niss) {
-            window.location.href = `VerDetalhes/DetalhesBeneficiario.php?niss=${niss}`;
+        function verDetalhesEntidade(Id_Sigla) {
+            window.location.href = `VerDetalhes/DetalhesEntidade.php?id=${Id_Sigla}`;
         }
 
-        function formatarDataBr(dataIso) {
-            if (!dataIso) return "Não disponível";
-            const data = new Date(dataIso);
-            return data.toLocaleDateString('pt-BR');
-        }
-
-        function criarCard(beneficiario) {
-            const hoje = new Date().toISOString().split('T')[0];
-            const dataSaida = beneficiario.Data_Saida ? beneficiario.Data_Saida.split('T')[0] : null;
-
-            // Mostrar o botão se a data de saída for igual ou anterior à data de hoje
-            const mostrarBotaoAlterarDatas = dataSaida && dataSaida <= hoje;
-
+        function criarCard(entidade) {
+            const logoSrc = entidade.logo ? `data:image/png;base64,${entidade.logo}` : '../../../Imagens/default_logo.png';
+            
             return `
-                <div class="card-custom" data-niss="${beneficiario.NISS}">
-                    <div class="card-header">
-                        <strong>NISS:</strong> ${beneficiario.NISS}
-                    </div>
-                    <div class="card-content">
-                        <div class="data-column">
-                            <p><strong>Data de Admissão:</strong> ${formatarDataBr(beneficiario.Data_Admissao)}</p>
+                <div class="card-custom" data-id="${entidade.Id_Sigla}">
+                    <div class="card-body">
+                        <div class="card-logo">
+                            <img src="${entidade.logo ? 'data:image/png;base64,' + entidade.logo : '../../../Imagens/default_logo.png'}" alt="Logo da entidade">
                         </div>
-                        <div class="data-column">
-                            <p><strong>Data de Saída:</strong> ${formatarDataBr(beneficiario.Data_Saida)}</p>
+                        <div class="card-info">
+                            <div>
+                                <div class="card-header">
+                                    <strong>${entidade.nome}</strong> (${entidade.Sigla})
+                                </div>
+                                <div class="card-content">
+                                    <p><strong>Contacto:</strong> ${entidade.Contacto}</p>
+                                    <p><strong>Email:</strong> ${entidade.email}</p>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button onclick="verDetalhesEntidade('${entidade.Id_Sigla}')">Ver Detalhes</button>
+                            </div>
                         </div>
-                        <div class="data-column">
-                            <p><strong>Contacto:</strong> ${beneficiario.Contacto}</p>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <button onclick="verDetalhes('${beneficiario.NISS}')">Ver Detalhes</button>
-                        ${mostrarBotaoAlterarDatas ? `
-                            <button style="margin-left: 10px; background-color: orange;" 
-                                onclick="alterarDatas('${beneficiario.NISS}', '${beneficiario.Data_Admissao}', '${beneficiario.Data_Saida}')">
-                                Alterar Datas
-                            </button>` : ''}
                     </div>
                 </div>
             `;
         }
 
-
-        // Cria e exibe o modal para alterar datas
-        function alterarDatas(niss, dataAdmissaoAtual, dataSaidaAtual) {
-            // Remove modal antigo se existir
-            const modalExistente = document.getElementById('modal-alterar-datas');
-            if (modalExistente) modalExistente.remove();
-
-            // Cria elementos do modal
-            const modal = document.createElement('div');
-            modal.id = 'modal-alterar-datas';
-            modal.style.position = 'fixed';
-            modal.style.top = '0';
-            modal.style.left = '0';
-            modal.style.width = '100vw';
-            modal.style.height = '100vh';
-            modal.style.background = 'rgba(0,0,0,0.5)';
-            modal.style.display = 'flex';
-            modal.style.alignItems = 'center';
-            modal.style.justifyContent = 'center';
-            modal.style.zIndex = '9999';
-
-            const box = document.createElement('div');
-            box.style.background = '#fff';
-            box.style.padding = '30px 20px';
-            box.style.borderRadius = '8px';
-            box.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
-            box.style.minWidth = '320px';
-            box.innerHTML = `
-            <h3 style="text-align:center; margin-top:0;">Alterar Datas</h3>
-            <label style="display:block; margin-bottom:10px;">Data de Admissão:<br>
-            <input type="date" id="nova-data-admissao" value="${dataAdmissaoAtual ? dataAdmissaoAtual.split('T')[0] : ''}" 
-                style="width: 80%; padding: 10px; margin-top: 5px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
-            </label>
-            <label style="display:block; margin-bottom:20px;">Data de Saída:<br>
-            <input type="date" id="nova-data-saida" value="${dataSaidaAtual ? dataSaidaAtual.split('T')[0] : ''}" 
-                style="width: 80%; padding: 10px; margin-top: 5px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
-            </label>
-            <div style="text-align:center;">
-            <button id="btn-alterar-datas" style="padding: 8px 18px; background-color: #007bff; color: #fff; border: none; border-radius: 5px; font-size: 15px; cursor: pointer;">Alterar</button>
-            <button id="btn-cancelar-datas" style="padding: 8px 18px; background-color: #6c757d; color: #fff; border: none; border-radius: 5px; font-size: 15px; cursor: pointer; margin-left:10px;">Cancelar</button>
-            </div>
-            `;
-
-            modal.appendChild(box);
-            document.body.appendChild(modal);
-
-            document.getElementById('btn-cancelar-datas').onclick = () => modal.remove();
-
-            document.getElementById('btn-alterar-datas').onclick = () => {
-            const novaDataAdmissao = document.getElementById('nova-data-admissao').value;
-            const novaDataSaida = document.getElementById('nova-data-saida').value;
-
-            if (!novaDataAdmissao || !novaDataSaida) {
-                alert('Preencha ambas as datas.');
-                return;
-            }
-
-            if (confirm('Tem a certeza que deseja alterar as datas?')) {
-                fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Data/alterarDatasBeneficiario.php`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    niss: niss,
-                    data_admissao: novaDataAdmissao,
-                    data_saida: novaDataSaida
-                })
-                })
-                .then(res => res.json())
-                .then(response => {
-                if (response.sucesso) {
-                    todosBeneficiarios = todosBeneficiarios.map(b =>
-                    b.NISS === niss
-                        ? { ...b, Data_Admissao: novaDataAdmissao, Data_Saida: novaDataSaida }
-                        : b
-                    );
-                    renderCards(todosBeneficiarios);
-                    alert("Datas alteradas com sucesso.");
-                    modal.remove();
-                } else {
-                    alert("Erro ao alterar datas: " + (response.mensagem || ""));
-                }
-                })
-                .catch(error => {
-                console.error('Erro:', error);
-                alert("Erro ao alterar datas.");
-                });
-            }
-            };
-        }
-
-        function renderCards(filtrados) {
+        function renderCards(lista) {
             const container = document.getElementById('cards-container');
             container.innerHTML = "";
-            filtrados.forEach(beneficiario => {
-                container.innerHTML += criarCard(beneficiario);
+            lista.forEach(entidade => {
+                container.innerHTML += criarCard(entidade);
             });
         }
 
         function setupSearch() {
-            const input = document.getElementById('search-niss');
+            const input = document.getElementById('search-entidade');
             input.addEventListener('input', () => {
-                const termo = input.value.trim();
-                const filtrados = todosBeneficiarios.filter(b => b.NISS.includes(termo));
-                renderCards(filtrados);
+                const termo = input.value.trim().toLowerCase();
+                const filtradas = todasEntidades.filter(e =>
+                    e.nome.toLowerCase().includes(termo) || e.Sigla.toLowerCase().includes(termo)
+                );
+                renderCards(filtradas);
             });
         }
 
-        // Carregar dados e inicializar tudo
-        fetch('/ProjetoEstagio/BackEnd/Beneficiario/Data/getBeneficiarios.php')
+        // Carrega os dados
+        fetch('/ProjetoEstagio/BackEnd/Entidade/get_entidades.php')
             .then(res => res.json())
             .then(data => {
-                todosBeneficiarios = data;
-                renderCards(todosBeneficiarios);
+                todasEntidades = data;
+                renderCards(todasEntidades);
                 setupSearch();
             })
             .catch(error => {
-                console.error('Erro ao buscar beneficiários:', error);
+                console.error('Erro ao carregar entidades:', error);
             });
     </script>
 </body>

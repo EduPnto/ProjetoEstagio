@@ -194,6 +194,80 @@ li a {
   background-color: #66e066;
 }
 
+.card-body {
+    display: flex;
+    width: 100%;
+}
+
+.card-logo {
+    flex: 0 0 150px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.card-logo img {
+    max-width: 100%;
+    max-height: 100px;
+    object-fit: contain;
+}
+
+.card-custom {
+    background-color: #f5f5f5;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 1250px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.card-header {
+    font-size: 18px;
+    font-weight: bold;
+    color: #222;
+}
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* distribui conteúdo e botão */
+    flex: 1;
+    padding: 10px 15px;
+    position: relative;
+}
+
+.card-content {
+    display: block;
+    padding: 0 10px;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: auto;
+}
+
+.card-footer button {
+    background-color: #4a4aff;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.card-footer button:hover {
+    background-color: #2e2ecc;
+}
+
 footer {
   margin-top: auto;
   text-align: center;

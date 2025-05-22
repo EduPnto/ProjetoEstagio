@@ -76,6 +76,26 @@
                     <span class="idade-display" id="idade_display">Idade: --</span>
                 </div>
             </div>
+            <script>
+                const dataNascInput = document.getElementById("data_nasc");
+                const idadeDisplay = document.getElementById("idade_display");
+
+                dataNascInput.addEventListener("input", () => {
+                    const dataNasc = new Date(dataNascInput.value);
+                    const hoje = new Date();
+
+                    if (!isNaN(dataNasc)) {
+                        let idade = hoje.getFullYear() - dataNasc.getFullYear();
+                        const mes = hoje.getMonth() - dataNasc.getMonth();
+                        if (mes < 0 || (mes === 0 && hoje.getDate() < dataNasc.getDate())) {
+                            idade--;
+                        }
+                        idadeDisplay.textContent = `Idade: ${idade}`;
+                    } else {
+                        idadeDisplay.textContent = "Idade: --";
+                    }
+                });
+            </script>
         </div>
 
         <br>

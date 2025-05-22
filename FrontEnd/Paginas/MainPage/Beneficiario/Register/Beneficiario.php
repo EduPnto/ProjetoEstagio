@@ -118,10 +118,10 @@
         <div class="form-section agregado">
             <h3 style="width: 15%;">Agregado Familiar</h3>
             <label for="num_elementos">Nº de elementos</label>
-            <input type="number" id="num_elementos" min="0" max="20" style="width: 50px;">
+            <input type="number" id="num_elementos" min="0" max="10" style="width: 50px;">
             <script>
                 const input = document.getElementById('num_elementos');
-                const max = 20;
+                const max = 10;
 
                 input.addEventListener('input', () => {
                     const valor = parseInt(input.value, 10);
