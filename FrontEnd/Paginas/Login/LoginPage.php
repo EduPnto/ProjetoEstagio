@@ -1,7 +1,7 @@
 <?php
-define('BASE_URL', 'http://localhost/ProjetoEstagio/');
-include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/DataBase/db_connect.php';
-session_start();
+  define('BASE_URL', 'http://localhost/ProjetoEstagio/');
+  include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/DataBase/db_connect.php';
+  session_start();
 ?>
 <!DOCTYPE html>
 <html lang="pt">

@@ -11,6 +11,7 @@
   <title>CLIS - Página Principal</title>
   <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/mainPage.css">
   <script src='/ProjetoEstagio/BackEnd/MainPageDropdown/DropdownMain.js'></script>
+  <link rel="icon" href="/ProjetoEstagio/FrontEnd/Imagens/CLIS.png" type="image/png">
 </head>
 <body>
   <div class="top-bar">

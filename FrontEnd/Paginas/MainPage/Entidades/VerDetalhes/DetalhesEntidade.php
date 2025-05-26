@@ -67,9 +67,9 @@
          <div class="container">
             <div class="header">
             <div class="text-info">
-                <p><strong>Nome Entidade:</strong> <span id="nome_entidade">####</span></p>
-                <p><strong>Email:</strong> <span id="email">####</span></p>
-                <p><strong>Contacto:</strong> <span id="contacto">####</span></p>
+                <p><strong>Nome Entidade:</strong> <span id="nome_entidade"></span></p>
+                <p><strong>Email:</strong> <span id="email"></span></p>
+                <p><strong>Contacto:</strong> <span id="contacto"></span></p>
             </div>
             <div class="logo" id="logo_entidade"></div>
             </div>
@@ -79,8 +79,8 @@
             <div class="presidente-section">
             <div class="foto-pres" id="foto_presidente"></div>
             <div class="texto-pres">
-                <p><span id="frase_pres">#### (frase_pres)</span></p>
-                <p class="nome-presidente" id="nome_presidente">#######<br><small>(Nome Presidente)</small></p>
+                <p><span id="frase_pres"></span></p>
+                <p class="nome-presidente" id="nome_presidente"></p>
             </div>
             </div>
 
@@ -88,7 +88,8 @@
 
             <div class="apoios">
             <h3>Apoios:</h3>
-            <ul id="apoios-lista"></ul>
+            <ul id="apoios-lista">
+            </ul>
             </div>
         </div>
     </main>
