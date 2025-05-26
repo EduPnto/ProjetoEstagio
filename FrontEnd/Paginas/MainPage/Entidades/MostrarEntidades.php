@@ -85,15 +85,15 @@
     <script>
         let todasEntidades = [];
 
-        function verDetalhesEntidade(Id_Sigla) {
-            window.location.href = `VerDetalhes/DetalhesEntidade.php?id=${Id_Sigla}`;
+        function verDetalhesEntidade(Id_Enti) {
+            window.location.href = `VerDetalhes/DetalhesEntidade.php?id=${Id_Enti}`;
         }
 
         function criarCard(entidade) {
             const logoSrc = entidade.logo ? `data:image/png;base64,${entidade.logo}` : '../../../Imagens/default_logo.png';
             
             return `
-                <div class="card-custom" data-id="${entidade.Id_Sigla}">
+                <div class="card-custom" data-id="${entidade.Id_Enti}">
                     <div class="card-body">
                         <div class="card-logo">
                             <img src="${entidade.logo ? 'data:image/png;base64,' + entidade.logo : '../../../Imagens/default_logo.png'}" alt="Logo da entidade">
@@ -109,7 +109,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button onclick="verDetalhesEntidade('${entidade.Id_Sigla}')">Ver Detalhes</button>
+                                <button onclick="verDetalhesEntidade('${entidade.Id_Enti}')">Ver Detalhes</button>
                             </div>
                         </div>
                     </div>
