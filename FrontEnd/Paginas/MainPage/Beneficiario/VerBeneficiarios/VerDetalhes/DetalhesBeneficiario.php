@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <title>CLIS - Registo de Beneficiário</title>
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Beneficiario/Register/BeneficiarioRegister.css">
+    <script src="/ProjetoEstagio/BackEnd/MainPageDropdown/DropdownMain.js" defer></script>
+    <link rel="icon" href="/ProjetoEstagio/FrontEnd/Imagens/CLIS.png" type="image/png">
     <script src='/ProjetoEstagio/BackEnd/Beneficiario/VerAtualizarBeneficiario.js'></script>
 </head>
 <body>
-    <div class="top-bar">
-        <div class="logo" style="background-color: white; display: flex; align-items: center; justify-content: center; padding: 10px; border-radius: 5px;">
-            <img src="/ProjetoEstagio/FrontEnd/Imagens/LogotipoJunta.png">
-        </div>
-        <div class="title">CLIS - Comissão Local de Intervenção Social</div><br>
-    </div>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/MainPageDropdown/topbar.php'; ?>
 
     <main>
         <div class="form-section respostas" style="width: 50%;">

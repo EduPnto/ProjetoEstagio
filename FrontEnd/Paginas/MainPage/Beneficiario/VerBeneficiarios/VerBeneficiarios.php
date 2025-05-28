@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>CLIS - Beneficiário</title>
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Beneficiario/VerBeneficiarios/VerBeneficiarios.css">
+    <script src="/ProjetoEstagio/BackEnd/MainPageDropdown/DropdownMain.js" defer></script>
+    <link rel="icon" href="/ProjetoEstagio/FrontEnd/Imagens/CLIS.png" type="image/png">
     <script src="/ProjetoEstagio/BackEnd/Beneficiario/VerBeneficiarios.js"></script>
 </head>
 <body>

@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <title>CLIS - Registo de Beneficiário</title>
     <link rel="stylesheet" href="../../../../CSS/Beneficiario/Register/BeneficiarioRegister.css">
+    <link rel="icon" href="../../../../Imagens/CLIS.png" type="image/png">
     <script src='/ProjetoEstagio/BackEnd/Beneficiario/Beneficiario.js' defer></script>
+    <script src="/ProjetoEstagio/BackEnd/MainPageDropdown/DropdownMain.js" defer></script>
 </head>
 <body>
     <?php
         $data = json_decode(file_get_contents("php://input"), true);
+        include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/MainPageDropdown/topbar.php'; 
         require $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/DataBase/db_connect.php';
 
         if ($conn->connect_error) {
@@ -23,12 +26,6 @@
         $row6 = $result6->fetch_assoc();
         $id_titular = $row6['id_max'] + 1;
     ?>
-    <div class="top-bar">
-        <div class="logo" style="background-color: white; display: flex; align-items: center; justify-content: center; padding: 10px; border-radius: 5px;">
-            <img src="/ProjetoEstagio/FrontEnd/Imagens/LogotipoJunta.png">
-        </div>
-        <div class="title">CLIS - Comissão Local de Intervenção Social</div><br>
-    </div>
 
     <main>
         <div class="form-section respostas" style="width: 50%;">
@@ -52,9 +49,7 @@
                 </div>
             </div>
         </div>
-        <br>
-        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <h2>Registo de Beneficiário</h2>
 
         <div class="form-section titular">
@@ -79,7 +74,7 @@
                     <label for="niss">NISS</label>
                     <input type="text" name="niss" id="niss" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                 </div>
-                <div>
+                <div style="width: 75%;">
                     <label for="bi_cc">BI/CC</label>
                     <input type="text" name="bi/cc" id="bi_cc" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                 </div>
@@ -95,9 +90,7 @@
             </div>
         </div>
 
-        <br>
-        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
 
         <div class="form-section admissao">
             <h3 style="width: 21%;">Admissão do Beneficiário</h3>
@@ -111,9 +104,7 @@
             </div>
         </div>
 
-        <br>
-        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
 
         <div class="form-section agregado">
             <h3 style="width: 15%;">Agregado Familiar</h3>

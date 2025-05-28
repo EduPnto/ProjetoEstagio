@@ -1,12 +1,15 @@
-function toggleDropdown() {
-    const menu = document.getElementById("dropdownMenu");
-    menu.style.display = menu.style.display === "block" ? "none" : "block";
-  }
+document.addEventListener("DOMContentLoaded", function () {
+  const trigger = document.querySelector(".user-trigger");
+  const menu = document.querySelector(".dropdown-menu");
 
-  // Fecha o dropdown se clicar fora dele
-  window.onclick = function(event) {
-    if (!event.target.closest('.user-dropdown')) {
-      const dropdown = document.getElementById("dropdownMenu");
-      if (dropdown) dropdown.style.display = "none";
+  trigger.addEventListener("click", function (e) {
+    e.stopPropagation(); // Important to stop propagation so it doesn’t instantly close
+    menu.classList.toggle("show");
+  });
+
+  window.addEventListener("click", function (e) {
+    if (!e.target.closest('.user-dropdown')) {
+      menu.classList.remove("show");
     }
-  }
+  });
+});

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -6,6 +5,7 @@
     <title>CLIS - Entidades</title>
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Entidades/MostrarEntidades.css">
     <script src="/ProjetoEstagio/BackEnd/Entidade/MostrarEntidades.js"></script>
+    <script src="/ProjetoEstagio/BackEnd/MainPageDropdown/DropdownMain.js"></script>
     <link rel="icon" href="/ProjetoEstagio/FrontEnd/Imagens/CLIS.png" type="image/png">
 </head>
 <body>
