@@ -8,35 +8,21 @@ session_start();
 <head>
   <meta charset="UTF-8">
   <title>CLIS - Registar</title>
-  <link rel="stylesheet" href="<?php echo BASE_URL; ?>FrontEnd/CSS/Login/Login.css">
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('RegisterForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const form = document.getElementById('RegisterForm');
-        const formData = new FormData(form);
-
-        fetch('<?php echo BASE_URL; ?>BackEnd/Login/Register/RegisterAccount.php', {
-          method: 'POST',
-          body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            window.location.replace('<?php echo BASE_URL; ?>FrontEnd/Paginas/MainPage/MainPage.php');
-          } else {
-            alert(data.message || 'Registo falhou.');
-          }
-        })
-        .catch(error => console.error('Erro na requisição:', error));
-      });
-    });
-  </script>
+  <link rel="stylesheet" href="<?php echo BASE_URL; ?>FrontEnd/CSS/Login/register.css">
+  <script src="/ProjetoEstagio/BackEnd/Login/Register/resgiter.js"></script>
 </head>
 <body>
-  <div class="header">
-    <img src="../../../Imagens/LogotipoJunta.png" alt="Logotipo Ermesinde" class="logo">
+  <div class="top-bar">
+    <div class="logo" style="padding: 5px; border-radius: 5px;">
+      <img src="/ProjetoEstagio/FrontEnd/Imagens/CLIS.png">
+    </div>
+  </div>
+  <div class="contact-bar" style="display: center;">
+      <ul>
+          <li><a href="/ProjetoEstagio/FrontEnd/Paginas/MainPage/MainPage.php" style="border-right: 1px solid;">Início</a></li>
+          <li><a href="#contact" style="border-right: 1px solid;">Entidades e Parceiros</a></li>
+          <li><a href="#about">Sobre nós</a></li>
+      </ul>
   </div>
   <main>
     <div class="login-box">
@@ -54,25 +40,7 @@ session_start();
         <input type="file" id="foto_perfil" name="foto_perfil" accept="image/*" onchange="previewImage(event)">
         <br>
         <img id="foto_perfil_preview" src="#" alt="Pré-visualização da Foto de Perfil" style="display:none; max-width:150px; max-height:150px; margin-top:10px;"/>
-
-        <script>
-          function previewImage(event) {
-            const input = event.target;
-            const preview = document.getElementById('foto_perfil_preview');
-            if (input.files && input.files[0]) {
-              const reader = new FileReader();
-              reader.onload = function(e) {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-              }
-              reader.readAsDataURL(input.files[0]);
-            } else {
-              preview.src = '#';
-              preview.style.display = 'none';
-            }
-          }
-        </script>
-
+        <br>
         <button type="submit">Registar</button>
       </form>
     </div>

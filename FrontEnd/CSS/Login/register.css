@@ -133,7 +133,7 @@ main {
   cursor: pointer;
 }
 
-.Entrar {
+button {
   background-color: #66cc33;
   color: white;
   padding: 10px 20px;
@@ -142,7 +142,7 @@ main {
   cursor: pointer;
 }
 
-.Entrar:hover {
+button:hover {
   background-color: #5cbf2a;
 }
 

@@ -18,7 +18,7 @@
                 <p><strong>Email:</strong> <span id="email"></span></p>
                 <p><strong>Contacto:</strong> <span id="contacto"></span></p>
             </div>
-            <div class="logo" id="logo_entidade"></div>
+            <div class="logotipo" id="logo_entidade"></div>
             </div>
 
             <hr>
