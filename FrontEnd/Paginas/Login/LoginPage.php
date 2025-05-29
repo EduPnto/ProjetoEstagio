@@ -38,8 +38,17 @@
   </script>
 </head>
 <body>
-  <div class="header">
-    <img src="../../Imagens/LogotipoJunta.png" alt="Logotipo Ermesinde" class="logo">
+  <div class="top-bar">
+    <div class="logo" style="padding: 5px; border-radius: 5px;">
+      <img src="/ProjetoEstagio/FrontEnd/Imagens/CLIS.png">
+    </div>
+  </div>
+  <div class="contact-bar" style="display: center;">
+      <ul>
+          <li><a href="/ProjetoEstagio/FrontEnd/Paginas/MainPage/MainPage.php" style="border-right: 1px solid;">Início</a></li>
+          <li><a href="#contact" style="border-right: 1px solid;">Entidades e Parceiros</a></li>
+          <li><a href="#about">Sobre nós</a></li>
+      </ul>
   </div>
   <main>
     <div class="login-box">
@@ -58,9 +67,8 @@
           <a href="../Login/EsqueceuSenha/ForgotPassword.php">Esqueceu-se da senha?</a>
         </div>
 
-        <button type="submit">Entrar</button>
-        <label style="display: flex; justify-content:center; padding-top: 10px; padding-bottom: 20px;">________________ ou ________________</label>
-        <button type="button" onclick="window.location.href='<?php echo BASE_URL; ?>FrontEnd/Paginas/Login/Register/RegisterPage.php'">Registar</button>
+        <button type="submit" class="Entrar">Entrar</button>
+        <button type="button" class="Registar" onclick="window.location.href='<?php echo BASE_URL; ?>FrontEnd/Paginas/Login/Register/RegisterPage.php'">Não tem conta..</button>
       </form>
     </div>
   </main>
