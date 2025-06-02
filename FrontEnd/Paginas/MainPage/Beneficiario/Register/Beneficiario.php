@@ -311,14 +311,17 @@
         </div>
         <hr>
         <div class="form-section rendimento">
-            <h3 style="width: 9.5%;">Rendimento</h3>
+            <h3 style="width: 10%;">Rendimento</h3>
             <div class="grid-4">
-                <div><label for="rendimento_per_Capita">Rendimento per Capita</label><input type="text" name="rendimento_per_Capita" id="rendimento_per_Capita"></div>
+                <div>
+                    <label for="rendimento_per_Capita">Rendimento per Capita</label>
+                    <input type="text" name="rendimento_per_Capita" id="rendimento_per_Capita" oninput="this.value = this.value.replace(/[^0-9.,]/g, '')">
+                </div>
             </div>
         </div>
         <hr>
         <div class="form-section SAAS">
-            <h3 style="width: 21%;">SAAS</h3>
+            <h3 style="width: 5%;">SAAS</h3>
             <div class="grid-2">
                 <div>
                     <label for="apoiosaas_sim">Tem acompanhamento SAAS?</label><br>
