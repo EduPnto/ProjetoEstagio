@@ -28,28 +28,7 @@
     ?>
 
     <main>
-        <div class="form-section respostas" style="width: 50%;">
-            <h3 style="width: 31%;">Respostas Sociais</h3>
-            <div class="resposta-item">
-                <button class="resposta-btn" id="resposta_jfe">JFE</button>
-                <div class="resposta-detalhes" id="resposta_jfe_detalhes">
-                    <ul>
-                        <li id="bpaad">BPAAD</li>
-                        <li id="viver_bem_55">Viver bem aos 55+</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="resposta-item">
-                <button class="resposta-btn" id="resposta_adice">ADICE</button>
-                <div class="resposta-detalhes" id="resposta_adice_detalhes">
-                    <ul>
-                        <li id="formacao">Formação</li>
-                        <li id="acompanhamento">Acompanhamento</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <hr>
+        
         <h2>Registo de Beneficiário</h2>
 
         <div class="form-section titular">
@@ -150,9 +129,7 @@
             </script>
         </div>
 
-        <br>
-        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
 
         <div class="form-section apoio">
             <h3 style="width: 11.5%;">Tipo de Apoio</h3>
@@ -186,9 +163,7 @@
                 </script>
             </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section incapacidade">
             <h3 style="width: 33%;">Incapacidade/autonomia do Beneficiário</h3>
             <div class="grid-2">
@@ -215,11 +190,9 @@
                 </div>
            </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section abrigo">
-            <h3 style="width: 21%;">Situação face sem abrigo</h3>
+            <h3 style="width: 30%;">Pessoa em situação de sem abrigo</h3>
             <div class="grid-2">
                 <div>
                     <label for="sem_abrigo_sim">Situação sem abrigo:</label><br>
@@ -244,9 +217,7 @@
                 </div>
             </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section autonomia">
             <h3 style="width: 27.5%;">Situação autonomia/dependência</h3>
             <div class="grid-2">
@@ -273,9 +244,7 @@
                 </div>
             </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section emprego">
             <h3 style="width: 7.5%;">Emprego</h3>
             <div class="grid-2">
@@ -302,9 +271,7 @@
                 </div>
             </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section imigrante">
             <h3 style="width: 8%;">Imigrante</h3>
             <div class="grid-2">
@@ -342,18 +309,14 @@
                 </script>
             </div>
         </div>
-        <br>
-        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section rendimento">
             <h3 style="width: 9.5%;">Rendimento</h3>
             <div class="grid-4">
                 <div><label for="rendimento_per_Capita">Rendimento per Capita</label><input type="text" name="rendimento_per_Capita" id="rendimento_per_Capita"></div>
             </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section SAAS">
             <h3 style="width: 21%;">SAAS</h3>
             <div class="grid-2">
@@ -389,9 +352,7 @@
                 </script>
             </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section observacoes">
             <h3 style="width: 11%;">Observações</h3>
             <textarea name="observacoes" id="observacoes" rows="10" cols="80" maxlength="300" style="resize: none; width: 75%;"></textarea>
