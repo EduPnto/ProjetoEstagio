@@ -8,8 +8,7 @@ html, body {
 body {
   flex: 1;
   font-family: Arial, sans-serif;
-  background: url('../../Imagens/juntaIMG.jpg') no-repeat center center fixed;
-  background-size: cover;
+  background-color: #e2e2e2;
 }
 
 .user-dropdown {
@@ -173,9 +172,17 @@ li a {
 }
 
 .logotipo {
+  width: 140px;
+  height: 140px;
+  background-color: lightgray;
+  border-radius: 10px;
+}
+
+.logotipo img {
   width: 120px;
   height: 120px;
-  background-color: lightgray;
+  padding: 10px;
+  object-fit: cover;
   border-radius: 10px;
 }
 
@@ -193,9 +200,16 @@ li a {
   background-color: lightgray;
 }
 
+.foto-pres img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 .nome-presidente {
   margin-top: 10px;
-  font-weight: bold;
+  font-size: 12px;
 }
 
 .apoios ul {

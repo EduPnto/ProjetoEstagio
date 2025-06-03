@@ -14,7 +14,7 @@
         $username = isset($_SESSION['user']) ? $_SESSION['user'] : null;
 
         if ($username) {
-          $userImg = '../../Icons/user.png';
+          $userImg = '/ProjetoEstagio/FrontEnd/Icons/user.png';
 
           $query = "SELECT foto_perfil FROM users WHERE nome = ?";
           $stmt = $conn->prepare($query);

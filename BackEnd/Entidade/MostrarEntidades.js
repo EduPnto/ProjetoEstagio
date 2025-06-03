@@ -5,13 +5,13 @@ let todasEntidades = [];
         }
 
         function criarCard(entidade) {
-            const logoSrc = entidade.logo ? `data:image/png;base64,${entidade.logo}` : '../../../Imagens/default_logo.png';
+            const logoSrc = entidade.logo ? `data:image/jpeg;base64,${entidade.logo}` : '../../../Imagens/default_logo.png';
             
             return `
                 <div class="card-custom" data-id="${entidade.Id_Enti}">
                     <div class="card-body">
                         <div class="card-logo">
-                            <img src="${entidade.logo ? 'data:image/png;base64,' + entidade.logo : '../../../Imagens/default_logo.png'}" alt="Logo da entidade">
+                            <img src="${entidade.logo ? 'data:image/jpeg;base64,' + entidade.logo : '../../../Imagens/default_logo.png'}" alt="Logo da entidade">
                         </div>
                         <div class="card-info">
                             <div>
@@ -21,6 +21,7 @@ let todasEntidades = [];
                                 <div class="card-content">
                                     <p><strong>Contacto:</strong> ${entidade.Contacto}</p>
                                     <p><strong>Email:</strong> ${entidade.email}</p>
+                                    <p><strong>Qtd. Beneficiários:</strong> ${entidade.total_beneficiarios}</p>
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -55,9 +56,13 @@ let todasEntidades = [];
         fetch('/ProjetoEstagio/BackEnd/Entidade/get_entidades.php')
             .then(res => res.json())
             .then(data => {
-                todasEntidades = data;
-                renderCards(todasEntidades);
-                setupSearch();
+                if (Array.isArray(data)) {
+                    todasEntidades = data;
+                    renderCards(todasEntidades);
+                    setupSearch();
+                } else {
+                    console.error('Resposta inesperada do servidor:', data);
+                }
             })
             .catch(error => {
                 console.error('Erro ao carregar entidades:', error);

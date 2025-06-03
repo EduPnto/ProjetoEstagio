@@ -5,6 +5,7 @@
     <title>CLIS - Entidades</title>
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Entidades/Detalhes/DetalhesEntidades.css">
     <script src="/ProjetoEstagio/BackEnd/MainPageDropdown/DropdownMain.js" defer></script>
+    <script src="/ProjetoEstagio/BackEnd/Entidade/EntidadesInfo.js" defer></script>
     <link rel="icon" href="/ProjetoEstagio/FrontEnd/Imagens/CLIS.png" type="image/png">
 </head>
 <body>
