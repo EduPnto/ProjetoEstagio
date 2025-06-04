@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Recuperar Senha - Ermesinde</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Login/ForgotPassword.css">
 </head>
 <body>
@@ -30,7 +31,7 @@
       <button onclick="updatePassword()">Alterar Senha</button>
     </div>
   </div>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src='/ProjetoEstagio/BackEnd/ForgotPassword/StepNewpassword.js'></script>
 </body>
 </html>

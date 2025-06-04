@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>CLIS - Página Principal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/mainPage.css">
   <script src='/ProjetoEstagio/BackEnd/MainPageDropdown/DropdownMain.js'></script>
   <link rel="icon" href="/ProjetoEstagio/FrontEnd/Imagens/CLIS.png" type="image/png">
@@ -57,5 +58,6 @@
       <img src="../../Imagens/rfe.png" alt="Refood">
     </div>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

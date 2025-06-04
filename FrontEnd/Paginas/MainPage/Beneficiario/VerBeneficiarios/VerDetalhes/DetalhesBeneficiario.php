@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>CLIS - Registo de Beneficiário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Beneficiario/Register/BeneficiarioRegister.css">
     <script src="/ProjetoEstagio/BackEnd/MainPageDropdown/DropdownMain.js" defer></script>
     <link rel="icon" href="/ProjetoEstagio/FrontEnd/Imagens/CLIS.png" type="image/png">
     <script src='/ProjetoEstagio/BackEnd/Beneficiario/VerAtualizarBeneficiario.js'></script>
+    <script src='/ProjetoEstagio/BackEnd/Beneficiario/Beneficiario.js' defer></script>
 </head>
 <body>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/MainPageDropdown/topbar.php'; ?>
@@ -380,6 +382,6 @@
             <img src="../../../../../Imagens/rfe.png" alt="Refood">
         </div>
     </footer>
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
