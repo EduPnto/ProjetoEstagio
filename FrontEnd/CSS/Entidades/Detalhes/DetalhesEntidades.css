@@ -153,7 +153,7 @@ li a {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 100px auto;
   padding: 20px;
   background: white;
@@ -163,6 +163,7 @@ li a {
 
 .header {
   display: flex;
+  padding: 10px;
   justify-content: space-between;
   align-items: center;
 }
@@ -172,9 +173,8 @@ li a {
 }
 
 .logotipo {
-  width: 140px;
-  height: 140px;
-  background-color: lightgray;
+  width: 160px;
+  height: 160px;
   border-radius: 10px;
 }
 
@@ -190,6 +190,7 @@ li a {
   display: flex;
   align-items: center;
   gap: 20px;
+  padding: 20px;
   margin-top: 20px;
 }
 
@@ -210,6 +211,9 @@ li a {
 .nome-presidente {
   margin-top: 10px;
   font-size: 12px;
+}
+.apoios {
+  padding: 20px;
 }
 
 .apoios ul {

@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>CLIS - Entidades</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Entidades/Detalhes/DetalhesEntidades.css">
     <script src="/ProjetoEstagio/BackEnd/MainPageDropdown/DropdownMain.js" defer></script>
     <script src="/ProjetoEstagio/BackEnd/Entidade/EntidadesInfo.js" defer></script>
@@ -15,30 +14,31 @@
     <main>
          <div class="container">
             <div class="header">
-            <div class="text-info">
-                <p><strong>Nome Entidade:</strong> <span id="nome_entidade"></span></p>
-                <p><strong>Email:</strong> <span id="email"></span></p>
-                <p><strong>Contacto:</strong> <span id="contacto"></span></p>
-            </div>
-            <div class="logotipo" id="logo_entidade"></div>
+                <div class="text-info">
+                    <p><strong>Nome Entidade:</strong> <span id="nome_entidade"></span></p>
+                    <br>
+                    <p><strong>Email:</strong> <span id="email"></span></p>
+                    <p><strong>Contacto:</strong> <span id="contacto"></span></p>
+                </div>
+                <div class="logotipo" id="logo_entidade"></div>
             </div>
 
             <hr>
 
             <div class="presidente-section">
-            <div class="foto-pres" id="foto_presidente"></div>
-            <div class="texto-pres">
-                <p><span id="frase_pres"></span></p>
-                <p class="nome-presidente" id="nome_presidente"></p>
-            </div>
+                <div class="foto-pres" id="foto_presidente"></div>
+                <div class="texto-pres">
+                    <p><span id="frase_pres"></span></p>
+                    <p class="nome-presidente" id="nome_presidente"></p>
+                </div>
             </div>
 
             <hr>
 
             <div class="apoios">
-            <h3>Apoios:</h3>
-            <ul id="apoios-lista">
-            </ul>
+                <h3>Apoios:</h3>
+                <ul id="apoios-lista">
+                </ul>
             </div>
         </div>
     </main>
@@ -54,6 +54,5 @@
             <img src="../../../../Imagens/rfe.png" alt="Refood">
         </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
