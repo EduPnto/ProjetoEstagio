@@ -72,7 +72,6 @@ function preencherFormulario(data) {
             if (select) select.innerHTML = '<option value="">Selecione</option>';
         });
 
-    // Preencher o select de tipo de apoio (tipo_apoio) baseado na entidade selecionada
     if (data.Id_Enti) {
         fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Data/getNomeApoioPorEntidade.php?idEntidade=${data.Id_Enti}&idApoio=${data.Id_Apoio}`)
             .then(response => response.json())
@@ -108,14 +107,39 @@ function preencherFormulario(data) {
     setChecked('sem_abrigo_sim', data.Sit_sem_abrigo === 1);
     setChecked('sem_abrigo_nao', data.Sit_sem_abrigo === 0);
 
-    setChecked('apoiosaas_sim', data.SAAS === 1);
-    setChecked('apoiosaas_nao', data.SAAS === 0);
-
     setChecked('auto', data.Auto_Depen === 1);
     setChecked('depen', data.Auto_Depen === 0);
 
     setChecked('Empre', data.Sit_Emprego === 1);
     setChecked('Desemp', data.Sit_Emprego === 0);
+
+    if (data.SAAS === 1) {
+        setChecked('apoiosaas_sim', true);
+        const apoioadoSAASDiv = document.getElementById('apoioadoSAAS');
+        if (apoioadoSAASDiv) apoioadoSAASDiv.style.display = 'block';
+
+        if (data.Id_Titular) {
+            fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Data/getTitularPorId.php?idTitular=${data.Id_Titular}`)
+                .then(response => response.json())
+                .then(titularData => {
+                    console.log(titularData);
+                    const titularNome = Array.isArray(titularData) ? titularData[0]?.nome : titularData?.nome;
+                    const titularInput = document.getElementById('SAASTitular');
+                    if (titularInput && titularNome) {
+                        titularInput.value = titularNome;
+                    }
+                })
+                .catch(() => {
+                    const titularInput = document.getElementById('SAASTitular');
+                    if (titularInput) titularInput.value = '';
+                });
+        }
+    } else {
+        setChecked('apoiosaas_nao', true);
+        const apoioadoSAASDiv = document.getElementById('apoioadoSAAS');
+        if (apoioadoSAASDiv) apoioadoSAASDiv.style.display = 'none';
+    }
+
 
     if (data.Imigrante === 1) {
         setChecked('imigrante_sim', true);
