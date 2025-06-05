@@ -46,7 +46,7 @@
         // Fetch Id_Titular based on nome
         $result6 = $conn->query("SELECT MAX(Id_Titular) FROM acompanhamento_saas");
         $row6 = $result6->fetch_assoc();
-        $data['titular'] = $row6['Id_Titular'];
+        $data['titular'] = $row6['Id_Titular'] + 1;
     } else {
         $data['titular'] = null;
     }
