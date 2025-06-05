@@ -119,14 +119,14 @@ function preencherFormulario(data) {
         if (apoioadoSAASDiv) apoioadoSAASDiv.style.display = 'block';
 
         if (data.Id_Titular) {
-            fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Data/getTitularPorId.php?idTitular=${data.Id_Titular}`)
+            fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Apoios/SAAS/getTitularPorId.php?idTitular=${data.Id_Titular}`)
                 .then(response => response.json())
                 .then(titularData => {
                     console.log(titularData);
-                    const titularNome = Array.isArray(titularData) ? titularData[0]?.nome : titularData?.nome;
+                    
                     const titularInput = document.getElementById('SAASTitular');
-                    if (titularInput && titularNome) {
-                        titularInput.value = titularNome;
+                    if (titularInput && titularData.nome) {
+                        titularInput.value = titularData.nome;
                     }
                 })
                 .catch(() => {

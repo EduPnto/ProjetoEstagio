@@ -42,6 +42,14 @@
     $row5 = $result5->fetch_assoc();
     $id_Alimentar = $row5['Id_Alimentar'];
     
+    if($data['apoio_saas'] == 1){
+        // Fetch Id_Titular based on nome
+        $result6 = $conn->query("SELECT MAX(Id_Titular) FROM acompanhamento_saas");
+        $row6 = $result6->fetch_assoc();
+        $data['titular'] = $row6['Id_Titular'];
+    } else {
+        $data['titular'] = null;
+    }
 
     // Prepare and bind the insert statement
     $stmt = $conn->prepare("INSERT INTO beneficiarios (Id_Bene,
@@ -65,9 +73,12 @@
         if($data['apoio_saas'] == 1){
             $stmt2 = $conn->prepare("INSERT INTO acompanhamento_saas (Id_Titular, Id_Bene, nome) VALUES (?, ?, ?)");
             $stmt2->bind_param("iis", $data['titular'], $data['Id_Bene'], $data['SAASTitular']);
-            $stmt2->execute();
+            
+            if ($stmt2->execute()) {
+                echo json_encode(['success' => true, 'message' => 'Beneficiário registado com sucesso!']);
+            }
         }
-        echo json_encode(['success' => true, 'message' => 'Beneficiário registado com sucesso!']);
+        
     } else {
         echo json_encode(['success' => false, 'message' => 'Erro ao registar beneficiário: ' . $stmt->error]);
     }
