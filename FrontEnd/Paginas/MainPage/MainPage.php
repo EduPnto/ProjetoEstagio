@@ -17,6 +17,8 @@
         $menuItems = [
           ["href" => "Entidades/MostrarEntidades.php", "icon" => "../../Icons/Entidades.png", "alt" => "Entidades", "label" => "Entidades"],
           ["href" => "././Beneficiario/SubPageBeneficiario.php", "icon" => "../../Icons/Beneficiario.png", "alt" => "Beneficiários", "label" => "Beneficiários"],
+          ["href" => "documentacao.php", "icon" => "../../Icons/Produtos.png", "alt" => "Produtos", "label" => "Produtos"],
+          ["href" => "comunicacao.php", "icon" => "../../Icons/Emprestimos.png", "alt" => "Empréstimos", "label" => "Empréstimos"],
           ["href" => "documentacao.php", "icon" => "../../Icons/Documentos.png", "alt" => "Documentação", "label" => "Documentação"],
           ["href" => "comunicacao.php", "icon" => "../../Icons/comunicacao.png", "alt" => "Comunicação", "label" => "Comunicação"]
         ];
@@ -31,6 +33,8 @@
         $menuItems = [
           ["href" => "Entidades/MostrarEntidades.php", "icon" => "../../Icons/Entidades.png", "alt" => "Entidades", "label" => "Entidades"],
           ["href" => "#", "icon" => "../../Icons/Beneficiario.png", "alt" => "Beneficiários", "label" => "Beneficiários"],
+          ["href" => "#", "icon" => "../../Icons/Produtos.png", "alt" => "Produtos", "label" => "Produtos"],
+          ["href" => "#", "icon" => "../../Icons/Emprestimos.png", "alt" => "Empréstimos", "label" => "Empréstimos"],
           ["href" => "#", "icon" => "../../Icons/Documentos.png", "alt" => "Documentação", "label" => "Documentação"],
           ["href" => "#", "icon" => "../../Icons/comunicacao.png", "alt" => "Comunicação", "label" => "Comunicação"]
         ];
@@ -49,11 +53,6 @@
     <p>Contacto: geral@clis.jfe.pt | Tel: 227 344 418</p>
     <div class="redes">
       <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
-    </div>
-    <div class="logos">
-      <img src="../../Imagens/logo_adice.png" alt="ADICE">
-      <img src="../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
-      <img src="../../Imagens/rfe.png" alt="Refood">
     </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
