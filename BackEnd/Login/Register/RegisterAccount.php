@@ -10,6 +10,7 @@
     $nome = $_POST['nome'] ?? '';
     $email = $_POST['email'] ?? '';
     $senha = $_POST['senha'] ?? '';
+    $entidade = $_POST['id'] ?? '';
     $foto_perfil = null;
 
     // Check if file was uploaded
@@ -25,10 +26,8 @@
     $hashedSenha = password_hash($senha, PASSWORD_BCRYPT);
 
     // Prepare and execute the insert statement
-    $stmt = $conn->prepare("INSERT INTO users (ID, nome, senha, email, foto_perfil) VALUES (?, ?, ?, ?, ?)");
-    $null = NULL;
-    $stmt->bind_param("isssb", $ID, $nome, $hashedSenha, $email, $null);
-    $stmt->send_long_data(4, $foto_perfil);
+    $stmt = $conn->prepare("INSERT INTO users (ID, Id_Enti, nome, senha, email, foto_perfil) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("iisssb", $ID, $entidade, $nome, $hashedSenha, $email, $foto_perfil);
 
     if ($stmt->execute()) {
         echo json_encode(['success' => true, 'message' => 'Account registered successfully.']);

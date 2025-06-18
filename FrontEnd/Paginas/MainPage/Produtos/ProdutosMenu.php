@@ -2,7 +2,7 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>CLIS - Beneficiário</title>
+    <title>CLIS - Produtos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Beneficiario/BeneficiarioSubPage.css">
     <script src='/ProjetoEstagio/BackEnd/Beneficiario/Beneficiario.js'></script>
@@ -16,13 +16,8 @@
         <div class="menu-container">
             <?php
                 $menuItems = [
-                    [
-                        "href" => "/ProjetoEstagio/FrontEnd/Paginas/MainPage/Beneficiario/VerBeneficiarios/VerBeneficiarios.php" . (isset($_SESSION['Id_Enti']) ? "?Id_Enti=" . urlencode($_SESSION['Id_Enti']) : ""),
-                        "icon" => "../../../Icons/View.png",
-                        "alt" => "Ver Beneficiários",
-                        "label" => "Ver Beneficiários"
-                    ],
-                    ["href" => "/ProjetoEstagio/FrontEnd/Paginas/MainPage/Beneficiario/Register/Beneficiario.php", "icon" => "../../../Icons/Beneficiario.png", "alt" => "Registar Beneficiários", "label" => "Registar Beneficiários"]
+                    ["href" => "VerProdutos/VerProdutos.php", "icon" => "../../../Icons/View.png", "alt" => "Ver Produtos", "label" => "Ver Produtos"],
+                    ["href" => "AdicionarProdutos/AddProdutos.php", "icon" => "../../../Icons/Beneficiario.png", "alt" => "Registar Produtos", "label" => "Registar Produtos"]
                 ];
 
                 foreach ($menuItems as $item) {
@@ -39,6 +34,11 @@
         <p>Contacto: geral@clis.jfe.pt | Tel: 227 344 418</p>
         <div class="redes">
             <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
+        </div>
+        <div class="logos">
+            <img src="../../../Imagens/logo_adice.png" alt="ADICE">
+            <img src="../../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
+            <img src="../../../Imagens/rfe.png" alt="Refood">
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

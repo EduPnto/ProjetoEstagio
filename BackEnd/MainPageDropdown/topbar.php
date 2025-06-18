@@ -16,15 +16,20 @@
         if ($username) {
           $userImg = '/ProjetoEstagio/FrontEnd/Icons/user.png';
 
-          $query = "SELECT foto_perfil FROM users WHERE nome = ?";
+          // Buscar foto_perfil e Id_Enti
+          $query = "SELECT foto_perfil, Id_Enti FROM users WHERE nome = ?";
           $stmt = $conn->prepare($query);
           $stmt->bind_param("s", $username);
           $stmt->execute();
           $stmt->store_result();
-          $stmt->bind_result($profileImage);
+          $stmt->bind_result($profileImage, $idEnti);
 
-          if ($stmt->fetch() && !empty($profileImage)) {
-            $userImg = 'data:image/png;base64,' . base64_encode($profileImage);
+          if ($stmt->fetch()) {
+            if (!empty($profileImage)) {
+              $userImg = 'data:image/png;base64,' . base64_encode($profileImage);
+            }
+            // Guardar Id_Enti na sessão
+            $_SESSION['Id_Enti'] = $idEnti;
           }
 
           $stmt->close();

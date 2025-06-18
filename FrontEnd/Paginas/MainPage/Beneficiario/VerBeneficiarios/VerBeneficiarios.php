@@ -15,7 +15,34 @@
     <main>
         <div class="menu-container">
             <input type="text" id="search-niss" placeholder="Pesquisar por NISS..." style="width: 100%; padding: 10px; margin-bottom: 20px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
-            <div id="cards-container"></div>
+            <?php
+                $idEnti = isset($_SESSION['Id_Enti']) ? $_SESSION['Id_Enti'] : null;
+            ?>
+            <div id="cards-container" data-id-enti="<?php echo htmlspecialchars($idEnti); ?>"></div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const idEnti = document.getElementById('cards-container').dataset.idEnti;
+                    // Supondo que você busca os beneficiários via AJAX
+                    fetch(`/ProjetoEstagio/BackEnd/Beneficiario/getBeneficiarios.php?id_enti=${idEnti}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const container = document.getElementById('cards-container');
+                            container.innerHTML = '';
+                            data.forEach(beneficiario => {
+                                // Renderize os cards conforme necessário
+                                const card = document.createElement('div');
+                                card.className = 'card mb-3';
+                                card.innerHTML = `
+                                    <div class="card-body">
+                                        <h5 class="card-title">${beneficiario.nome}</h5>
+                                        <p class="card-text">NISS: ${beneficiario.niss}</p>
+                                    </div>
+                                `;
+                                container.appendChild(card);
+                            });
+                        });
+                });
+            </script>
         </div>
     </main>
 

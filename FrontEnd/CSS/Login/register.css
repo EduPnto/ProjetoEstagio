@@ -79,7 +79,6 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 200px;
 }
 
 /* Caixa de login */
@@ -88,7 +87,7 @@ main {
   padding: 15px 15px 15px 15px;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 350px;
+  width: 400px;
   text-align: center;
   border: 1px solid #e0e0e0;
 }
@@ -101,6 +100,14 @@ main {
   display: block;
   text-align: left;
   margin-top: 10px;
+}
+
+.login-box select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
 .login-box input[type="text"],

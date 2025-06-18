@@ -29,13 +29,28 @@ session_start();
     <div class="login-box">
       <h2>Registar</h2>
       <form id="RegisterForm" method="POST" enctype="multipart/form-data">
-        <label for="name">Nome:</label>
+        <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
-        <label for="name">Email:</label>
+        
+        <label for="email">Email:</label>
         <input type="text" id="email" name="email" required>
 
-        <label for="password">Senha:</label>
+        <label for="senha">Senha:</label>
         <input type="password" id="senha" name="senha" required oninput="this.value = this.value.trim()">
+
+        <label for="entidade">Entidade:</label>
+        <select id="entidade" name="entidade" required>
+          <option value="">Selecione uma entidade</option>
+          <?php
+            $sql = "SELECT Id_Enti as id, Sigla as sigla, nome FROM entidades";
+            $result = $conn->query($sql);
+            if ($result && $result->num_rows > 0) {
+              while ($row = $result->fetch_assoc()) {
+                echo '<option value="' . htmlspecialchars($row['id']) . '">' . htmlspecialchars($row['sigla']) . ' - ' . htmlspecialchars($row['nome']) . '</option>';
+              }
+            }
+          ?>
+        </select>
 
         <label for="foto_perfil">Foto de Perfil:</label>
         <input type="file" id="foto_perfil" name="foto_perfil" accept="image/*" onchange="previewImage(event)">

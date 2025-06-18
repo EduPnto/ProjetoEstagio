@@ -22,7 +22,11 @@ body {
 }
 
 .dropdown-menu {
-  display: none;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none; /* Prevent interaction when hidden */
+  display: block;       /* Always keep it block so animation works */
   position: absolute;
   right: 0;
   top: 70px;
@@ -32,6 +36,12 @@ body {
   overflow: hidden;
   z-index: 1000;
   min-width: 160px;
+}
+
+.dropdown-menu.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 .dropdown-menu a {
