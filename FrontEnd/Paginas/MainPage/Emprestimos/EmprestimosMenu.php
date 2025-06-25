@@ -2,10 +2,9 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>CLIS - Beneficiário</title>
+    <title>CLIS - Emprestimos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Beneficiario/BeneficiarioSubPage.css">
-    <script src='/ProjetoEstagio/BackEnd/Beneficiario/Beneficiario.js'></script>
     <script src="/ProjetoEstagio/BackEnd/MainPageDropdown/DropdownMain.js" defer></script>
     <link rel="icon" href="/ProjetoEstagio/FrontEnd/Imagens/CLIS.png" type="image/png">
 </head>
@@ -16,8 +15,8 @@
         <div class="menu-container">
             <?php
                 $menuItems = [
-                    ["href" => "/ProjetoEstagio/FrontEnd/Paginas/MainPage/Beneficiario/VerBeneficiarios/VerBeneficiarios.php", "icon" => "../../../Icons/View.png", "alt" => "Ver Beneficiários", "label" => "Ver Beneficiários"],
-                    ["href" => "/ProjetoEstagio/FrontEnd/Paginas/MainPage/Beneficiario/Register/Beneficiario.php", "icon" => "../../../Icons/Beneficiario.png", "alt" => "Registar Beneficiários", "label" => "Registar Beneficiários"]
+                    ["href" => "VerEmprestimos/VerEmprestimos.php", "icon" => "../../../Icons/produto.png", "alt" => "Ver Emprestimos", "label" => "Ver Emprestimos"],
+                    ["href" => "Register/CriarEmprestimo.php", "icon" => "../../../Icons/View.png", "alt" => "Registar Emprestimos", "label" => "Registar Emprestimos"]
                 ];
 
                 foreach ($menuItems as $item) {
