@@ -6,14 +6,12 @@
         exit;
     }
 
-    // Get POST data
     $nome = $_POST['nome'] ?? '';
     $email = $_POST['email'] ?? '';
     $senha = $_POST['senha'] ?? '';
-    $entidade = $_POST['id'] ?? '';
+    $entidade = $_POST['entidade'] ?? '';
     $foto_perfil = null;
 
-    // Check if file was uploaded
     if (isset($_FILES['foto_perfil']) && $_FILES['foto_perfil']['error'] === UPLOAD_ERR_OK) {
         $foto_perfil = file_get_contents($_FILES['foto_perfil']['tmp_name']);
     }
@@ -22,10 +20,8 @@
     $row = $result->fetch_assoc();
     $ID = $row['max_id'] + 1;
 
-    // Hash the password with bcrypt
     $hashedSenha = password_hash($senha, PASSWORD_BCRYPT);
 
-    // Prepare and execute the insert statement
     $stmt = $conn->prepare("INSERT INTO users (ID, Id_Enti, nome, senha, email, foto_perfil) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("iisssb", $ID, $entidade, $nome, $hashedSenha, $email, $foto_perfil);
 

@@ -1,7 +1,7 @@
 <?php
-define('BASE_URL', 'http://localhost/ProjetoEstagio/');
-include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/DataBase/db_connect.php';
-session_start();
+  define('BASE_URL', 'http://localhost/ProjetoEstagio/');
+  include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/DataBase/db_connect.php';
+  session_start();
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -10,7 +10,7 @@ session_start();
   <title>CLIS - Registar</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>FrontEnd/CSS/Login/register.css">
-  <script src="/ProjetoEstagio/BackEnd/Login/Register/resgiter.js"></script>
+  <script src="/ProjetoEstagio/BackEnd/Login/Register/register.js"></script>
 </head>
 <body>
   <div class="top-bar">
@@ -65,11 +65,6 @@ session_start();
         <p>Contacto: geral@clis.jfe.pt | Tel: 227 344 418</p>
         <div class="redes">
             <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
-        </div>
-        <div class="logos">
-            <img src="../../../Imagens/logo_adice.png" alt="ADICE">
-            <img src="../../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
-            <img src="../../../Imagens/rfe.png" alt="Refood">
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
