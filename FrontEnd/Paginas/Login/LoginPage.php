@@ -79,11 +79,6 @@
     <div class="redes">
       <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
     </div>
-    <div class="logos">
-      <img src="../../Imagens/logo_adice.png" alt="ADICE">
-      <img src="../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
-      <img src="../../Imagens/rfe.png" alt="Refood">
-    </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
