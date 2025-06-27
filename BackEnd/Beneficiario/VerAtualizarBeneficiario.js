@@ -1,66 +1,180 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const niss = getNISSFromURL();
+    if (!niss) return;
 
-        // Função para obter o NISS da URL
-        function getNISSFromURL() {
-            const params = new URLSearchParams(window.location.search);
-            return params.get('niss');
-        }
-
-        // Preenche os campos do formulário
-        function preencherFormulario(data) {
-            if (!data) return;
-
-            document.getElementById('nome').value = data.nome || '';
-            document.getElementById('genero').value = data.genero || '';
-            document.getElementById('contacto').value = data.contacto || '';
-            document.getElementById('nif').value = data.NIF || '';
-            document.getElementById('niss').value = data.NISS || '';
-            document.getElementById('bi_cc').value = data.bi_cc || '';
-            document.getElementById('morada').value = data.morada || '';
-            document.getElementById('cod_postal').value = data.cod_postal || '';
-            document.getElementById('data_nasc').value = data.data_nasc || '';
-            document.getElementById('data_admissao').value = data.data_admissao || '';
-            document.getElementById('data_saida').value = data.data_saida || '';
-            document.getElementById('observacoes').value = data.observacoes || '';
-
-            // Preenchimento dos checkboxes
-            document.getElementById('deficiencia_sim').checked = data.deficiencia === '1';
-            document.getElementById('deficiencia_nao').checked = data.deficiencia === '0';
-
-            document.getElementById('sem_abrigo_sim').checked = data.sem_abrigo === '1';
-            document.getElementById('sem_abrigo_nao').checked = data.sem_abrigo === '0';
-
-            document.getElementById('auto').checked = data.autonomia === '1';
-            document.getElementById('depen').checked = data.autonomia === '0';
-
-            document.getElementById('Empre').checked = data.emprego === '1';
-            document.getElementById('Desemp').checked = data.emprego === '0';
-
-            if (data.imigrante === '1') {
-            document.getElementById('imigrante_sim').checked = true;
-            document.getElementById('pais_origem_container').style.display = 'block';
-            document.getElementById('pais_origem_select').value = data.pais_origem || 'Default_Value';
-            } else if (data.imigrante === '0') {
-            document.getElementById('imigrante_nao').checked = true;
-            document.getElementById('pais_origem_container').style.display = 'none';
+    fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Data/getBeneficiarioPorNiss.php?NISS=${niss}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Se o PHP retorna um array, pegue o primeiro elemento
+            const beneficiario = Array.isArray(data) ? data[0] : data;
+            if (beneficiario && !beneficiario.erro) {
+                preencherFormulario(beneficiario);
+            } else {
+                console.error('Beneficiário não encontrado.');
             }
-        }
+        })
+        .catch(error => {
+            console.error('Erro ao carregar beneficiário:', error);
+        });
+});
 
-        // Carregamento automático ao abrir a página
-        document.addEventListener('DOMContentLoaded', () => {
-            const niss = getNISSFromURL();
-            if (!niss) return;
+function getNISSFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('niss');
+}
 
-            fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Data/getBeneficiarioPorNiss.php?NISS=${niss}`)
+// Preenche os campos do formulário
+function preencherFormulario(data) {
+    if (!data) return;
+
+    const setValue = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.value = value;
+    };
+    const setChecked = (id, checked) => {
+        const el = document.getElementById(id);
+        if (el) el.checked = checked;
+    };
+
+    setValue('nome', data.nome_Bene || data.nome || '');
+    setValue('genero', data.Genero || data.genero || '');
+    setValue('nif', data.NIF || data.nif || '');
+    setValue('niss', data.NISS || data.niss || '');
+    setValue('bi_cc', data.BI || data.bi_cc || '');
+    setValue('morada', data.Morada || data.morada || '');
+    setValue('contacto', data.Contacto || data.contacto || '');
+    setValue('cod_postal', data.Cod_Postal || data.cod_postal || '');
+    setValue('data_nasc', data.Data_nasc || data.data_nasc || '');
+    setValue('data_admissao', data.Data_Admissao || data.data_admissao || '');
+    setValue('data_saida', data.Data_Saida || data.data_saida || '');
+    setValue('observacoes', data.Observacao || data.observacoes || '');
+
+    fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Apoios/get_entidades.php`)
+        .then(response => response.json())
+        .then(entidades => {
+            const select = document.getElementById('apoio_entidade');
+            if (select) {
+                select.innerHTML = '<option value="">Selecione</option>';
+                entidades.forEach(entidade => {
+                    const option = document.createElement('option');
+                    option.value = entidade.id;
+                    option.text = entidade.sigla;
+                    if (String(entidade.Id_Enti) === String(data.Id_Enti)) {
+                        option.selected = true;
+                    }
+                    select.appendChild(option);
+                });
+            }
+        })
+        .catch(() => {
+            const select = document.getElementById('apoio_entidade');
+            if (select) select.innerHTML = '<option value="">Selecione</option>';
+        });
+
+    if (data.Id_Enti) {
+        fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Data/getNomeApoioPorEntidade.php?idEntidade=${data.Id_Enti}&idApoio=${data.Id_Apoio}`)
+            .then(response => response.json())
+            .then(apoios => {
+                const select = document.getElementById('tipo_apoio');
+                if (select) {
+                    select.innerHTML = '<option value="">Selecione</option>';
+                    apoios.forEach(apoio => {
+                        const option = document.createElement('option');
+                        option.value = apoio.Id_Apoio;
+                        option.textContent = apoio.nome;
+                        select.appendChild(option);
+                    });
+                    // Set the selected value after options are added
+                    select.value = apoios.find(apoio => apoio.nome)?.Id_Apoio || '';
+                }
+            })
+            .catch(() => {
+                const select = document.getElementById('tipo_apoio');
+                if (select) select.innerHTML = '<option value="">Selecione</option>';
+            });
+    }
+    setValue('Id_Alimentar', data.Id_Alimentar || '');
+    setValue('Id_Sigla', data.Id_Sigla || '');
+    setValue('rendimento_per_Capita', data.rendi_Capita || '');
+    setValue('SAAS', data.SAAS || '');
+    setValue('Id_Titular', data.Id_Titular || '');
+
+    // Checkboxes and radio buttons
+    setChecked('deficiencia_sim', data.Incap_Defec === 1);
+    setChecked('deficiencia_nao', data.Incap_Defec === 0);
+
+    setChecked('sem_abrigo_sim', data.Sit_sem_abrigo === 1);
+    setChecked('sem_abrigo_nao', data.Sit_sem_abrigo === 0);
+
+    setChecked('auto', data.Auto_Depen === 1);
+    setChecked('depen', data.Auto_Depen === 0);
+
+    setChecked('Empre', data.Sit_Emprego === 1);
+    setChecked('Desemp', data.Sit_Emprego === 0);
+
+    if (data.SAAS === 1) {
+        setChecked('apoiosaas_sim', true);
+        const apoioadoSAASDiv = document.getElementById('apoioadoSAAS');
+        if (apoioadoSAASDiv) apoioadoSAASDiv.style.display = 'block';
+
+        if (data.Id_Titular) {
+            fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Apoios/SAAS/getTitularPorId.php?idTitular=${data.Id_Titular}`)
                 .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    if (data && !data.erro) {
-                        preencherFormulario(data);
-                    } else {
-                        console.error('Beneficiário não encontrado.');
+                .then(titularData => {
+                    console.log(titularData);
+                    
+                    const titularInput = document.getElementById('SAASTitular');
+                    if (titularInput && titularData.nome) {
+                        titularInput.value = titularData.nome;
                     }
                 })
-                .catch(error => {
-                    console.error('Erro ao carregar beneficiário:', error);
+                .catch(() => {
+                    const titularInput = document.getElementById('SAASTitular');
+                    if (titularInput) titularInput.value = '';
                 });
-        });
+        }
+    } else {
+        setChecked('apoiosaas_nao', true);
+        const apoioadoSAASDiv = document.getElementById('apoioadoSAAS');
+        if (apoioadoSAASDiv) apoioadoSAASDiv.style.display = 'none';
+    }
+
+
+    if (data.Imigrante === 1) {
+        setChecked('imigrante_sim', true);
+        const container = document.getElementById('pais_origem_container');
+        if (container) container.style.display = 'block';
+        if (data.Id_Sigla) {
+            fetch(`/ProjetoEstagio/BackEnd/Beneficiario/paises/getPaisPorId.php?id=${data.Id_Sigla}`)
+                .then(response => response.json())
+                .then(paisData => {
+                    console.log(paisData);
+                    setValue('pais_origem_select', paisData || '');
+                    const select = document.getElementById('pais_origem_select');
+                    if (select) {
+                        select.innerHTML = '<option value="">Selecione</option>';
+                        paisData.forEach(pais => {
+                            const option = document.createElement('option');
+                            option.value = pais.Id_Sigla;
+                            option.textContent = pais.nome;
+                            select.appendChild(option);
+                        });
+                        // Set the selected value after options are added
+                        select.value = paisData.find(pais => pais.nome)?.Id_Sigla || '';
+                        
+                    
+                    }
+                })
+                .catch(() => {
+                    setValue('pais_origem_select', '');
+                });
+        } else {
+            setValue('pais_origem_select', 'Default_Value');
+        }
+    } else if (data.Imigrante === 0) {
+        setChecked('imigrante_nao', true);
+        const container = document.getElementById('pais_origem_container');
+        if (container) container.style.display = 'none';
+    }
+}

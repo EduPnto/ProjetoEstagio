@@ -4,41 +4,15 @@
     <meta charset="UTF-8">
     <title>CLIS - Registo de Beneficiário</title>
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Beneficiario/Register/BeneficiarioRegister.css">
-    <script src='/ProjetoEstagio/BackEnd/Beneficiario/VerAtualizarBeneficiarios.js'></script>
+    <script src="/ProjetoEstagio/BackEnd/MainPageDropdown/DropdownMain.js" defer></script>
+    <link rel="icon" href="/ProjetoEstagio/FrontEnd/Imagens/CLIS.png" type="image/png">
+    <script src='/ProjetoEstagio/BackEnd/Beneficiario/VerAtualizarBeneficiario.js'></script>
+    <script src='/ProjetoEstagio/BackEnd/Beneficiario/Beneficiario.js' defer></script>
 </head>
 <body>
-    <div class="top-bar">
-        <div class="logo" style="background-color: white; display: flex; align-items: center; justify-content: center; padding: 10px; border-radius: 5px;">
-            <img src="/ProjetoEstagio/FrontEnd/Imagens/LogotipoJunta.png">
-        </div>
-        <div class="title">CLIS - Comissão Local de Intervenção Social</div><br>
-    </div>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/MainPageDropdown/topbar.php'; ?>
 
     <main>
-        <div class="form-section respostas" style="width: 50%;">
-            <h3 style="width: 31%;">Respostas Sociais</h3>
-            <div class="resposta-item">
-                <button class="resposta-btn" id="resposta_jfe">JFE</button>
-                <div class="resposta-detalhes" id="resposta_jfe_detalhes">
-                    <ul>
-                        <li id="bpaad">BPAAD</li>
-                        <li id="viver_bem_55">Viver bem aos 55+</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="resposta-item">
-                <button class="resposta-btn" id="resposta_adice">ADICE</button>
-                <div class="resposta-detalhes" id="resposta_adice_detalhes">
-                    <ul>
-                        <li id="formacao">Formação</li>
-                        <li id="acompanhamento">Acompanhamento</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <br>
-        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
         <h2>Registo de Beneficiário</h2>
 
         <div class="form-section titular">
@@ -76,11 +50,29 @@
                     <span class="idade-display" id="idade_display">Idade: --</span>
                 </div>
             </div>
+            <script>
+                const dataNascInput = document.getElementById("data_nasc");
+                const idadeDisplay = document.getElementById("idade_display");
+
+                dataNascInput.addEventListener("input", () => {
+                    const dataNasc = new Date(dataNascInput.value);
+                    const hoje = new Date();
+
+                    if (!isNaN(dataNasc)) {
+                        let idade = hoje.getFullYear() - dataNasc.getFullYear();
+                        const mes = hoje.getMonth() - dataNasc.getMonth();
+                        if (mes < 0 || (mes === 0 && hoje.getDate() < dataNasc.getDate())) {
+                            idade--;
+                        }
+                        idadeDisplay.textContent = `Idade: ${idade}`;
+                    } else {
+                        idadeDisplay.textContent = "Idade: --";
+                    }
+                });
+            </script>
         </div>
 
-        <br>
-        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
 
         <div class="form-section admissao">
             <h3 style="width: 21%;">Admissão do Beneficiário</h3>
@@ -94,9 +86,7 @@
             </div>
         </div>
 
-        <br>
-        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
 
         <div class="form-section apoio">
             <h3 style="width: 11.5%;">Tipo de Apoio</h3>
@@ -137,9 +127,7 @@
                 </script>
             </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section incapacidade">
             <h3 style="width: 33%;">Incapacidade/autonomia do Beneficiário</h3>
             <div class="grid-2">
@@ -166,9 +154,7 @@
                 </div>
            </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section abrigo">
             <h3 style="width: 21%;">Situação face sem abrigo</h3>
             <div class="grid-2">
@@ -195,9 +181,7 @@
                 </div>
             </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section autonomia">
             <h3 style="width: 27.5%;">Situação autonomia/dependência</h3>
             <div class="grid-2">
@@ -224,9 +208,7 @@
                 </div>
             </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section emprego">
             <h3 style="width: 7.5%;">Emprego</h3>
             <div class="grid-2">
@@ -253,9 +235,7 @@
                 </div>
             </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section imigrante">
             <h3 style="width: 8%;">Imigrante</h3>
             <div class="grid-2">
@@ -267,7 +247,7 @@
                 <div id="pais_origem_container" style="display: none;">
                     <label for="pais_origem_select">País:</label>
                     <select name="pais_origem" id="pais_origem_select" style="width: 200px;">
-                        <option value="Default_Value">Selecione</option>
+                        <option>Selecione</option>
                     </select>
                 </div>
                 <script>
@@ -287,22 +267,56 @@
                         if (imigranteNao.checked) {
                             paisOrigemContainer.style.display = 'none';
                             imigranteSim.checked = false;
-                            paisOrigemSelect.value = "Default_Value";
+                            paisOrigemSelect.value = "";
                         }
                     });
                 </script>
             </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section rendimento">
-            <label for="rendi_capita">Rendimento Per Capita</label>
-            <input type="text" id="rendi_capita" name="rendi_capita">
+            <h3 style="width: 9.5%;">Rendimento</h3>
+            <div class="grid-4">
+                <div><label for="rendimento_per_Capita">Rendimento per Capita</label><input type="text" name="rendimento_per_Capita" id="rendimento_per_Capita"></div>
+            </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
+        <div class="form-section SAAS">
+            <h3 style="width: 21%;">Acompanhamento SAAS</h3>
+            <div class="grid-2">
+                <div>
+                    <label for="apoiosaas_sim">Tem acompanhamento SAAS?</label><br>
+                    <input type="checkbox" name="apoiosaas_sim" id="apoiosaas_sim"> Sim
+                    <input type="checkbox" name="apoiosaas_nao" id="apoiosaas_nao"> Não
+                </div>
+                <div id="apoioadoSAAS" style="display: none;">
+                    <label for="SAASTitular">Nome:</label>
+                    <input type="text" name="SAASTitular" id="SAASTitular">
+                </div>
+                <script>
+                    const Apoioado = document.getElementById('apoiosaas_sim');
+                    const NApoioado = document.getElementById('apoiosaas_nao');
+                    const apoioadoSAASDiv = document.getElementById('apoioadoSAAS');
+
+                    Apoioado.addEventListener('change', () => {
+                        if (Apoioado.checked) {
+                            NApoioado.checked = false;
+                            apoioadoSAASDiv.style.display = 'block';
+                        } else {
+                            apoioadoSAASDiv.style.display = 'none';
+                        }
+                    });
+
+                    NApoioado.addEventListener('change', () => {
+                        if (NApoioado.checked) {
+                            Apoioado.checked = false;
+                            apoioadoSAASDiv.style.display = 'none';
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+        <hr>
         <div class="form-section observacoes">
             <h3 style="width: 11%;">Observações</h3>
             <textarea name="observacoes" id="observacoes" rows="10" cols="80" maxlength="300" style="resize: none; width: 75%;"></textarea>
@@ -318,12 +332,11 @@
             <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
         </div>
         <div class="logos">
-            <img src="../../../Imagens/logo_adice.png" alt="ADICE">
-            <img src="../../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
-            <img src="../../../Imagens/rfe.png" alt="Refood">
+            <img src="../../../../../Imagens/logo_adice.png" alt="ADICE">
+            <img src="../../../../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
+            <img src="../../../../../Imagens/rfe.png" alt="Refood">
         </div>
     </footer>
     
-    </script>
 </body>
 </html>

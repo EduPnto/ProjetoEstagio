@@ -3,21 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>CLIS - Beneficiário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Beneficiario/VerBeneficiarios/VerBeneficiarios.css">
-    
+    <script src="/ProjetoEstagio/BackEnd/MainPageDropdown/DropdownMain.js" defer></script>
+    <link rel="icon" href="/ProjetoEstagio/FrontEnd/Imagens/CLIS.png" type="image/png">
+    <script src="/ProjetoEstagio/BackEnd/Beneficiario/VerBeneficiarios.js"></script>
 </head>
 <body>
-    <div class="top-bar">
-        <div class="logo" style="background-color: white; display: flex; align-items: center; justify-content: center; padding: 10px; border-radius: 5px;">
-            <img src="/ProjetoEstagio/FrontEnd/Imagens/LogotipoJunta.png">
-        </div>
-        <div class="title">CLIS - Comissão Local de Intervenção Social</div><br>
-    </div>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/MainPageDropdown/topbar.php'; ?>
 
     <main>
         <div class="menu-container">
             <input type="text" id="search-niss" placeholder="Pesquisar por NISS..." style="width: 100%; padding: 10px; margin-bottom: 20px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
-            <div id="cards-container"></div>
+            <?php
+                $idEnti = isset($_SESSION['Id_Enti']) ? $_SESSION['Id_Enti'] : null;
+            ?>
+            <div id="cards-container" data-id-enti="<?php echo htmlspecialchars($idEnti); ?>"></div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const idEnti = document.getElementById('cards-container').dataset.idEnti;
+                    fetch(`/ProjetoEstagio/BackEnd/Beneficiario/getBeneficiarios.php?id_enti=${idEnti}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const container = document.getElementById('cards-container');
+                            container.innerHTML = '';
+                            data.forEach(beneficiario => {
+                                const card = document.createElement('div');
+                                card.className = 'card mb-3';
+                                card.innerHTML = `
+                                    <div class="card-body">
+                                        <h5 class="card-title">${beneficiario.nome}</h5>
+                                        <p class="card-text">NISS: ${beneficiario.niss}</p>
+                                    </div>
+                                `;
+                                container.appendChild(card);
+                            });
+                        });
+                });
+            </script>
         </div>
     </main>
 
@@ -32,99 +55,6 @@
             <img src="../../../../Imagens/rfe.png" alt="Refood">
         </div>
     </footer>
-    <script>
-        let todosBeneficiarios = [];
-
-        function verDetalhes(niss) {
-            window.location.href = `././VerDetalhes/DetalhesBeneficiario.php?niss=${niss}`;
-        }
-
-        function formatarDataBr(dataIso) {
-            if (!dataIso) return "Não disponível";
-            const data = new Date(dataIso);
-            return data.toLocaleDateString('pt-BR');
-        }
-
-        function criarCard(beneficiario) {
-            const hoje = new Date().toISOString().split('T')[0];
-            const dataSaida = beneficiario.Data_Saida ? beneficiario.Data_Saida.split('T')[0] : null;
-
-            const mostrarBotaoEliminar = dataSaida === hoje;
-
-            return `
-                <div class="card-custom" data-niss="${beneficiario.NISS}">
-                    <div class="card-header">
-                        <strong>NISS:</strong> ${beneficiario.NISS}
-                    </div>
-                    <div class="card-content">
-                        <div class="data-column">
-                            <p><strong>Data de Admissão:</strong> ${formatarDataBr(beneficiario.Data_Admissao)}</p>
-                        </div>
-                        <div class="data-column">
-                            <p><strong>Data de Saída:</strong> ${formatarDataBr(beneficiario.Data_Saida)}</p>
-                        </div>
-                        <div class="data-column">
-                            <p><strong>Contacto:</strong> ${beneficiario.Contacto}</p>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <button onclick="verDetalhes('${beneficiario.NISS}')">Ver Detalhes</button>
-                        ${mostrarBotaoEliminar ? `<button style="margin-left: 10px; background-color: red;" onclick="eliminarBeneficiario('${beneficiario.NISS}')">Eliminar</button>` : ''}
-                    </div>
-                </div>
-            `;
-        }
-
-        function eliminarBeneficiario(niss) {
-            if (confirm("Tem certeza que deseja eliminar este beneficiário?")) {
-                fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Data/eliminarBeneficiario.php?niss=${niss}`, {
-                    method: 'DELETE'
-                })
-                .then(res => {
-                    if (res.ok) {
-                        // Remove da lista local e atualiza
-                        todosBeneficiarios = todosBeneficiarios.filter(b => b.NISS !== niss);
-                        renderCards(todosBeneficiarios);
-                        alert("Beneficiário eliminado com sucesso.");
-                    } else {
-                        alert("Erro ao eliminar beneficiário.");
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro:', error);
-                    alert("Erro ao eliminar beneficiário.");
-                });
-            }
-        }
-
-        function renderCards(filtrados) {
-            const container = document.getElementById('cards-container');
-            container.innerHTML = "";
-            filtrados.forEach(beneficiario => {
-                container.innerHTML += criarCard(beneficiario);
-            });
-        }
-
-        function setupSearch() {
-            const input = document.getElementById('search-niss');
-            input.addEventListener('input', () => {
-                const termo = input.value.trim();
-                const filtrados = todosBeneficiarios.filter(b => b.NISS.includes(termo));
-                renderCards(filtrados);
-            });
-        }
-
-        // Carregar dados e inicializar tudo
-        fetch('/ProjetoEstagio/BackEnd/Beneficiario/Data/getBeneficiarios.php')
-            .then(res => res.json())
-            .then(data => {
-                todosBeneficiarios = data;
-                renderCards(todosBeneficiarios);
-                setupSearch();
-            })
-            .catch(error => {
-                console.error('Erro ao buscar beneficiários:', error);
-            });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

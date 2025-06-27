@@ -42,31 +42,48 @@
     $row5 = $result5->fetch_assoc();
     $id_Alimentar = $row5['Id_Alimentar'];
     
+    if($data['apoio_saas'] == 1){
+        // Fetch Id_Titular based on nome
+        $result6 = $conn->query("SELECT MAX(Id_Titular) FROM acompanhamento_saas");
+        $row6 = $result6->fetch_assoc();
+        $data['titular'] = $row6['Id_Titular'] + 1;
+    } else {
+        $data['titular'] = null;
+    }
 
     // Prepare and bind the insert statement
     $stmt = $conn->prepare("INSERT INTO beneficiarios (Id_Bene,
         nome_Bene, Genero, NIF, NISS, BI, Morada, Contacto, Cod_Postal,
         Data_nasc, Data_Admissao, Data_Saida, Id_Enti, Id_Apoio,
         Id_Alimentar, Incap_Defec, Auto_Depen, Sit_sem_abrigo,
-        Sit_Emprego, Imigrante, Id_Sigla, rendi_Capita, Observacao
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        Sit_Emprego, Imigrante, Id_Sigla, rendi_Capita, SAAS, Id_Titular, Observacao
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $stmt->bind_param("isssssssssssiiiiiiiiids",
+    $stmt->bind_param("isssssssssssiiiiiiiiidiis",
         $data['Id_Bene'], $data['nome'], $data['genero'], 
         $data['nif'], $data['niss'], $data['bi_cc'],
         $data['morada'], $data['contacto'], $data['cod_postal'], 
         $data['data_nasc'], $data['data_admissao'], $data['data_saida'], 
         $id_Enti, $id_apoio,$id_Alimentar, $data['deficiencia'],
         $data['autonomia'], $data['sem_abrigo'], $data['emprego'],
-        $data['imigrante'], $id_Sigla, $data['rendimento_per_Capita'],$data['observacoes']
+        $data['imigrante'], $id_Sigla, $data['rendimento_per_Capita'], $data['apoio_saas'], $data['titular'], $data['observacoes']
     );
 
     if ($stmt->execute()) {
-        echo json_encode(['success' => true, 'message' => 'Beneficiário registado com sucesso!']);
+        if($data['apoio_saas'] == 1){
+            $stmt2 = $conn->prepare("INSERT INTO acompanhamento_saas (Id_Titular, Id_Bene, nome) VALUES (?, ?, ?)");
+            $stmt2->bind_param("iis", $data['titular'], $data['Id_Bene'], $data['SAASTitular']);
+            
+            if ($stmt2->execute()) {
+                echo json_encode(['success' => true, 'message' => 'Beneficiário registado com sucesso!']);
+            }
+        }
+        
     } else {
         echo json_encode(['success' => false, 'message' => 'Erro ao registar beneficiário: ' . $stmt->error]);
     }
 
     $stmt->close();
+    $stmt2->close();
     $conn->close();
 ?>

@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>CLIS - Beneficiário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Beneficiario/BeneficiarioSubPage.css">
     <script src='/ProjetoEstagio/BackEnd/Beneficiario/Beneficiario.js'></script>
+    <script src="/ProjetoEstagio/BackEnd/MainPageDropdown/DropdownMain.js" defer></script>
+    <link rel="icon" href="/ProjetoEstagio/FrontEnd/Imagens/CLIS.png" type="image/png">
 </head>
 <body>
-    <div class="top-bar">
-        <div class="logo" style="background-color: white; display: flex; align-items: center; justify-content: center; padding: 10px; border-radius: 5px;">
-            <img src="/ProjetoEstagio/FrontEnd/Imagens/LogotipoJunta.png">
-        </div>
-        <div class="title">CLIS - Comissão Local de Intervenção Social</div><br>
-    </div>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/MainPageDropdown/topbar.php'; ?>
 
     <main>
         <div class="menu-container">
             <?php
                 $menuItems = [
-                    ["href" => "/ProjetoEstagio/FrontEnd/Paginas/MainPage/Beneficiario/VerBeneficiarios/VerBeneficiarios.php", "icon" => "../../../Icons/View.png", "alt" => "Ver Beneficiários", "label" => "Ver Beneficiários"],
+                    [
+                        "href" => "/ProjetoEstagio/FrontEnd/Paginas/MainPage/Beneficiario/VerBeneficiarios/VerBeneficiarios.php" . (isset($_SESSION['Id_Enti']) ? "?Id_Enti=" . urlencode($_SESSION['Id_Enti']) : ""),
+                        "icon" => "../../../Icons/View.png",
+                        "alt" => "Ver Beneficiários",
+                        "label" => "Ver Beneficiários"
+                    ],
                     ["href" => "/ProjetoEstagio/FrontEnd/Paginas/MainPage/Beneficiario/Register/Beneficiario.php", "icon" => "../../../Icons/Beneficiario.png", "alt" => "Registar Beneficiários", "label" => "Registar Beneficiários"]
                 ];
 
@@ -37,11 +40,7 @@
         <div class="redes">
             <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
         </div>
-        <div class="logos">
-            <img src="../../../Imagens/logo_adice.png" alt="ADICE">
-            <img src="../../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
-            <img src="../../../Imagens/rfe.png" alt="Refood">
-        </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

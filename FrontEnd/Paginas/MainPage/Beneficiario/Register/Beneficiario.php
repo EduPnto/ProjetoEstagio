@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <title>CLIS - Registo de Beneficiário</title>
     <link rel="stylesheet" href="../../../../CSS/Beneficiario/Register/BeneficiarioRegister.css">
+    <link rel="icon" href="../../../../Imagens/CLIS.png" type="image/png">
     <script src='/ProjetoEstagio/BackEnd/Beneficiario/Beneficiario.js' defer></script>
+    <script src="/ProjetoEstagio/BackEnd/MainPageDropdown/DropdownMain.js" defer></script>
 </head>
 <body>
     <?php
         $data = json_decode(file_get_contents("php://input"), true);
+        include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/MainPageDropdown/topbar.php'; 
         require $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/DataBase/db_connect.php';
 
         if ($conn->connect_error) {
@@ -18,106 +21,77 @@
         $result = $conn->query("SELECT MAX(Id_Bene) AS max_id FROM beneficiarios");
         $row = $result->fetch_assoc();
         $new_id_bene = $row['max_id'] + 1;
+
+        $result6 = $conn->query("SELECT MAX(Id_Titular) AS id_max FROM acompanhamento_saas ");
+        $row6 = $result6->fetch_assoc();
+        $id_titular = $row6['id_max'] + 1;
     ?>
-    <div class="top-bar">
-        <div class="logo" style="background-color: white; display: flex; align-items: center; justify-content: center; padding: 10px; border-radius: 5px;">
-            <img src="/ProjetoEstagio/FrontEnd/Imagens/LogotipoJunta.png">
-        </div>
-        <div class="title">CLIS - Comissão Local de Intervenção Social</div><br>
-    </div>
 
     <main>
-        <div class="form-section respostas" style="width: 50%;">
-            <h3 style="width: 31%;">Respostas Sociais</h3>
-            <div class="resposta-item">
-                <button class="resposta-btn" id="resposta_jfe">JFE</button>
-                <div class="resposta-detalhes" id="resposta_jfe_detalhes">
-                    <ul>
-                        <li id="bpaad">BPAAD</li>
-                        <li id="viver_bem_55">Viver bem aos 55+</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="resposta-item">
-                <button class="resposta-btn" id="resposta_adice">ADICE</button>
-                <div class="resposta-detalhes" id="resposta_adice_detalhes">
-                    <ul>
-                        <li id="formacao">Formação</li>
-                        <li id="acompanhamento">Acompanhamento</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <br>
-        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        
         <h2>Registo de Beneficiário</h2>
 
         <div class="form-section titular">
             <h3 style="width: 5.5%;">Titular</h3>
             <div class="grid-2">
-                <div><label for="nome">Nome</label><input type="text" name="nome" id="nome"></div>
+                <div><label for="nome">Nome</label><input type="text" name="nome" id="nome" required></div>
                 <div style="width: 75%;"><label for="genero">Género</label>
-                    <select name="genero" id="genero">
+                    <select name="genero" id="genero" required>
                         <option>------</option>
                         <option>Masculino</option>
                         <option>Feminino</option>
                     </select>
                 </div>
-                <div style="width: 60%;"><label for="contacto">Contacto</label><input type="text" name="contacto" id="contacto"></div>
+                <div style="width: 60%;"><label for="contacto">Contacto</label><input type="text" name="contacto" id="contacto" required></div>
             </div>
             <div class="grid-3">
                 <div>
                     <label for="nif">NIF</label>
-                    <input type="text" name="nif" id="nif" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <input type="text" name="nif" id="nif" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                 </div>
                 <div>
                     <label for="niss">NISS</label>
-                    <input type="text" name="niss" id="niss" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <input type="text" name="niss" id="niss" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                 </div>
-                <div>
+                <div style="width: 75%;">
                     <label for="bi_cc">BI/CC</label>
-                    <input type="text" name="bi/cc" id="bi_cc" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <input type="text" name="bi/cc" id="bi_cc" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                 </div>
             </div>
             <div class="grid-3">
-                <div><label for="morada">Morada</label><input type="text" name="morada" id="morada"></div>
-                <div class="Postal"><label for="cod_postal">Código Postal</label><input type="text" name="cod_postal" id="cod_postal"></div>
+                <div><label for="morada">Morada</label><input type="text" name="morada" id="morada" required></div>
+                <div class="Postal"><label for="cod_postal">Código Postal</label><input type="text" name="cod_postal" id="cod_postal" required></div>
                 <div class="Nascimento">
                     <label for="data_nasc">Data de Nascimento</label>
-                    <input type="date" name="data_nasc" id="data_nasc">
+                    <input type="date" name="data_nasc" id="data_nasc" required>
                     <span class="idade-display" id="idade_display">Idade: --</span>
                 </div>
             </div>
         </div>
 
-        <br>
-        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
 
         <div class="form-section admissao">
             <h3 style="width: 21%;">Admissão do Beneficiário</h3>
             <div>
                 <label for="data_admissao">Data de Admissão</label>
-                <input type="date" name="data_admissao" id="data_admissao" style="width: 25%;">
+                <input type="date" name="data_admissao" id="data_admissao" style="width: 25%;" required>
             </div>
             <div>
                 <label for="data_saida">Data de Saída</label>
-                <input type="date" name="data_saida" id="data_saida" style="width: 25%;">
+                <input type="date" name="data_saida" id="data_saida" style="width: 25%;" required>
             </div>
         </div>
 
-        <br>
-        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
 
         <div class="form-section agregado">
             <h3 style="width: 15%;">Agregado Familiar</h3>
             <label for="num_elementos">Nº de elementos</label>
-            <input type="number" id="num_elementos" min="0" max="20" style="width: 50px;">
+            <input type="number" id="num_elementos" min="0" max="10" style="width: 50px;">
             <script>
                 const input = document.getElementById('num_elementos');
-                const max = 20;
+                const max = 10;
 
                 input.addEventListener('input', () => {
                     const valor = parseInt(input.value, 10);
@@ -155,28 +129,24 @@
             </script>
         </div>
 
-        <br>
-        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
 
         <div class="form-section apoio">
             <h3 style="width: 11.5%;">Tipo de Apoio</h3>
             <div class="grid-4">
                 <div style="width: 60%;">
                     <label for="apoio_entidade">Entidade</label>
-                    <select id="apoio_entidade" name="apoio_entidade"></select>
+                    <select id="apoio_entidade" name="apoio_entidade" required></select>
                 </div>
                 <div style="width: 70%;">
                     <label for="tipo_apoio">Tipo de Apoio</label>
-                    <select id="tipo_apoio" name="tipo_apoio">
+                    <select id="tipo_apoio" name="tipo_apoio" required>
                         <option value="">------</option>
-                        <option value="Apoio Alimentar">Apoio Alimentar</option>
-                        <option value="Outro Apoio">Outro Apoio</option>
                     </select>
                 </div>
                 <div id="apoio_alimentar_container" style="width: 80%; display: none;">
                     <label for="tipo_alimentar">Tipo de Apoio Alimentar</label>
-                    <select id="tipo_alimentar" name="tipo_apoio_alimentar">
+                    <select id="tipo_alimentar" name="tipo_apoio_alimentar" required>
                     </select>
                 </div>
                 <script>
@@ -193,16 +163,14 @@
                 </script>
             </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section incapacidade">
             <h3 style="width: 33%;">Incapacidade/autonomia do Beneficiário</h3>
             <div class="grid-2">
                 <div>
                     <label for="deficiencia_sim">Deficiência/incapacidade:</label><br>
-                    <input type="checkbox" name="deficiencia" id="deficiencia_sim"> Sim
-                    <input type="checkbox" name="deficiencia" id="deficiencia_nao"> Não
+                    <input type="checkbox" name="deficiencia" id="deficiencia_sim" required> Sim
+                    <input type="checkbox" name="deficiencia" id="deficiencia_nao" required> Não
                     <script>
                         const deficienciaSim = document.getElementById('deficiencia_sim');
                         const deficienciaNao = document.getElementById('deficiencia_nao');
@@ -222,11 +190,9 @@
                 </div>
            </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section abrigo">
-            <h3 style="width: 21%;">Situação face sem abrigo</h3>
+            <h3 style="width: 30%;">Pessoa em situação de sem abrigo</h3>
             <div class="grid-2">
                 <div>
                     <label for="sem_abrigo_sim">Situação sem abrigo:</label><br>
@@ -251,9 +217,7 @@
                 </div>
             </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section autonomia">
             <h3 style="width: 27.5%;">Situação autonomia/dependência</h3>
             <div class="grid-2">
@@ -280,9 +244,7 @@
                 </div>
             </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section emprego">
             <h3 style="width: 7.5%;">Emprego</h3>
             <div class="grid-2">
@@ -309,9 +271,7 @@
                 </div>
             </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section imigrante">
             <h3 style="width: 8%;">Imigrante</h3>
             <div class="grid-2">
@@ -349,18 +309,53 @@
                 </script>
             </div>
         </div>
-        <br>
-        <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
         <div class="form-section rendimento">
-            <h3 style="width: 9.5%;">Rendimento</h3>
+            <h3 style="width: 10%;">Rendimento</h3>
             <div class="grid-4">
-                <div><label for="rendimento_per_Capita">Rendimento per Capita</label><input type="text" name="rendimento_per_Capita" id="rendimento_per_Capita"></div>
+                <div>
+                    <label for="rendimento_per_Capita">Rendimento per Capita</label>
+                    <input type="text" name="rendimento_per_Capita" id="rendimento_per_Capita" oninput="this.value = this.value.replace(/[^0-9.,]/g, '')">
+                </div>
             </div>
         </div>
-        <br>
-            <label style="opacity: 25%;">___________________________________________________________________________________________________________________________</label>
-        <br>
+        <hr>
+        <div class="form-section SAAS">
+            <h3 style="width: 5%;">SAAS</h3>
+            <div class="grid-2">
+                <div>
+                    <label for="apoiosaas_sim">Tem acompanhamento SAAS?</label><br>
+                    <input type="checkbox" name="apoiosaas_sim" id="apoiosaas_sim"> Sim
+                    <input type="checkbox" name="apoiosaas_nao" id="apoiosaas_nao"> Não
+                </div>
+                <div id="apoioadoSAAS" style="display: none;">
+                    <label for="SAASTitular">Nome Titular:</label>
+                    <input type="text" name="SAASTitular" id="SAASTitular">
+                </div>
+                <script>
+                    const Apoioado = document.getElementById('apoiosaas_sim');
+                    const NApoioado = document.getElementById('apoiosaas_nao');
+                    const apoioadoSAASDiv = document.getElementById('apoioadoSAAS');
+
+                    Apoioado.addEventListener('change', () => {
+                        if (Apoioado.checked) {
+                            NApoioado.checked = false;
+                            apoioadoSAASDiv.style.display = 'block';
+                        } else {
+                            apoioadoSAASDiv.style.display = 'none';
+                        }
+                    });
+
+                    NApoioado.addEventListener('change', () => {
+                        if (NApoioado.checked) {
+                            Apoioado.checked = false;
+                            apoioadoSAASDiv.style.display = 'none';
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+        <hr>
         <div class="form-section observacoes">
             <h3 style="width: 11%;">Observações</h3>
             <textarea name="observacoes" id="observacoes" rows="10" cols="80" maxlength="300" style="resize: none; width: 75%;"></textarea>
@@ -395,9 +390,12 @@
                     imigrante: document.getElementById("imigrante_sim").checked ? 1 : (document.getElementById("imigrante_nao").checked ? 0 : null),
                     pais_origem: document.getElementById("pais_origem_select").value,
                     rendimento_per_Capita: document.getElementById("rendimento_per_Capita").value,
+                    apoio_saas: document.getElementById("apoiosaas_sim").checked ? 1 : (document.getElementById("apoiosaas_nao").checked ? 0 : null),
+                    SAASTitular: document.getElementById("SAASTitular").value,
+                    titular: <?php echo $id_titular; ?>,
                     observacoes: document.getElementById("observacoes").value
                 };
-
+                console.log(data);
                 fetch('/ProjetoEstagio/BackEnd/Beneficiario/registar_beneficiario.php', {
                     method: 'POST',
                     headers: {
@@ -428,5 +426,6 @@
             <img src="../../../../Imagens/rfe.png" alt="Refood">
         </div>
     </footer>
+    
 </body>
 </html>

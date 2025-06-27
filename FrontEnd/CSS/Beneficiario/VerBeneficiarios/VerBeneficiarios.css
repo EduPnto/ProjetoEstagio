@@ -4,22 +4,163 @@ html, body {
     display: flex;
     flex-direction: column;
 }
-
 body {
-    flex: 1;
-    font-family: Arial, sans-serif;
-    background: url('../../../Imagens/juntaIMG.jpg') no-repeat center center fixed;
-    background-size: cover;
+  flex: 1;
+  font-family: Arial, sans-serif;
+  background-color: #e2e2e2;
+}
+
+.user-dropdown {
+  position: relative;
+}
+
+.user-trigger {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none; /* Prevent interaction when hidden */
+  display: block;       /* Always keep it block so animation works */
+  position: absolute;
+  right: 0;
+  top: 70px;
+  background-color: #9eec9e;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1000;
+  min-width: 160px;
+}
+
+.dropdown-menu.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 12px;
+  color: black;
+  text-decoration: none;
+  border-bottom: 1px solid #ccc;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f0f0f0;
 }
 
 .top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #5CC535;
-    padding: 10px 20px;
-    height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #5CC535;
+  padding: 10px;
+  padding-top: 0px;
+  height: 70px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  flex-wrap: wrap;
 }
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+}
+
+li a:hover {
+  background-color: #ddd;
+}
+
+li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 5px 16px;
+  border-color: black;
+  text-decoration: none;
+}
+
+.contact-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0 auto;
+  justify-content: center;
+  background-color: #eee;
+  padding: 5px 5%;
+  border-radius: 0px 0px 45px 45px;
+  width: 600px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.logo img {
+  border-radius: 5px;
+  height: 60px;
+  max-width: 100%;
+}
+
+.auth-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.auth-buttons .btn-login,
+.auth-buttons .btn-register {
+  background-color: #58ee0c;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.auth-buttons .btn-register {
+  background-color: #0071eb;
+}
+
+.auth-buttons a {
+  text-decoration: none;
+  color: white;
+}
+
+.btn-login:hover {
+  background-color: #5cbf2a;
+}
+
+.btn-register:hover {
+  background-color: #005bb5;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  color: #333;
+  flex-wrap: wrap;
+}
+
+.user-info .user-img {
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  margin-left: 10px;
+  border: 2px solid #fff;
+  object-fit: cover;
+}
+
 .card-custom {
     background-color: #f5f5f5;
     border: 1px solid #333;
@@ -153,11 +294,15 @@ input#search-niss:focus {
 }
 
 footer {
-    margin-top: auto;
-    text-align: center;
-    padding: 20px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
     background: #333;
+    padding: 10px 0;
+    text-align: center;
     color: white;
+    z-index: 100;
 }
 
     footer .redes a {
