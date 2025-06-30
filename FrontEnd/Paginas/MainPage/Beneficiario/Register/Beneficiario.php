@@ -420,11 +420,8 @@
         <div class="redes">
             <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
         </div>
-        <div class="logos">
-            <img src="../../../../Imagens/logo_adice.png" alt="ADICE">
-            <img src="../../../../Imagens/LogotipoJunta.png" alt="JFE" style="background-color: white; border-radius: 5px; padding: 5px;">
-            <img src="../../../../Imagens/rfe.png" alt="Refood">
-        </div>
+        <hr>
+        <p style="font-size: 12px;">© 2023 CLIS. Todos os direitos reservados.</p>
     </footer>
     
 </body>

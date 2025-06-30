@@ -8,12 +8,19 @@
 
     // Supondo que o Id_Enti do usuário logado está salvo na sessão
     $id_enti = isset($_SESSION['Id_Enti']) ? intval($_SESSION['Id_Enti']) : 0;
-
-    $sql = "SELECT * FROM beneficiarios WHERE Id_Enti = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id_enti);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    if ($id_enti == 0) {
+        $sql = "SELECT * FROM beneficiarios";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    } else {
+        $sql = "SELECT * FROM beneficiarios WHERE Id_Enti = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id_enti);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    }
+    
 
     $beneficiarios = [];
 

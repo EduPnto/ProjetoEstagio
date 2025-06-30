@@ -8,9 +8,6 @@
         <link rel="icon" href="/ProjetoEstagio/FrontEnd/Imagens/CLIS.png" type="image/png">
     </head>
     <body>
-        <div class="Top-Img">
-            <img src="/ProjetoEstagio/FrontEnd/Imagens/CLIS.png">
-        </div>
         <div class="top-bar">
             <div class="logo" style="padding: 5px; border-radius: 5px;">
                 <img src="/ProjetoEstagio/FrontEnd/Imagens/CLIS.png">
@@ -28,6 +25,7 @@
             <?php
                 $menuItems = [
                     ["href" => "EntidadesPublic/MostrarEntidadePublic.php", "icon" => "../../../Icons/Entidades.png", "alt" => "Entidades", "label" => "Entidades"],
+                    ["href" => "EntidadesPublic/MostrarEntidadePublic.php", "icon" => "../../../Icons/Entidades.png", "alt" => "Ajuda e Suporte", "label" => "Ajuda e Suporte"]
                 ];
 
                 foreach ($menuItems as $item) {
@@ -57,68 +55,63 @@
                 $numPresidentes = $result->num_rows;
                 ?>
                 <div id="presidentesCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000" style="max-width: 600px; margin: 40px auto;">
-                <div class="carousel-inner position-relative" style="min-height: 260px;">
-                <?php
-                $active = "active";
-                $result->data_seek(0);
-                while ($row = $result->fetch_assoc()):
-                $nome = htmlspecialchars($row['nome']);
-                $frase = htmlspecialchars($row['frase']);
-                $sigla = htmlspecialchars($row['sigla']);
-                $nomeEnti = htmlspecialchars($row['nome_enti']);
-                $fotoData = $row['foto'];
-                $imgSrc = '';
-                if (!empty($fotoData)) {
-                    $imgSrc = 'data:image/jpeg;base64,' . base64_encode($fotoData);
-                } else {
-                    $imgSrc = '/ProjetoEstagio/FrontEnd/Imagens/default-avatar.png'; // Caminho para imagem padrão
-                }
-                ?>
-                <div class="carousel-item text-center <?= $active ?>">
-                <div class="d-flex align-items-center justify-content-center" style="position: relative;">
-                    <!-- Seta esquerda -->
-                    <button class="carousel-control-prev position-static" type="button" data-bs-target="#presidentesCarousel" data-bs-slide="prev" style="background: none; border: none; margin-right: 10px; height: 150px; display: flex; align-items: center;">
-                    <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(1); width: 32px; height: 32px;"></span>
-                    <span class="visually-hidden">Anterior</span>
-                    </button>
-                    <!-- Foto -->
-                    <img src="<?= $imgSrc ?>" class="d-block mx-auto rounded-circle" alt="<?= $nome ?>" style="width: 150px; height: 150px; object-fit: cover;">
-                    <!-- Seta direita -->
-                    <button class="carousel-control-next position-static" type="button" data-bs-target="#presidentesCarousel" data-bs-slide="next" style="background: none; border: none; margin-left: 10px; height: 150px; display: flex; align-items: center;">
-                    <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(1); width: 32px; height: 32px;"></span>
-                    <span class="visually-hidden">Próximo</span>
-                    </button>
-                </div>
-                <h5 class="mt-3"><?= $nome ?></h5>
-                <p class="text-muted mb-0" style="font-size: 0.95em;">Presidente da <strong><?= $sigla ?></strong></p>
-                <p class="text-muted mb-0" style="font-size: 0.95em;">(<?= $nomeEnti ?>)</p>
-                <br>
-                <p class="fst-italic">"<?= $frase ?>"</p>
-                </div>
-                <?php $active = ""; endwhile; ?>
-                </div>
-                <!-- Pontinhos indicadores -->
-                <div class="carousel-indicators" style="position: static; margin-top: 10px;">
-                <?php for ($i = 0; $i < $numPresidentes; $i++): ?>
-                <button type="button" data-bs-target="#presidentesCarousel" data-bs-slide-to="<?= $i ?>" <?= $i === 0 ? 'class="active"' : '' ?> aria-current="<?= $i === 0 ? 'true' : 'false' ?>" aria-label="Slide <?= $i+1 ?>" style="background-color: #333; width: 10px; height: 10px; border-radius: 50%; margin: 0 4px; border: none;"></button>
-                <?php endfor; ?>
-                </div>
+                    <div class="carousel-inner position-relative" style="min-height: 260px;">
+                        <?php
+                        $active = "active";
+                        $result->data_seek(0);
+                        while ($row = $result->fetch_assoc()):
+                            $nome = htmlspecialchars($row['nome']);
+                            $frase = htmlspecialchars($row['frase']);
+                            $sigla = htmlspecialchars($row['sigla']);
+                            $nomeEnti = htmlspecialchars($row['nome_enti']);
+                            $fotoData = $row['foto'];
+                            $imgSrc = '';
+                        if (!empty($fotoData)) {
+                            $imgSrc = 'data:image/jpeg;base64,' . base64_encode($fotoData);
+                        } else {
+                            $imgSrc = '/ProjetoEstagio/FrontEnd/Icons/user.png'; // Caminho para imagem padrão
+                        }
+                        ?>
+                        <div class="carousel-item text-center <?= $active ?>">
+                            <div class="d-flex align-items-center justify-content-center" style="position: relative;">
+                                <button class="carousel-control-prev position-static" type="button" data-bs-target="#presidentesCarousel" data-bs-slide="prev" style="background: none; border: none; margin-right: 10px; height: 150px; display: flex; align-items: center;">
+                                <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(1); width: 32px; height: 32px;"></span>
+                                <span class="visually-hidden">Anterior</span>
+                                </button>
+                                <img src="<?= $imgSrc ?>" class="d-block mx-auto rounded-circle" alt="<?= $nome ?>" style="width: 150px; height: 150px; object-fit: cover;">
+                                <button class="carousel-control-next position-static" type="button" data-bs-target="#presidentesCarousel" data-bs-slide="next" style="background: none; border: none; margin-left: 10px; height: 150px; display: flex; align-items: center;">
+                                <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(1); width: 32px; height: 32px;"></span>
+                                <span class="visually-hidden">Próximo</span>
+                                </button>
+                            </div>
+                            <h5 class="mt-3"><?= $nome ?></h5>
+                            <p class="text-muted mb-0" style="font-size: 0.95em;">Presidente da <strong><?= $sigla ?></strong></p>
+                            <p class="text-muted mb-0" style="font-size: 0.95em;">(<?= $nomeEnti ?>)</p>
+                            <br>
+                            <p class="fst-italic">"<?= $frase ?>"</p>
+                        </div>
+                        <?php $active = ""; endwhile; ?>
+                    </div>
+                    <div class="carousel-indicators" style="position: static; margin-top: 10px;">
+                        <?php for ($i = 0; $i < $numPresidentes; $i++): ?>
+                        <button type="button" data-bs-target="#presidentesCarousel" data-bs-slide-to="<?= $i ?>" <?= $i === 0 ? 'class="active"' : '' ?> aria-current="<?= $i === 0 ? 'true' : 'false' ?>" aria-label="Slide <?= $i+1 ?>" style="background-color: #333; width: 10px; height: 10px; border-radius: 50%; margin: 0 4px; border: none;"></button>
+                        <?php endfor; ?>
+                    </div>
                 </div>
                 <script>
-                // Força o carrossel a rodar sempre, mesmo se só houver um item
-                document.addEventListener('DOMContentLoaded', function() {
-                var carousel = document.querySelector('#presidentesCarousel');
-                if (carousel) {
-                var bsCarousel = bootstrap.Carousel.getOrCreateInstance(carousel, { interval: 4000, ride: 'carousel', wrap: true });
-                bsCarousel.cycle();
-                }
-                });
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var carousel = document.querySelector('#presidentesCarousel');
+                        if (carousel) {
+                            var bsCarousel = bootstrap.Carousel.getOrCreateInstance(carousel, { interval: 4000, ride: 'carousel', wrap: true });
+                            bsCarousel.cycle();
+                        }
+                    });
                 </script>
                 <?php
-                else:
-                echo "<div class='text-center my-4'>Nenhum presidente encontrado.</div>";
-                endif;
-                $conn->close();
+                    else:
+                        echo "<div class='text-center my-4'>Nenhum presidente encontrado.</div>";
+                    endif;
+                    $conn->close();
                 ?>
             </div>
         </div>
@@ -128,6 +121,8 @@
             <div class="redes">
                 <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
             </div>
+            <hr>
+            <p style="font-size: 12px;">© 2023 CLIS. Todos os direitos reservados.</p>
         </footer>
         <script>
             window.addEventListener("scroll", function () {

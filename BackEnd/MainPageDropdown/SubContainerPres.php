@@ -7,7 +7,6 @@
             exit;
         }
 
-        // Consulta presidentes, sigla e nome completo da entidade correspondente
         $sql = "SELECT p.nome_Pres as nome, p.frase_pres as frase, p.foto_pres as foto, p.Id_Enti as entidade, e.Sigla as sigla, e.nome as nome_enti
         FROM presidentes p
         LEFT JOIN entidades e ON p.Id_Enti = e.Id_Enti

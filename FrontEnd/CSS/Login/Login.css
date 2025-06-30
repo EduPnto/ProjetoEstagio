@@ -147,15 +147,15 @@ main {
 }
 
 footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background: #333;
-    padding: 10px 0;
-    text-align: center;
-    color: white;
-    z-index: 100;
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #333;
+  padding: 10px 0;
+  text-align: center;
+  color: white;
+  z-index: 100;
 }
 
 footer .redes a {
