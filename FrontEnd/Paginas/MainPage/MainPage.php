@@ -13,34 +13,53 @@
   
   <div class="menu-container">
     <?php
+      if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+      }
+
       if (isset($_SESSION['user'])) {
-        $menuItems = [
-          ["href" => "Entidades/MostrarEntidades.php", "icon" => "../../Icons/Entidades.png", "alt" => "Entidades", "label" => "Entidades"],
-          ["href" => "Beneficiario/SubPageBeneficiario.php", "icon" => "../../Icons/Beneficiario.png", "alt" => "Beneficiários", "label" => "Beneficiários"],
-          ["href" => "Produtos/ProdutosMenu.php", "icon" => "../../Icons/Produtos.png", "alt" => "Produtos", "label" => "Produtos"],
-          ["href" => "Emprestimos/EmprestimosMenu.php", "icon" => "../../Icons/Emprestimos.png", "alt" => "Empréstimos", "label" => "Empréstimos"],
-          ["href" => "documentacao.php", "icon" => "../../Icons/Documentos.png", "alt" => "Documentação", "label" => "Documentação"],
-          ["href" => "comunicacao.php", "icon" => "../../Icons/comunicacao.png", "alt" => "Ajuda e Suporte", "label" => "Ajuda e Suporte"]
-        ];
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/Database/db_connect.php';
+        $userName = $_SESSION['user'];
+        $stmt = $conn->prepare("SELECT Id_Enti FROM users WHERE nome = ?");
+        $stmt->bind_param("s", $userName);
+        $stmt->execute();
+        $stmt->bind_result($idEnti);
+        $stmt->fetch();
+        $stmt->close();
+
+        if ($idEnti == 0) {
+          $menuItems = [
+            ["href" => "Entidades/MostrarEntidades.php", "icon" => "../../Icons/Entidades.png", "alt" => "Entidades", "label" => "Entidades"],
+            ["href" => "Beneficiario/SubPageBeneficiario.php", "icon" => "../../Icons/Beneficiario.png", "alt" => "Beneficiários", "label" => "Beneficiários"],
+            ["href" => "Produtos/ProdutosMenu.php", "icon" => "../../Icons/Produtos.png", "alt" => "Produtos", "label" => "Produtos"],
+            ["href" => "Emprestimos/EmprestimosMenu.php", "icon" => "../../Icons/Emprestimos.png", "alt" => "Empréstimos", "label" => "Empréstimos"],
+            ["href" => "documentacao.php", "icon" => "../../Icons/Documentos.png", "alt" => "Documentação", "label" => "Documentação"],
+            ["href" => "comunicacao.php", "icon" => "../../Icons/comunicacao.png", "alt" => "Ajuda e Suporte", "label" => "Ajuda e Suporte"]
+          ];
+        } else {
+          $menuItems = [
+            ["href" => "Entidades/Mostrar/MostrarEntidades.php", "icon" => "../../Icons/Entidades.png", "alt" => "Entidades", "label" => "Entidades"],
+            ["href" => "Beneficiario/SubPageBeneficiario.php", "icon" => "../../Icons/Beneficiario.png", "alt" => "Beneficiários", "label" => "Beneficiários"],
+            ["href" => "Produtos/ProdutosMenu.php", "icon" => "../../Icons/Produtos.png", "alt" => "Produtos", "label" => "Produtos"],
+            ["href" => "Emprestimos/EmprestimosMenu.php", "icon" => "../../Icons/Emprestimos.png", "alt" => "Empréstimos", "label" => "Empréstimos"],
+            ["href" => "documentacao.php", "icon" => "../../Icons/Documentos.png", "alt" => "Documentação", "label" => "Documentação"],
+            ["href" => "comunicacao.php", "icon" => "../../Icons/comunicacao.png", "alt" => "Ajuda e Suporte", "label" => "Ajuda e Suporte"]
+          ];
+        }
 
         foreach ($menuItems as $item) {
-          echo '<a href="' . $item["href"] . '" class="menu-btn">';
+          echo '<a href="' . $item["href"] . '" class="menu-btn"' . (empty($item["href"]) ? ' style="pointer-events:none;opacity:0.5;"' : '') . '>';
           echo '<img src="' . $item["icon"] . '" alt="' . $item["alt"] . '">';
           echo '<span>' . $item["label"] . '</span>';
           echo '</a>';
         }
       } else {
         $menuItems = [
-          ["href" => "Entidades/MostrarEntidades.php", "icon" => "../../Icons/Entidades.png", "alt" => "Entidades", "label" => "Entidades"],
-          ["href" => "", "icon" => "../../Icons/Beneficiario.png", "alt" => "Beneficiários", "label" => "Beneficiários"],
-          ["href" => "", "icon" => "../../Icons/Produtos.png", "alt" => "Produtos", "label" => "Produtos"],
-          ["href" => "", "icon" => "../../Icons/Emprestimos.png", "alt" => "Empréstimos", "label" => "Empréstimos"],
-          ["href" => "", "icon" => "../../Icons/Documentos.png", "alt" => "Documentação", "label" => "Documentação"],
-          ["href" => "", "icon" => "../../Icons/comunicacao.png", "alt" => "Ajuda e Suporte", "label" => "Ajuda e Suporte"]
+          ["href" => "Entidades/Mostrar/MostrarEntidades.php", "icon" => "../../Icons/Entidades.png", "alt" => "Entidades", "label" => "Entidades"]
         ];
 
         foreach ($menuItems as $item) {
-          echo '<a href="' . $item["href"] . '" class="menu-btn">';
+          echo '<a href="' . $item["href"] . '" class="menu-btn"' . (empty($item["href"]) ? ' style="pointer-events:none;opacity:0.5;"' : '') . '>';
           echo '<img src="' . $item["icon"] . '" alt="' . $item["alt"] . '">';
           echo '<span>' . $item["label"] . '</span>';
           echo '</a>';

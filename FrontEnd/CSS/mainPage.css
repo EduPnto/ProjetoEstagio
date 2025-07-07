@@ -205,9 +205,7 @@ li a {
 }
 
 footer {
-  position: relative;
-  left: 0;
-  bottom: 0;
+  margin-top: auto;
   width: 100%;
   background: #333;
   padding: 10px 0;
@@ -215,7 +213,6 @@ footer {
   color: white;
   z-index: 100;
 }
-
 footer .redes a {
   color: white;
   margin: 0 5px;
