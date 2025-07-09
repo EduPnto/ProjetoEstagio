@@ -36,10 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     alert(data.message || 'Registo falhou.');
                 }
             })
-            .catch(error => {
-                console.error('Erro na requisição:', error);
-                alert('Erro na requisição: ' + error.message);
-            });
         });
     } else {
         console.error("RegisterForm element not found.");
