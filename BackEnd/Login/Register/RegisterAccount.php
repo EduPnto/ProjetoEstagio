@@ -15,6 +15,19 @@
     if (isset($_FILES['foto_perfil']) && $_FILES['foto_perfil']['error'] === UPLOAD_ERR_OK) {
         $foto_perfil = file_get_contents($_FILES['foto_perfil']['tmp_name']);
     }
+    // Verifica se já existe um utilizador com o mesmo email ou nome
+    $checkStmt = $conn->prepare("SELECT * FROM users WHERE email = ? OR nome = ?");
+    $checkStmt->bind_param("ss", $email, $nome);
+    $checkStmt->execute();
+    $checkStmt->store_result();
+
+    if ($checkStmt->num_rows > 0) {
+        echo json_encode(['success' => false, 'message' => 'Já existe um utilizador com este email ou nome.']);
+        $checkStmt->close();
+        $conn->close();
+        exit;
+    }
+    $checkStmt->close();
 
     $result = $conn->query("SELECT MAX(ID) AS max_id FROM users");
     $row = $result->fetch_assoc();
@@ -23,7 +36,7 @@
     $hashedSenha = password_hash($senha, PASSWORD_BCRYPT);
 
     $stmt = $conn->prepare("INSERT INTO users (ID, Id_Enti, nome, senha, email, foto_perfil) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("iisssb", $ID, $entidade, $nome, $hashedSenha, $email, $foto_perfil);
+    $stmt->bind_param("iissss", $ID, $entidade, $nome, $hashedSenha, $email, $foto_perfil);
 
     if ($stmt->execute()) {
         echo json_encode(['success' => true, 'message' => 'Account registered successfully.']);

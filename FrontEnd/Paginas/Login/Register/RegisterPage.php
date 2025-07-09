@@ -21,14 +21,14 @@
   <div class="contact-bar" style="display: center;">
       <ul>
           <li><a href="/ProjetoEstagio/FrontEnd/Paginas/MainPage/MainPage.php" style="border-right: 1px solid;">Início</a></li>
-          <li><a href="#contact" style="border-right: 1px solid;">Entidades e Parceiros</a></li>
+          <li><a href="/ProjetoEstagio/FrontEnd/Paginas/MainPage/Entidades/Mostrar/MostrarEntidades.php" style="border-right: 1px solid;">Entidades e Parceiros</a></li>
           <li><a href="#about">Sobre nós</a></li>
       </ul>
   </div>
   <main>
     <div class="login-box">
       <h2>Registar</h2>
-      <form id="RegisterForm" method="POST" enctype="multipart/form-data">
+      <form id="RegisterForm" method="POST" enctype="multipart/form-data" action="/ProjetoEstagio/BackEnd/Login/Register/RegisterAccount.php">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
         

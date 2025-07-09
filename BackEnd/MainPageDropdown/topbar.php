@@ -60,7 +60,7 @@
   <div class="contact-bar" style="display: center;">
       <ul>
           <li><a href="/ProjetoEstagio/FrontEnd/Paginas/MainPage/MainPage.php" style="border-right: 1px solid;">Início</a></li>
-          <li><a href="#contact" style="border-right: 1px solid;">Entidades e Parceiros</a></li>
+          <li><a href="/ProjetoEstagio/FrontEnd/Paginas/MainPage/Entidades/Mostrar/MostrarEntidades.php" style="border-right: 1px solid;">Entidades e Parceiros</a></li>
           <li><a href="#about">Sobre nós</a></li>
       </ul>
   </div>
