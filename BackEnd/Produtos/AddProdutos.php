@@ -34,9 +34,9 @@
     $ID = $row['max_id'] + 1;
 
     $continuidade = 1;
-
-    $stmt = $conn->prepare("INSERT INTO produtos (Id_Prod, Id_Category, Id_Enti, nome_Prod, Quantidade, Image_Prod, Continuidade) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("iiisisi", $ID, $categoria, $entidade, $nome, $quantidade, $foto_prod, $continuidade);
+    $Qtd_emp = 0;
+    $stmt = $conn->prepare("INSERT INTO produtos (Id_Prod, Id_Category, Id_Enti, nome_Prod, Quantidade, Quantidade_emp, Image_Prod, Continuidade) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("iiisisi", $ID, $categoria, $entidade, $nome, $quantidade, $Qtd_emp, $foto_prod, $continuidade);
 
     if ($stmt->execute()) {
         echo json_encode(['success' => true, 'message' => 'Product registered successfully.']);

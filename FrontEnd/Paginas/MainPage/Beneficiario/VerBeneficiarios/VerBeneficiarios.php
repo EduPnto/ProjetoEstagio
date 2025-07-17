@@ -18,29 +18,7 @@
             <?php
                 $idEnti = isset($_SESSION['Id_Enti']) ? $_SESSION['Id_Enti'] : null;
             ?>
-            <div id="cards-container" data-id-enti="<?php echo htmlspecialchars($idEnti); ?>"></div>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const idEnti = document.getElementById('cards-container').dataset.idEnti;
-                    fetch(`/ProjetoEstagio/BackEnd/Beneficiario/getBeneficiarios.php?id_enti=${idEnti}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            const container = document.getElementById('cards-container');
-                            container.innerHTML = '';
-                            data.forEach(beneficiario => {
-                                const card = document.createElement('div');
-                                card.className = 'card mb-3';
-                                card.innerHTML = `
-                                    <div class="card-body">
-                                        <h5 class="card-title">${beneficiario.nome}</h5>
-                                        <p class="card-text">NISS: ${beneficiario.niss}</p>
-                                    </div>
-                                `;
-                                container.appendChild(card);
-                            });
-                        });
-                });
-            </script>
+            <div id="cards-container"></div>
         </div>
     </main>
 
