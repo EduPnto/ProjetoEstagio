@@ -105,6 +105,8 @@
             <form method="POST" id="familiarForm">
                 <button type="button" id="Inserir_Familiar" style="float: right;">Inserir no registo</button>
             </form>
+            <br>
+            <br>
             <script>
                 document.getElementById("Inserir_Familiar").addEventListener("click", () => {
                     const niss = Array.from(document.querySelectorAll("#agregado_niss")).map(input => input.value);
@@ -128,9 +130,7 @@
                 });
             </script>
         </div>
-
         <hr>
-
         <div class="form-section apoio">
             <h3 style="width: 11.5%;">Tipo de Apoio</h3>
             <div class="grid-4">

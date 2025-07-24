@@ -12,7 +12,8 @@
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/MainPageDropdown/topbar.php'; ?>
     
     <main>
-        <h2>Registo de Produto</h2>
+        <h2 style="text-align: center;">Registo de Produto</h2>
+        <hr style="width: 35%; opacity: 0.5;">
         <form id="RegisterForm" method="POST" enctype="multipart/form-data">
             <div class="form-section titular">
                 <h3 style="width: 8%;">Detalhes</h3>
@@ -60,11 +61,10 @@
                 </div>
                 <label for="foto_perfil">Imagem do Produto:</label>
                 <input type="file" id="foto_produto" name="foto_produto" accept="image/*" onchange="previewImage(event)" required>
-                <br>
                 <img id="foto_prod_preview" src="#" alt="Pré-visualização do Produto" style="display:none; max-width:150px; max-height:150px; margin-top:10px;"/>
                 <br>
             </div>
-            <hr>
+            <hr style="width: 95%; opacity: 0.5;">
             <div class="form-section apoio">
                 <h3 style="width: 10%;">Fornecedor</h3>
                 <div class="grid-4">
