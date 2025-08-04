@@ -2,7 +2,7 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>CLIS - Registo de Beneficiário</title>
+    <title>CLIS - Registo de Empréstimo</title>
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Produtos/Adicionar/ProdutosAdd.css">
     <link rel="icon" href="../../../../Imagens/CLIS.png" type="image/png">
     <script src="/ProjetoEstagio/BackEnd/MainPageDropdown/DropdownMain.js" defer></script>

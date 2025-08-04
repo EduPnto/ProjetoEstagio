@@ -2,12 +2,12 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>CLIS - Beneficiário</title>
+    <title>CLIS - Empréstimos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/ProjetoEstagio/FrontEnd/CSS/Beneficiario/VerBeneficiarios/VerBeneficiarios.css">
     <script src="/ProjetoEstagio/BackEnd/MainPageDropdown/DropdownMain.js" defer></script>
     <link rel="icon" href="/ProjetoEstagio/FrontEnd/Imagens/CLIS.png" type="image/png">
-    <script src="/ProjetoEstagio/BackEnd/Beneficiario/VerBeneficiarios.js"></script>
+    <script src="/ProjetoEstagio/BackEnd/Emprestimos/VerEmprestimos.js"></script>
 </head>
 <body>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/MainPageDropdown/topbar.php'; ?>
@@ -18,7 +18,6 @@
             <div id="cards-container"></div>
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    const idEnti = document.getElementById('cards-container').dataset.idEnti;
                     fetch(`/ProjetoEstagio/BackEnd/Emprestimos/getEmprestimos.php`)
                         .then(response => response.json())
                         .then(data => {
@@ -29,8 +28,8 @@
                                 card.className = 'card mb-3';
                                 card.innerHTML = `
                                     <div class="card-body">
-                                        <h5 class="card-title">${beneficiario.nome}</h5>
-                                        <p class="card-text">NISS: ${beneficiario.niss}</p>
+                                        <h5 class="card-title">${Emprestimo.nome}</h5>
+                                        <p class="card-text">NISS: ${Emprestimo.niss}</p>
                                     </div>
                                 `;
                                 container.appendChild(card);
