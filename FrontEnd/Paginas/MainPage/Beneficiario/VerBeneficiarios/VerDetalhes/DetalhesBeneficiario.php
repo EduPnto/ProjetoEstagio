@@ -47,15 +47,15 @@
                 <div class="Nascimento">
                     <label for="data_nasc">Data de Nascimento</label>
                     <input type="date" name="data_nasc" id="data_nasc">
-                    <span class="idade-display" id="idade_display">Idade: --</span>
+                    <span class="idade-display" id="idade-display">Idade: --</span>
                 </div>
             </div>
             <script>
-                const dataNascInput = document.getElementById("data_nasc");
-                const idadeDisplay = document.getElementById("idade_display");
+                const idadeDisplay = document.getElementById("idade-display");
+                const inputDataNasc = document.getElementById("data_nasc");
 
-                dataNascInput.addEventListener("input", () => {
-                    const dataNasc = new Date(dataNascInput.value);
+                function atualizarIdade() {
+                    const dataNasc = new Date(inputDataNasc.value);
                     const hoje = new Date();
 
                     if (!isNaN(dataNasc)) {
@@ -68,7 +68,11 @@
                     } else {
                         idadeDisplay.textContent = "Idade: --";
                     }
-                });
+                }
+
+                inputDataNasc.addEventListener("input", atualizarIdade);
+
+                window.addEventListener("DOMContentLoaded", atualizarIdade);
             </script>
         </div>
 
@@ -86,6 +90,32 @@
             </div>
         </div>
 
+        <hr>
+
+        <div class="form-section agregado">
+            <h3 style="width: 15%;">Agregado Familiar</h3>
+            <label for="num_elementos">Nº de elementos</label>
+            <input type="number" id="num_elementos" min="0" max="10" style="width: 50px;">
+            <script>
+                const input = document.getElementById('num_elementos');
+                const max = 10;
+
+                input.addEventListener('input', () => {
+                    const valor = parseInt(input.value, 10);
+
+                    if (!isNaN(valor) && valor > max) {
+                    input.value = max;
+                    }
+                });
+            </script>
+            <div id="agregado_campos"></div>
+            <form method="POST" id="familiarForm">
+                <button type="button" id="Inserir_Familiar" style="float: right;">Alterar o registo</button>
+            </form>
+            <br>
+            <br>
+        </div>
+        
         <hr>
 
         <div class="form-section apoio">

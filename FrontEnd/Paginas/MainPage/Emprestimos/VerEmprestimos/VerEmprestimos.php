@@ -15,14 +15,11 @@
     <main>
         <div class="menu-container">
             <input type="text" id="search-niss" placeholder="Pesquisar por NISS..." style="width: 100%; padding: 10px; margin-bottom: 20px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
-            <?php
-                $idEnti = isset($_SESSION['Id_Enti']) ? $_SESSION['Id_Enti'] : null;
-            ?>
             <div id="cards-container"></div>
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     const idEnti = document.getElementById('cards-container').dataset.idEnti;
-                    fetch(`/ProjetoEstagio/BackEnd/Beneficiario/getEmprestimos.php`)
+                    fetch(`/ProjetoEstagio/BackEnd/Emprestimos/getEmprestimos.php`)
                         .then(response => response.json())
                         .then(data => {
                             const container = document.getElementById('cards-container');

@@ -8,7 +8,7 @@ html, body {
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: url('../../../Imagens/juntaIMG.jpg') no-repeat center center fixed;
+    background: url('/ProjetoEstagio/FrontEnd/Imagens/JuntaIMGBackGround.JPG') no-repeat center center fixed;
     background-size: cover;
 }
 

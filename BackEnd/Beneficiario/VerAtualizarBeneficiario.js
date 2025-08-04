@@ -46,6 +46,7 @@ function preencherFormulario(data) {
     setValue('contacto', data.Contacto || data.contacto || '');
     setValue('cod_postal', data.Cod_Postal || data.cod_postal || '');
     setValue('data_nasc', data.Data_nasc || data.data_nasc || '');
+    atualizarIdade();
     setValue('data_admissao', data.Data_Admissao || data.data_admissao || '');
     setValue('data_saida', data.Data_Saida || data.data_saida || '');
     setValue('observacoes', data.Observacao || data.observacoes || '');
@@ -94,6 +95,43 @@ function preencherFormulario(data) {
                 if (select) select.innerHTML = '<option value="">Selecione</option>';
             });
     }
+
+    fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Familiar/getFamiliar.php?idFamiliar=${data.Id_Bene}`)
+        .then(response => response.json())
+        .then(familiares => {
+            const agregadoContainer = document.getElementById("agregado_campos");
+            
+
+            const numElementos = document.getElementById("num_elementos");
+            numElementos.value = familiares.length;
+
+
+            familiares.forEach((familiar, index) => {
+                const div = document.createElement("div");
+                div.classList.add("agregado-item");
+
+                div.innerHTML = `
+                    <label>NISS:</label>
+                    <input type="text" name="agregado_niss_${index}" value="${familiar.NISS || ''}" style="width: 50%;">
+                    
+                    <label>Data de Nascimento:</label>
+                    <input type="date" name="agregado_data_${index}" value="${familiar.Data_nasc || ''}" style="width: 15%;">
+                    
+                    <label>Género:</label>
+                    <select name="agregado_genero_${index}" style="width: 10%;">
+                        <option value="Masculino" ${familiar.genero === "Masculino" ? "selected" : ""}>Masculino</option>
+                        <option value="Feminino" ${familiar.genero === "Feminino" ? "selected" : ""}>Feminino</option>
+                    </select>
+                `;
+
+                agregadoContainer.appendChild(div);
+            });
+        })
+        .catch(error => {
+        console.error("Erro ao carregar familiares:", error);
+        agregadoContainer.innerHTML = "<p>Erro ao carregar os dados dos familiares.</p>";
+    });
+
     setValue('Id_Alimentar', data.Id_Alimentar || '');
     setValue('Id_Sigla', data.Id_Sigla || '');
     setValue('rendimento_per_Capita', data.rendi_Capita || '');

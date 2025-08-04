@@ -66,7 +66,7 @@
         }
       }
     ?>
-    <hr style="width: 90%; margin: 20px auto; border-top: 2px solid #ccc;">
+    <hr style="width: 90%; margin: 20px auto; border-top: 2px solid black; opacity: 15%;">
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/MainPageDropdown/SubContainerPres.php'; ?>
   </div>
 

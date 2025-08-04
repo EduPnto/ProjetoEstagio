@@ -4,10 +4,12 @@ html, body {
     display: flex;
     flex-direction: column;
 }
+
 body {
   flex: 1;
   font-family: Arial, sans-serif;
-  background-color: #e2e2e2;
+  background: url('/ProjetoEstagio/FrontEnd/Imagens/JuntaIMGBackGround.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
 
 .user-dropdown {
