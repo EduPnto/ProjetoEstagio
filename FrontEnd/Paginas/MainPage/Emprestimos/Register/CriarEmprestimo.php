@@ -66,9 +66,6 @@
                         </select>
                     </div>
 
-                    <script>
-                        
-                    </script>
                     <div>
                         <label for="quantidade">Quantidade</label>
                         <input type="text" name="quantidade" id="quantidade" style="width: 25%;" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
