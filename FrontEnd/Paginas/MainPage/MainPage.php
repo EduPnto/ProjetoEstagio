@@ -55,7 +55,8 @@
         }
       } else {
         $menuItems = [
-          ["href" => "Entidades/Mostrar/MostrarEntidades.php", "icon" => "../../Icons/Entidades.png", "alt" => "Entidades", "label" => "Entidades"]
+          ["href" => "Entidades/Mostrar/MostrarEntidades.php", "icon" => "../../Icons/Entidades.png", "alt" => "Entidades", "label" => "Entidades"],
+          ["href" => "comunicacao.php", "icon" => "../../Icons/comunicacao.png", "alt" => "Ajuda e Suporte", "label" => "Ajuda e Suporte"]
         ];
 
         foreach ($menuItems as $item) {

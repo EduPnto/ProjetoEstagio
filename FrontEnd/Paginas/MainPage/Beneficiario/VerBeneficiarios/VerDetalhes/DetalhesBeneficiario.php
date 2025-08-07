@@ -14,344 +14,343 @@
 
     <main>
         <h2>Registo de Beneficiário</h2>
-
-        <div class="form-section titular">
-            <h3 style="width: 5.5%;">Titular</h3>
-            <div class="grid-2">
-                <div><label for="nome">Nome</label><input type="text" name="nome" id="nome"></div>
-                <div style="width: 75%;"><label for="genero">Género</label>
-                    <select name="genero" id="genero">
-                        <option>Masculino</option>
-                        <option>Feminino</option>
-                    </select>
-                </div>
-                <div style="width: 60%;"><label for="contacto">Contacto</label><input type="text" name="contacto" id="contacto"></div>
-            </div>
-            <div class="grid-3">
-                <div>
-                    <label for="nif">NIF</label>
-                    <input type="text" name="nif" id="nif" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                </div>
-                <div>
-                    <label for="niss">NISS</label>
-                    <input type="text" name="niss" id="niss" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                </div>
-                <div>
-                    <label for="bi_cc">BI/CC</label>
-                    <input type="text" name="bi/cc" id="bi_cc" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                </div>
-            </div>
-            <div class="grid-3">
-                <div><label for="morada">Morada</label><input type="text" name="morada" id="morada"></div>
-                <div class="Postal"><label for="cod_postal">Código Postal</label><input type="text" name="cod_postal" id="cod_postal"></div>
-                <div class="Nascimento">
-                    <label for="data_nasc">Data de Nascimento</label>
-                    <input type="date" name="data_nasc" id="data_nasc">
-                    <span class="idade-display" id="idade-display">Idade: --</span>
-                </div>
-            </div>
-            <script>
-                const idadeDisplay = document.getElementById("idade-display");
-                const inputDataNasc = document.getElementById("data_nasc");
-
-                function atualizarIdade() {
-                    const dataNasc = new Date(inputDataNasc.value);
-                    const hoje = new Date();
-
-                    if (!isNaN(dataNasc)) {
-                        let idade = hoje.getFullYear() - dataNasc.getFullYear();
-                        const mes = hoje.getMonth() - dataNasc.getMonth();
-                        if (mes < 0 || (mes === 0 && hoje.getDate() < dataNasc.getDate())) {
-                            idade--;
-                        }
-                        idadeDisplay.textContent = `Idade: ${idade}`;
-                    } else {
-                        idadeDisplay.textContent = "Idade: --";
-                    }
-                }
-
-                inputDataNasc.addEventListener("input", atualizarIdade);
-
-                window.addEventListener("DOMContentLoaded", atualizarIdade);
-            </script>
-        </div>
-
-        <hr>
-
-        <div class="form-section admissao">
-            <h3 style="width: 21%;">Admissão do Beneficiário</h3>
-            <div>
-                <label for="data_admissao">Data de Admissão</label>
-                <input type="date" name="data_admissao" id="data_admissao" style="width: 25%;">
-            </div>
-            <div>
-                <label for="data_saida">Data de Saída</label>
-                <input type="date" name="data_saida" id="data_saida" style="width: 25%;">
-            </div>
-        </div>
-
-        <hr>
-
-        <div class="form-section agregado">
-            <h3 style="width: 15%;">Agregado Familiar</h3>
-            <label for="num_elementos">Nº de elementos</label>
-            <input type="number" id="num_elementos" min="0" max="10" style="width: 50px;">
-            <script>
-                const input = document.getElementById('num_elementos');
-                const max = 10;
-
-                input.addEventListener('input', () => {
-                    const valor = parseInt(input.value, 10);
-
-                    if (!isNaN(valor) && valor > max) {
-                    input.value = max;
-                    }
-                });
-            </script>
-            <div id="agregado_campos"></div>
-            <form method="POST" id="familiarForm">
-                <button type="button" id="Inserir_Familiar" style="float: right;">Alterar o registo</button>
-            </form>
-            <br>
-            <br>
-        </div>
-        
-        <hr>
-
-        <div class="form-section apoio">
-            <h3 style="width: 11.5%;">Tipo de Apoio</h3>
-            <div class="grid-4">
-                <div style="width: 60%;">
-                    <label for="apoio_entidade">Entidade</label>
-                    <select id="apoio_entidade" name="apoio_entidade"></select>
-                </div>
-                <div style="width: 70%;">
-                    <label for="tipo_apoio">Tipo de Apoio</label>
-                    <select id="tipo_apoio" name="tipo_apoio">
-                        <option value="">------</option>
-                    </select>
-                </div>
-                <script>
-                    const tipoApoioSelect = document.getElementById('tipo_apoio');
-                    const apoioContainer = document.createElement('div');
-                    apoioContainer.style.width = '70%';
-                    apoioContainer.innerHTML = `
-                        <label for="tipo_alimentar">Tipo de Apoio Alimentar</label>
-                        <select id="tipo_alimentar" name="tipo_alimentar">
-                            <option value="">------</option>
-                            <!-- Adiciona opções no carregamento -->
+        <form method="POST" id="UpdateForm">
+            <div class="form-section titular">
+                <h3 style="width: 5.5%;">Titular</h3>
+                <div class="grid-2">
+                    <div><label for="nome">Nome</label><input type="text" name="nome" id="nome"></div>
+                    <div style="width: 75%;"><label for="genero">Género</label>
+                        <select name="genero" id="genero">
+                            <option>Masculino</option>
+                            <option>Feminino</option>
                         </select>
-                    `;
-
-                    tipoApoioSelect.addEventListener('change', () => {
-                        const parent = tipoApoioSelect.closest('.grid-4');
-                        const existingApoio = document.getElementById('tipo_alimentar');
-                        if (tipoApoioSelect.value === "Apoio Alimentar") {
-                            if (!existingApoio) {
-                                parent.appendChild(apoioContainer);
-                            }
-                        } else if (existingApoio) {
-                            apoioContainer.remove();
-                        }
-                    });
-                </script>
-            </div>
-        </div>
-        <hr>
-        <div class="form-section incapacidade">
-            <h3 style="width: 33%;">Incapacidade/autonomia do Beneficiário</h3>
-            <div class="grid-2">
-                <div>
-                    <label for="deficiencia_sim">Deficiência/incapacidade:</label><br>
-                    <input type="checkbox" name="deficiencia" id="deficiencia_sim"> Sim
-                    <input type="checkbox" name="deficiencia" id="deficiencia_nao"> Não
-                    <script>
-                        const deficienciaSim = document.getElementById('deficiencia_sim');
-                        const deficienciaNao = document.getElementById('deficiencia_nao');
-
-                        deficienciaSim.addEventListener('change', () => {
-                            if (deficienciaSim.checked) {
-                                deficienciaNao.checked = false;
-                            }
-                        });
-
-                        deficienciaNao.addEventListener('change', () => {
-                            if (deficienciaNao.checked) {
-                                deficienciaSim.checked = false;
-                            }
-                        });
-                    </script>
+                    </div>
+                    <div style="width: 60%;"><label for="contacto">Contacto</label><input type="text" name="contacto" id="contacto"></div>
                 </div>
-           </div>
-        </div>
-        <hr>
-        <div class="form-section abrigo">
-            <h3 style="width: 21%;">Situação face sem abrigo</h3>
-            <div class="grid-2">
-                <div>
-                    <label for="sem_abrigo_sim">Situação sem abrigo:</label><br>
-                    <input type="checkbox" name="sem_abrigo" id="sem_abrigo_sim"> Sim
-                    <input type="checkbox" name="sem_abrigo" id="sem_abrigo_nao"> Não
-                    <script>
-                        const semAbrigoSim = document.getElementById('sem_abrigo_sim');
-                        const semAbrigoNao = document.getElementById('sem_abrigo_nao');
-
-                        semAbrigoSim.addEventListener('change', () => {
-                            if (semAbrigoSim.checked) {
-                                semAbrigoNao.checked = false;
-                            }
-                        });
-
-                        semAbrigoNao.addEventListener('change', () => {
-                            if (semAbrigoNao.checked) {
-                                semAbrigoSim.checked = false;
-                            }
-                        });
-                    </script>
+                <div class="grid-3">
+                    <div>
+                        <label for="nif">NIF</label>
+                        <input type="text" name="nif" id="nif" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    </div>
+                    <div>
+                        <label for="niss">NISS</label>
+                        <input type="text" name="niss" id="niss" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    </div>
+                    <div>
+                        <label for="bi_cc">BI/CC</label>
+                        <input type="text" name="bi/cc" id="bi_cc" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    </div>
                 </div>
-            </div>
-        </div>
-        <hr>
-        <div class="form-section autonomia">
-            <h3 style="width: 27.5%;">Situação autonomia/dependência</h3>
-            <div class="grid-2">
-                <div>
-                    <label for="auto">Autonomia/dependência:</label><br>
-                    <input type="checkbox" name="autonomo" id="auto"> Autónomo
-                    <input type="checkbox" name="dependente" id="depen"> Dependente
-                    <script>
-                        const auto = document.getElementById('auto');
-                        const depen = document.getElementById('depen');
-
-                        auto.addEventListener('change', () => {
-                            if (auto.checked) {
-                                depen.checked = false;
-                            }
-                        });
-
-                        depen.addEventListener('change', () => {
-                            if (depen.checked) {
-                                auto.checked = false;
-                            }
-                        });
-                    </script>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="form-section emprego">
-            <h3 style="width: 7.5%;">Emprego</h3>
-            <div class="grid-2">
-                <div>
-                    <label for="Empre">Situação face ao emprego:</label><br>
-                    <input type="checkbox" name="empregado" id="Empre"> Empregado
-                    <input type="checkbox" name="desempregado" id="Desemp"> Desempregado
-                    <script>
-                        const Empregado = document.getElementById('Empre');
-                        const Desempregado = document.getElementById('Desemp');
-
-                        Empregado.addEventListener('change', () => {
-                            if (Empregado.checked) {
-                                Desempregado.checked = false;
-                            }
-                        });
-
-                        Desempregado.addEventListener('change', () => {
-                            if (Desempregado.checked) {
-                                Empregado.checked = false;
-                            }
-                        });
-                    </script>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="form-section imigrante">
-            <h3 style="width: 8%;">Imigrante</h3>
-            <div class="grid-2">
-                <div>
-                    <label for="imigrante_sim">Imigrante:</label>
-                    <input type="checkbox" name="imigrante" id="imigrante_sim" value="sim"> Sim
-                    <input type="checkbox" name="imigrante" id="imigrante_nao" value="nao"> Não
-                </div>
-                <div id="pais_origem_container" style="display: none;">
-                    <label for="pais_origem_select">País:</label>
-                    <select name="pais_origem" id="pais_origem_select" style="width: 200px;">
-                        <option>Selecione</option>
-                    </select>
+                <div class="grid-3">
+                    <div><label for="morada">Morada</label><input type="text" name="morada" id="morada"></div>
+                    <div class="Postal"><label for="cod_postal">Código Postal</label><input type="text" name="cod_postal" id="cod_postal"></div>
+                    <div class="Nascimento">
+                        <label for="data_nasc">Data de Nascimento</label>
+                        <input type="date" name="data_nasc" id="data_nasc">
+                        <span class="idade-display" id="idade-display">Idade: --</span>
+                    </div>
                 </div>
                 <script>
-                    const imigranteSim = document.getElementById('imigrante_sim');
-                    const imigranteNao = document.getElementById('imigrante_nao');
-                    const paisOrigemContainer = document.getElementById('pais_origem_container');
-                    const paisOrigemSelect = document.getElementById('pais_origem_select');
+                    const idadeDisplay = document.getElementById("idade-display");
+                    const inputDataNasc = document.getElementById("data_nasc");
 
-                    imigranteSim.addEventListener('change', () => {
-                        if (imigranteSim.checked) {
-                            paisOrigemContainer.style.display = 'block';
-                            imigranteNao.checked = false;
-                        }
-                    });
+                    function atualizarIdade() {
+                        const dataNasc = new Date(inputDataNasc.value);
+                        const hoje = new Date();
 
-                    imigranteNao.addEventListener('change', () => {
-                        if (imigranteNao.checked) {
-                            paisOrigemContainer.style.display = 'none';
-                            imigranteSim.checked = false;
-                            paisOrigemSelect.value = "";
-                        }
-                    });
-                </script>
-            </div>
-        </div>
-        <hr>
-        <div class="form-section rendimento">
-            <h3 style="width: 9.5%;">Rendimento</h3>
-            <div class="grid-4">
-                <div><label for="rendimento_per_Capita">Rendimento per Capita</label><input type="text" name="rendimento_per_Capita" id="rendimento_per_Capita"></div>
-            </div>
-        </div>
-        <hr>
-        <div class="form-section SAAS">
-            <h3 style="width: 21%;">Acompanhamento SAAS</h3>
-            <div class="grid-2">
-                <div>
-                    <label for="apoiosaas_sim">Tem acompanhamento SAAS?</label><br>
-                    <input type="checkbox" name="apoiosaas_sim" id="apoiosaas_sim"> Sim
-                    <input type="checkbox" name="apoiosaas_nao" id="apoiosaas_nao"> Não
-                </div>
-                <div id="apoioadoSAAS" style="display: none;">
-                    <label for="SAASTitular">Nome:</label>
-                    <input type="text" name="SAASTitular" id="SAASTitular">
-                </div>
-                <script>
-                    const Apoioado = document.getElementById('apoiosaas_sim');
-                    const NApoioado = document.getElementById('apoiosaas_nao');
-                    const apoioadoSAASDiv = document.getElementById('apoioadoSAAS');
-
-                    Apoioado.addEventListener('change', () => {
-                        if (Apoioado.checked) {
-                            NApoioado.checked = false;
-                            apoioadoSAASDiv.style.display = 'block';
+                        if (!isNaN(dataNasc)) {
+                            let idade = hoje.getFullYear() - dataNasc.getFullYear();
+                            const mes = hoje.getMonth() - dataNasc.getMonth();
+                            if (mes < 0 || (mes === 0 && hoje.getDate() < dataNasc.getDate())) {
+                                idade--;
+                            }
+                            idadeDisplay.textContent = `Idade: ${idade}`;
                         } else {
-                            apoioadoSAASDiv.style.display = 'none';
+                            idadeDisplay.textContent = "Idade: --";
                         }
-                    });
+                    }
 
-                    NApoioado.addEventListener('change', () => {
-                        if (NApoioado.checked) {
-                            Apoioado.checked = false;
-                            apoioadoSAASDiv.style.display = 'none';
+                    inputDataNasc.addEventListener("input", atualizarIdade);
+
+                    window.addEventListener("DOMContentLoaded", atualizarIdade);
+                </script>
+            </div>
+
+            <hr>
+
+            <div class="form-section admissao">
+                <h3 style="width: 21%;">Admissão do Beneficiário</h3>
+                <div>
+                    <label for="data_admissao">Data de Admissão</label>
+                    <input type="date" name="data_admissao" id="data_admissao" style="width: 25%;">
+                </div>
+                <div>
+                    <label for="data_saida">Data de Saída</label>
+                    <input type="date" name="data_saida" id="data_saida" style="width: 25%;">
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="form-section agregado">
+                <h3 style="width: 15%;">Agregado Familiar</h3>
+                <label for="num_elementos">Nº de elementos</label>
+                <input type="number" id="num_elementos" min="0" max="10" style="width: 50px;">
+                <script>
+                    const input = document.getElementById('num_elementos');
+                    const max = 10;
+
+                    input.addEventListener('input', () => {
+                        const valor = parseInt(input.value, 10);
+
+                        if (!isNaN(valor) && valor > max) {
+                        input.value = max;
                         }
                     });
                 </script>
+                <div id="agregado_campos"></div>
+                <form method="POST" id="familiarForm">
+                    <button type="button" id="Inserir_Familiar" style="float: right;">Alterar o registo</button>
+                </form>
+                <br>
+                <br>
             </div>
-        </div>
-        <hr>
-        <div class="form-section observacoes">
-            <h3 style="width: 11%;">Observações</h3>
-            <textarea name="observacoes" id="observacoes" rows="10" cols="80" maxlength="300" style="resize: none; width: 75%;"></textarea>
-        </div>
-        <form method="">
+            
+            <hr>
+
+            <div class="form-section apoio">
+                <h3 style="width: 11.5%;">Tipo de Apoio</h3>
+                <div class="grid-4">
+                    <div style="width: 60%;">
+                        <label for="apoio_entidade">Entidade</label>
+                        <select id="apoio_entidade" name="apoio_entidade"></select>
+                    </div>
+                    <div style="width: 70%;">
+                        <label for="tipo_apoio">Tipo de Apoio</label>
+                        <select id="tipo_apoio" name="tipo_apoio">
+                            <option value="">------</option>
+                        </select>
+                    </div>
+                    <script>
+                        const tipoApoioSelect = document.getElementById('tipo_apoio');
+                        const apoioContainer = document.createElement('div');
+                        apoioContainer.style.width = '70%';
+                        apoioContainer.innerHTML = `
+                            <label for="tipo_alimentar">Tipo de Apoio Alimentar</label>
+                            <select id="tipo_alimentar" name="tipo_alimentar">
+                                <option value="">------</option>
+                                <!-- Adiciona opções no carregamento -->
+                            </select>
+                        `;
+
+                        tipoApoioSelect.addEventListener('change', () => {
+                            const parent = tipoApoioSelect.closest('.grid-4');
+                            const existingApoio = document.getElementById('tipo_alimentar');
+                            if (tipoApoioSelect.value === "Apoio Alimentar") {
+                                if (!existingApoio) {
+                                    parent.appendChild(apoioContainer);
+                                }
+                            } else if (existingApoio) {
+                                apoioContainer.remove();
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+            <hr>
+            <div class="form-section incapacidade">
+                <h3 style="width: 33%;">Incapacidade/autonomia do Beneficiário</h3>
+                <div class="grid-2">
+                    <div>
+                        <label for="deficiencia_sim">Deficiência/incapacidade:</label><br>
+                        <input type="checkbox" name="deficiencia" id="deficiencia_sim"> Sim
+                        <input type="checkbox" name="deficiencia" id="deficiencia_nao"> Não
+                        <script>
+                            const deficienciaSim = document.getElementById('deficiencia_sim');
+                            const deficienciaNao = document.getElementById('deficiencia_nao');
+
+                            deficienciaSim.addEventListener('change', () => {
+                                if (deficienciaSim.checked) {
+                                    deficienciaNao.checked = false;
+                                }
+                            });
+
+                            deficienciaNao.addEventListener('change', () => {
+                                if (deficienciaNao.checked) {
+                                    deficienciaSim.checked = false;
+                                }
+                            });
+                        </script>
+                    </div>
+            </div>
+            </div>
+            <hr>
+            <div class="form-section abrigo">
+                <h3 style="width: 21%;">Situação face sem abrigo</h3>
+                <div class="grid-2">
+                    <div>
+                        <label for="sem_abrigo_sim">Situação sem abrigo:</label><br>
+                        <input type="checkbox" name="sem_abrigo" id="sem_abrigo_sim"> Sim
+                        <input type="checkbox" name="sem_abrigo" id="sem_abrigo_nao"> Não
+                        <script>
+                            const semAbrigoSim = document.getElementById('sem_abrigo_sim');
+                            const semAbrigoNao = document.getElementById('sem_abrigo_nao');
+
+                            semAbrigoSim.addEventListener('change', () => {
+                                if (semAbrigoSim.checked) {
+                                    semAbrigoNao.checked = false;
+                                }
+                            });
+
+                            semAbrigoNao.addEventListener('change', () => {
+                                if (semAbrigoNao.checked) {
+                                    semAbrigoSim.checked = false;
+                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="form-section autonomia">
+                <h3 style="width: 27.5%;">Situação autonomia/dependência</h3>
+                <div class="grid-2">
+                    <div>
+                        <label for="auto">Autonomia/dependência:</label><br>
+                        <input type="checkbox" name="autonomo" id="auto"> Autónomo
+                        <input type="checkbox" name="dependente" id="depen"> Dependente
+                        <script>
+                            const auto = document.getElementById('auto');
+                            const depen = document.getElementById('depen');
+
+                            auto.addEventListener('change', () => {
+                                if (auto.checked) {
+                                    depen.checked = false;
+                                }
+                            });
+
+                            depen.addEventListener('change', () => {
+                                if (depen.checked) {
+                                    auto.checked = false;
+                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="form-section emprego">
+                <h3 style="width: 7.5%;">Emprego</h3>
+                <div class="grid-2">
+                    <div>
+                        <label for="Empre">Situação face ao emprego:</label><br>
+                        <input type="checkbox" name="empregado" id="Empre"> Empregado
+                        <input type="checkbox" name="desempregado" id="Desemp"> Desempregado
+                        <script>
+                            const Empregado = document.getElementById('Empre');
+                            const Desempregado = document.getElementById('Desemp');
+
+                            Empregado.addEventListener('change', () => {
+                                if (Empregado.checked) {
+                                    Desempregado.checked = false;
+                                }
+                            });
+
+                            Desempregado.addEventListener('change', () => {
+                                if (Desempregado.checked) {
+                                    Empregado.checked = false;
+                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="form-section imigrante">
+                <h3 style="width: 8%;">Imigrante</h3>
+                <div class="grid-2">
+                    <div>
+                        <label for="imigrante_sim">Imigrante:</label>
+                        <input type="checkbox" name="imigrante" id="imigrante_sim" value="sim"> Sim
+                        <input type="checkbox" name="imigrante" id="imigrante_nao" value="nao"> Não
+                    </div>
+                    <div id="pais_origem_container" style="display: none;">
+                        <label for="pais_origem_select">País:</label>
+                        <select name="pais_origem" id="pais_origem_select" style="width: 200px;">
+                            <option>Selecione</option>
+                        </select>
+                    </div>
+                    <script>
+                        const imigranteSim = document.getElementById('imigrante_sim');
+                        const imigranteNao = document.getElementById('imigrante_nao');
+                        const paisOrigemContainer = document.getElementById('pais_origem_container');
+                        const paisOrigemSelect = document.getElementById('pais_origem_select');
+
+                        imigranteSim.addEventListener('change', () => {
+                            if (imigranteSim.checked) {
+                                paisOrigemContainer.style.display = 'block';
+                                imigranteNao.checked = false;
+                            }
+                        });
+
+                        imigranteNao.addEventListener('change', () => {
+                            if (imigranteNao.checked) {
+                                paisOrigemContainer.style.display = 'none';
+                                imigranteSim.checked = false;
+                                paisOrigemSelect.value = "";
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+            <hr>
+            <div class="form-section rendimento">
+                <h3 style="width: 9.5%;">Rendimento</h3>
+                <div class="grid-4">
+                    <div><label for="rendimento_per_Capita">Rendimento per Capita</label><input type="text" name="rendimento_per_Capita" id="rendimento_per_Capita"></div>
+                </div>
+            </div>
+            <hr>
+            <div class="form-section SAAS">
+                <h3 style="width: 21%;">Acompanhamento SAAS</h3>
+                <div class="grid-2">
+                    <div>
+                        <label for="apoiosaas_sim">Tem acompanhamento SAAS?</label><br>
+                        <input type="checkbox" name="apoiosaas_sim" id="apoiosaas_sim"> Sim
+                        <input type="checkbox" name="apoiosaas_nao" id="apoiosaas_nao"> Não
+                    </div>
+                    <div id="apoioadoSAAS" style="display: none;">
+                        <label for="SAASTitular">Nome:</label>
+                        <input type="text" name="SAASTitular" id="SAASTitular">
+                    </div>
+                    <script>
+                        const Apoioado = document.getElementById('apoiosaas_sim');
+                        const NApoioado = document.getElementById('apoiosaas_nao');
+                        const apoioadoSAASDiv = document.getElementById('apoioadoSAAS');
+
+                        Apoioado.addEventListener('change', () => {
+                            if (Apoioado.checked) {
+                                NApoioado.checked = false;
+                                apoioadoSAASDiv.style.display = 'block';
+                            } else {
+                                apoioadoSAASDiv.style.display = 'none';
+                            }
+                        });
+
+                        NApoioado.addEventListener('change', () => {
+                            if (NApoioado.checked) {
+                                Apoioado.checked = false;
+                                apoioadoSAASDiv.style.display = 'none';
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+            <hr>
+            <div class="form-section observacoes">
+                <h3 style="width: 11%;">Observações</h3>
+                <textarea name="observacoes" id="observacoes" rows="10" cols="80" maxlength="300" style="resize: none; width: 75%;"></textarea>
+            </div>
             <button type="submit" id="btn_Update">Atualizar Beneficiário</button>
         </form>
     </main>

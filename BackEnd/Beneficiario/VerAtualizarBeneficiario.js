@@ -5,8 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Data/getBeneficiarioPorNiss.php?NISS=${niss}`)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
-            // Se o PHP retorna um array, pegue o primeiro elemento
             const beneficiario = Array.isArray(data) ? data[0] : data;
             if (beneficiario && !beneficiario.erro) {
                 preencherFormulario(beneficiario);
@@ -17,6 +15,30 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => {
             console.error('Erro ao carregar beneficiário:', error);
         });
+
+    document.getElementById('btn_Update').addEventListener('click', (event) => {
+        event.preventDefault();
+        const form = document.getElementById('UpdateForm');
+        const formData = new FormData(form);
+        formData.append('niss', niss);
+        fetch('/ProjetoEstagio/BackEnd/Beneficiario/Data/updateBeneficiario.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Beneficiário atualizado com sucesso!');
+                window.location.href = `../VerBeneficiarios.php`;
+            } else {
+                alert('Erro ao atualizar beneficiário: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao atualizar beneficiário:', error);
+            alert('Ocorreu um erro ao atualizar o beneficiário.');
+        });
+    });
 });
 
 function getNISSFromURL() {
@@ -24,7 +46,7 @@ function getNISSFromURL() {
     return params.get('niss');
 }
 
-// Preenche os campos do formulário
+
 function preencherFormulario(data) {
     if (!data) return;
 
@@ -86,7 +108,7 @@ function preencherFormulario(data) {
                         option.textContent = apoio.nome;
                         select.appendChild(option);
                     });
-                    // Set the selected value after options are added
+                    
                     select.value = apoios.find(apoio => apoio.nome)?.Id_Apoio || '';
                 }
             })
@@ -100,11 +122,8 @@ function preencherFormulario(data) {
         .then(response => response.json())
         .then(familiares => {
             const agregadoContainer = document.getElementById("agregado_campos");
-            
-
             const numElementos = document.getElementById("num_elementos");
             numElementos.value = familiares.length;
-
 
             familiares.forEach((familiar, index) => {
                 const div = document.createElement("div");
@@ -138,7 +157,6 @@ function preencherFormulario(data) {
     setValue('SAAS', data.SAAS || '');
     setValue('Id_Titular', data.Id_Titular || '');
 
-    // Checkboxes and radio buttons
     setChecked('deficiencia_sim', data.Incap_Defec === 1);
     setChecked('deficiencia_nao', data.Incap_Defec === 0);
 
@@ -160,8 +178,6 @@ function preencherFormulario(data) {
             fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Apoios/SAAS/getTitularPorId.php?idTitular=${data.Id_Titular}`)
                 .then(response => response.json())
                 .then(titularData => {
-                    console.log(titularData);
-                    
                     const titularInput = document.getElementById('SAASTitular');
                     if (titularInput && titularData.nome) {
                         titularInput.value = titularData.nome;
@@ -187,7 +203,6 @@ function preencherFormulario(data) {
             fetch(`/ProjetoEstagio/BackEnd/Beneficiario/paises/getPaisPorId.php?id=${data.Id_Sigla}`)
                 .then(response => response.json())
                 .then(paisData => {
-                    console.log(paisData);
                     setValue('pais_origem_select', paisData || '');
                     const select = document.getElementById('pais_origem_select');
                     if (select) {
@@ -198,10 +213,8 @@ function preencherFormulario(data) {
                             option.textContent = pais.nome;
                             select.appendChild(option);
                         });
-                        // Set the selected value after options are added
-                        select.value = paisData.find(pais => pais.nome)?.Id_Sigla || '';
-                        
                     
+                        select.value = paisData.find(pais => pais.nome)?.Id_Sigla || '';
                     }
                 })
                 .catch(() => {
