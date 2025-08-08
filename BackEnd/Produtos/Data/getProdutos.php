@@ -19,9 +19,10 @@
             $stmt->execute();
             $result = $stmt->get_result();
         } else {
-            $sql = "SELECT p.*, e.Sigla AS Entidade
+            $sql = "SELECT p.*, e.Sigla AS Entidade, c.nome AS Categoria
                     FROM produtos p
                     JOIN entidades e ON e.Id_Enti = p.Id_Enti
+                    LEFT JOIN categoria c ON c.Id_Category = p.Id_Category
                     WHERE p.Id_Enti = ?
                 ";
             $stmt = $conn->prepare($sql);
@@ -37,6 +38,7 @@
                 'Id_Enti' => $row['Id_Enti'],
                 'nome_Prod' => $row['nome_Prod'],
                 'Entidade' => $row['Entidade'],
+                'Categoria' => $row['Categoria'],
                 'Quantidade' => $row['Quantidade'],
                 'Quantidade_emp' => $row['Quantidade_emp'],
                 'Image_Prod' => !empty($row['Image_Prod']) ? base64_encode($row['Image_Prod']) : null,

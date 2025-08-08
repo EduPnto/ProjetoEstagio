@@ -16,7 +16,7 @@
         exit;
     }
 
-    $stmt = $conn->prepare("SELECT Id_Prod, nome_Prod FROM produtos WHERE Id_Category = ?");
+    $stmt = $conn->prepare("SELECT Id_Prod, nome_Prod FROM produtos WHERE Id_Category = ? AND Continuidade = 1");
     $stmt->bind_param("i", $data['categoria']);
     $stmt->execute();
     $result = $stmt->get_result();

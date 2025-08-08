@@ -68,7 +68,10 @@
       }
     ?>
     <hr style="width: 90%; margin: 20px auto; border-top: 2px solid black; opacity: 15%;">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/MainPageDropdown/SubContainerPres.php'; ?>
+    <div style="text-align: center;">
+      <h2 style="color: white; border-radius: 5px; background-color: #5CC535; padding: 5px 10px; width: 250px; min-height: 40px; display: inline-block;">Presidentes</h2>
+      <?php include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/MainPageDropdown/SubContainerPres.php'; ?>
+    </div>
   </div>
 
   <footer>
