@@ -17,21 +17,53 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     document.getElementById('btn_Update').addEventListener('click', (event) => {
-        event.preventDefault();
-        const form = document.getElementById('UpdateForm');
-        const formData = new FormData(form);
-        formData.append('niss', niss);
+         event.preventDefault();
+        const nissDaURL = getNISSFromURL();
+        const nissDoFormulario = document.getElementById("NISS").value;
+
+        
+        const data = {
+            nome_Bene: document.getElementById("nome").value,
+            Genero: document.getElementById("genero").value,
+            Contacto: document.getElementById("contacto").value,
+            NIF: document.getElementById("nif").value,
+            niss_formulario: nissDoFormulario,
+            niss_url: nissDaURL,
+            BI: document.getElementById("bi_cc").value,
+            Morada: document.getElementById("morada").value,
+            Cod_Postal: document.getElementById("cod_postal").value,
+            Data_nasc: document.getElementById("data_nasc").value,
+            Data_Admissao: document.getElementById("data_admissao").value,
+            Data_Saida: document.getElementById("data_saida").value,
+            Id_Apoio: document.getElementById("tipo_apoio").value,
+            Id_Enti: document.getElementById("apoio_entidade").value,
+            Incap_Defec: document.getElementById("deficiencia_sim").checked ? 1 : (document.getElementById("deficiencia_nao").checked ? 0 : null),
+            Sit_sem_abrigo: document.getElementById("sem_abrigo_sim").checked ? 1 : (document.getElementById("sem_abrigo_nao").checked ? 0 : null),
+            Auto_Depen: document.getElementById("auto").checked ? 1 : (document.getElementById("depen").checked ? 0 : null),
+            Sit_Emprego: document.getElementById("Empre").checked ? 1 : (document.getElementById("Desemp").checked ? 0 : null),
+            Imigrante: document.getElementById("imigrante_sim").checked ? 1 : (document.getElementById("imigrante_nao").checked ? 0 : null),
+            Id_Sigla: document.getElementById("pais_origem_select").value,
+            rendi_Capita: document.getElementById("rendimento_per_Capita").value,
+            SAAS: document.getElementById("apoiosaas_sim").checked ? 1 : (document.getElementById("apoiosaas_nao").checked ? 0 : null),
+            nome: document.getElementById("SAASTitular").value ? '' : '',
+            Observacao: document.getElementById("observacoes").value
+        };
+
+
+        console.log("Enviando dados:", data);
+
         fetch('/ProjetoEstagio/BackEnd/Beneficiario/Data/updateBeneficiario.php', {
             method: 'POST',
-            body: formData
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
         })
         .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Beneficiário atualizado com sucesso!');
-                window.location.href = `../VerBeneficiarios.php`;
+        .then(result => {
+            if (result.success) {
+                alert("Beneficiário atualizado com sucesso!");
+                window.location.href = "../VerBeneficiarios.php";
             } else {
-                alert('Erro ao atualizar beneficiário: ' + data.message);
+                alert("Erro: " + result.message);
             }
         })
         .catch(error => {
@@ -45,7 +77,6 @@ function getNISSFromURL() {
     const params = new URLSearchParams(window.location.search);
     return params.get('niss');
 }
-
 
 function preencherFormulario(data) {
     if (!data) return;
@@ -62,7 +93,7 @@ function preencherFormulario(data) {
     setValue('nome', data.nome_Bene || data.nome || '');
     setValue('genero', data.Genero || data.genero || '');
     setValue('nif', data.NIF || data.nif || '');
-    setValue('niss', data.NISS || data.niss || '');
+    setValue('NISS', data.NISS || data.niss || '');
     setValue('bi_cc', data.BI || data.bi_cc || '');
     setValue('morada', data.Morada || data.morada || '');
     setValue('contacto', data.Contacto || data.contacto || '');
@@ -81,7 +112,7 @@ function preencherFormulario(data) {
                 select.innerHTML = '<option value="">Selecione</option>';
                 entidades.forEach(entidade => {
                     const option = document.createElement('option');
-                    option.value = entidade.id;
+                    option.value = entidade.Id_Enti;
                     option.text = entidade.sigla;
                     if (String(entidade.Id_Enti) === String(data.Id_Enti)) {
                         option.selected = true;
@@ -95,6 +126,76 @@ function preencherFormulario(data) {
             if (select) select.innerHTML = '<option value="">Selecione</option>';
         });
 
+    const entidadeSelect = document.getElementById("apoio_entidade");
+    const tipoApoioSelect = document.getElementById("tipo_apoio");
+    const alimentarSelect = document.getElementById("tipo_alimentar");
+    const apoioAlimentarContainer = document.getElementById('apoio_alimentar_container');
+
+    entidadeSelect.addEventListener("change", () => {
+        const entidade = entidadeSelect.value;
+        tipoApoioSelect.innerHTML = "<option value=''>------</option>";
+        if (!entidade) return;
+
+        fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Apoios/getTiposApoioId.php?entidade=${encodeURIComponent(entidade)}`)
+            .then(res => res.json())
+            .then(tipos => {
+                if (Array.isArray(tipos)) {
+                    tipos.forEach(tipo => {
+                        const opt = document.createElement("option");
+                        opt.value = tipo.Id_Apoio;
+                        opt.textContent = tipo.nomeApoio;
+                        tipoApoioSelect.appendChild(opt);
+                    });
+                } else {
+                    tipoApoioSelect.innerHTML = "<option value=''>Erro ao carregar</option>";
+                }
+            })
+            .catch(err => {
+                console.error("Erro:", err);
+                tipoApoioSelect.innerHTML = "<option value=''>Erro ao carregar</option>";
+            });
+    });
+
+    tipoApoioSelect.addEventListener("change", () => {
+        const entidade = entidadeSelect.value;
+        const tipo = tipoApoioSelect.value;
+        const apoio = tipoApoioSelect.options[tipoApoioSelect.selectedIndex]?.text || "";
+
+        if (apoio.toLowerCase().includes("alimentar")) {
+            apoioAlimentarContainer.style.display = 'block';
+            alimentarSelect.innerHTML = "<option value=''>------</option>";
+
+            fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Apoios/get_apoios_alimentares.php?alimentar=${encodeURIComponent(tipo)}&entidade=${encodeURIComponent(entidade)}`)
+                .then(res => res.json())
+                .then(alimentares => {
+                    if (Array.isArray(alimentares)) {
+                        alimentarSelect.innerHTML = "<option value=''>------</option>";
+                        alimentares.forEach(alimentar => {
+                            const opt = document.createElement("option");
+                            opt.value = alimentar.Id_Alimentar;
+                            opt.textContent = alimentar.nome;
+
+                            // Seleciona automaticamente o apoio alimentar do beneficiário
+                            if (String(alimentar.Id_Alimentar) === String(data.Id_Alimentar)) {
+                                opt.selected = true;
+                            }
+
+                            alimentarSelect.appendChild(opt);
+                        });
+                    } else {
+                        alimentarSelect.innerHTML = "<option value=''>Erro ao carregar</option>";
+                    }
+                })
+                .catch(err => {
+                    console.error("Erro:", err);
+                    alimentarSelect.innerHTML = "<option value=''>Erro ao carregar</option>";
+                });
+        } else {
+            apoioAlimentarContainer.style.display = 'none';
+            alimentarSelect.innerHTML = "<option value=''>------</option>";
+        }
+    });
+
     if (data.Id_Enti) {
         fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Data/getNomeApoioPorEntidade.php?idEntidade=${data.Id_Enti}&idApoio=${data.Id_Apoio}`)
             .then(response => response.json())
@@ -106,10 +207,13 @@ function preencherFormulario(data) {
                         const option = document.createElement('option');
                         option.value = apoio.Id_Apoio;
                         option.textContent = apoio.nome;
+
+                        if (String(apoio.Id_Apoio) === String(data.Id_Apoio)) {
+                            option.selected = true;
+                        }
+
                         select.appendChild(option);
                     });
-                    
-                    select.value = apoios.find(apoio => apoio.nome)?.Id_Apoio || '';
                 }
             })
             .catch(() => {
@@ -147,13 +251,13 @@ function preencherFormulario(data) {
             });
         })
         .catch(error => {
-        console.error("Erro ao carregar familiares:", error);
-        agregadoContainer.innerHTML = "<p>Erro ao carregar os dados dos familiares.</p>";
-    });
+            console.error("Erro ao carregar familiares:", error);
+            agregadoContainer.innerHTML = "<p>Erro ao carregar os dados dos familiares.</p>";
+        });
 
     setValue('Id_Alimentar', data.Id_Alimentar || '');
     setValue('Id_Sigla', data.Id_Sigla || '');
-    setValue('rendimento_per_Capita', data.rendi_Capita || '');
+    setValue('rendimento_per_Capita', data.rendi_Capita);
     setValue('SAAS', data.SAAS || '');
     setValue('Id_Titular', data.Id_Titular || '');
 
@@ -192,6 +296,18 @@ function preencherFormulario(data) {
         setChecked('apoiosaas_nao', true);
         const apoioadoSAASDiv = document.getElementById('apoioadoSAAS');
         if (apoioadoSAASDiv) apoioadoSAASDiv.style.display = 'none';
+        fetch(`/ProjetoEstagio/BackEnd/Beneficiario/Apoios/SAAS/getTitularPorId.php?idTitular=${data.Id_Titular}`)
+                .then(response => response.json())
+                .then(titularData => {
+                    const titularInput = document.getElementById('SAASTitular');
+                    if (titularInput && titularData.nome) {
+                        titularInput.value = titularData.nome;
+                    }
+                })
+                .catch(() => {
+                    const titularInput = document.getElementById('SAASTitular');
+                    if (titularInput) titularInput.value = '';
+                });
     }
 
 
@@ -200,10 +316,34 @@ function preencherFormulario(data) {
         const container = document.getElementById('pais_origem_container');
         if (container) container.style.display = 'block';
         if (data.Id_Sigla) {
-            fetch(`/ProjetoEstagio/BackEnd/Beneficiario/paises/getPaisPorId.php?id=${data.Id_Sigla}`)
+            fetch(`/ProjetoEstagio/BackEnd/Beneficiario/paises/getPaisPorId.php`)
                 .then(response => response.json())
                 .then(paisData => {
-                    setValue('pais_origem_select', paisData || '');
+                    const select = document.getElementById('pais_origem_select');
+                    if (select) {
+                        select.innerHTML = '<option value="">Selecione</option>';
+                        paisData.forEach(pais => {
+                            const option = document.createElement('option');
+                            option.value = pais.Id_Sigla;
+                            option.textContent = pais.nome;
+                            if (String(pais.Id_Sigla) === String(data.Id_Sigla)) {
+                                option.selected = true;
+                            }
+                            select.appendChild(option);
+                        });
+                    }
+                })
+                .catch(() => {
+                    setValue('pais_origem_select', '');
+                });
+        }
+    } else if (data.Imigrante === 0) {
+        setChecked('imigrante_nao', true);
+        const container = document.getElementById('pais_origem_container');
+        if (container) container.style.display = 'none';
+        fetch(`/ProjetoEstagio/BackEnd/Beneficiario/paises/get_paises.php`)
+                .then(response => response.json())
+                .then(paisData => {
                     const select = document.getElementById('pais_origem_select');
                     if (select) {
                         select.innerHTML = '<option value="">Selecione</option>';
@@ -213,19 +353,7 @@ function preencherFormulario(data) {
                             option.textContent = pais.nome;
                             select.appendChild(option);
                         });
-                    
-                        select.value = paisData.find(pais => pais.nome)?.Id_Sigla || '';
                     }
-                })
-                .catch(() => {
-                    setValue('pais_origem_select', '');
                 });
-        } else {
-            setValue('pais_origem_select', 'Default_Value');
-        }
-    } else if (data.Imigrante === 0) {
-        setChecked('imigrante_nao', true);
-        const container = document.getElementById('pais_origem_container');
-        if (container) container.style.display = 'none';
     }
 }

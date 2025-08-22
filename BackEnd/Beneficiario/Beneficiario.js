@@ -108,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const select = document.getElementById("pais_origem_select");
         data.forEach(pais => {
             const opt = document.createElement("option");
+            opt.value = pais.Id_Sigla;
             opt.textContent = `${pais.nome}`;
             select.appendChild(opt);
         });

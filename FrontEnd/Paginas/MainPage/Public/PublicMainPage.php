@@ -17,7 +17,7 @@
             <ul>
                 <li><a href="/ProjetoEstagio/FrontEnd/Paginas/MainPage/Public/PublicMainPage.php" style="border-right: 1px solid;">Início</a></li>
                 <li><a style="border-right: 1px solid;">Entidades e Parceiros</a></li>
-                <li><a href="#about">Sobre nós</a></li>
+                
             </ul>
         </div>
 
@@ -25,7 +25,7 @@
             <?php
                 $menuItems = [
                     ["href" => "EntidadesPublic/MostrarEntidadePublic.php", "icon" => "../../../Icons/Entidades.png", "alt" => "Entidades", "label" => "Entidades"],
-                    ["href" => "EntidadesPublic/MostrarEntidadePublic.php", "icon" => "../../../Icons/Entidades.png", "alt" => "Ajuda e Suporte", "label" => "Ajuda e Suporte"]
+                    ["href" => "https://www.jf-ermesinde.pt/pages/589", "icon" => "../../../Icons/Documentos.png", "alt" => "Documentação", "label" => "Documentação"]
                 ];
 
                 foreach ($menuItems as $item) {
@@ -36,31 +36,18 @@
                 }
             ?>
             <hr style="width: 90%; margin: 20px auto; border-top: 2px solid black; opacity: 15%;">
-            <?php include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/MainPageDropdown/SubContainerPres.php'; ?>
+            <div style="text-align: center;">
+                <h2 style="color: white; border-radius: 5px; background-color: #5CC535; padding: 5px 10px; width: 250px; min-height: 40px; display: inline-block;">Presidentes</h2>
+                <?php include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/MainPageDropdown/SubContainerPres.php'; ?>
+            </div>
         </div>
-
         <footer>
             <p>Contacto: geral@clis.jfe.pt | Tel: 227 344 418</p>
             <div class="redes">
                 <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
             </div>
             <hr>
-            <p style="font-size: 12px;">© 2023 CLIS. Todos os direitos reservados.</p>
         </footer>
-        <script>
-            window.addEventListener("scroll", function () {
-                const navbar = document.querySelector(".contact-bar");
-                const logo = document.querySelector(".logo");
-
-                if (window.scrollY > 50) {
-                    navbar.classList.add("scrolled");
-                    logo.classList.add("scrolled");
-                } else {
-                    navbar.classList.remove("scrolled");
-                    logo.classList.remove("scrolled");
-                }
-            });
-        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

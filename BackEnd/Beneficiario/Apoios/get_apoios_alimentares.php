@@ -16,8 +16,8 @@
 
 
     $query = "
-        SELECT al.nome FROM apoio_alimentar al, apoio a, entidades e
-        WHERE al.Id_Apoio = a.Id_Apoio AND a.nome = '$alimentar' AND a.Id_Enti = e.Id_Enti AND e.Sigla = '$entidade'
+        SELECT al.Id_Alimentar, al.nome FROM apoio_alimentar al, apoio a, entidades e
+        WHERE al.Id_Apoio = a.Id_Apoio AND a.Id_Apoio = '$alimentar' AND a.Id_Enti = '$entidade'
 
     ";
 
@@ -26,7 +26,10 @@
     if ($result) {
         $apoioalimentar = [];
         while ($row = $result->fetch_assoc()) {
-            $apoioalimentar[] = ['nome' => $row['nome']];
+            $apoioalimentar[] = [
+                'Id_Alimentar' => $row['Id_Alimentar'],
+                'nome' => $row['nome']
+            ];
         }
         echo json_encode($apoioalimentar);
     } else {

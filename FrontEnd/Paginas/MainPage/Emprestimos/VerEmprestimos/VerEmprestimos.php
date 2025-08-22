@@ -16,27 +16,6 @@
         <div class="menu-container">
             <input type="text" id="search-niss" placeholder="Pesquisar por NISS..." style="width: 100%; padding: 10px; margin-bottom: 20px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
             <div id="cards-container"></div>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    fetch(`/ProjetoEstagio/BackEnd/Emprestimos/getEmprestimos.php`)
-                        .then(response => response.json())
-                        .then(data => {
-                            const container = document.getElementById('cards-container');
-                            container.innerHTML = '';
-                            data.forEach(beneficiario => {
-                                const card = document.createElement('div');
-                                card.className = 'card mb-3';
-                                card.innerHTML = `
-                                    <div class="card-body">
-                                        <h5 class="card-title">${Emprestimo.nome}</h5>
-                                        <p class="card-text">NISS: ${Emprestimo.niss}</p>
-                                    </div>
-                                `;
-                                container.appendChild(card);
-                            });
-                        });
-                });
-            </script>
         </div>
     </main>
 
@@ -46,7 +25,6 @@
             <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
         </div>
         <hr>
-        <p style="font-size: 12px;">© 2023 CLIS. Todos os direitos reservados.</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

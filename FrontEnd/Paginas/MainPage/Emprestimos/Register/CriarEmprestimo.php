@@ -91,7 +91,6 @@
             <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
         </div>
         <hr>
-        <p style="font-size: 12px;">© 2023 CLIS. Todos os direitos reservados.</p>
     </footer>
     <script src="/ProjetoEstagio/BackEnd/Emprestimos/Emprestimo.js" defer></script>
 </body>

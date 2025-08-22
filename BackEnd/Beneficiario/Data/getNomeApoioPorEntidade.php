@@ -5,10 +5,7 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-
-    // Recebe o ID da entidade via GET
     $entidade_id = isset($_GET['idEntidade']);
-    $Id_Apoio = isset($_GET['idApoio']);
 
     if ($entidade_id === 0) {
         http_response_code(400);
@@ -16,10 +13,9 @@
         exit;
     }
 
-    // Consulta SQL
-    $sql = "SELECT * FROM apoio WHERE Id_Enti = ? AND Id_Apoio = ?";
+    $sql = "SELECT * FROM apoio WHERE Id_Enti = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ii', $entidade_id , $Id_Apoio);
+    $stmt->bind_param('i', $entidade_id);
     $stmt->execute();
     $result = $stmt->get_result();
 

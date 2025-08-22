@@ -5,8 +5,6 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-
-    // Recebe o ID da entidade via GET
     if (!isset($_GET['idTitular']) || !is_numeric($_GET['idTitular'])) {
         http_response_code(400);
         echo json_encode(['error' => 'ID da entidade não informado ou inválido']);
@@ -14,7 +12,6 @@
     }
     $id_Titular = (int)$_GET['idTitular'];
 
-    // Consulta SQL
     $sql = "SELECT nome FROM acompanhamento_saas WHERE Id_Titular = ? ";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id_Titular);

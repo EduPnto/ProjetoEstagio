@@ -16,7 +16,6 @@
         if ($username) {
           $userImg = '/ProjetoEstagio/FrontEnd/Icons/user.png';
 
-          // Buscar foto_perfil e Id_Enti
           $query = "SELECT foto_perfil, Id_Enti FROM users WHERE nome = ?";
           $stmt = $conn->prepare($query);
           $stmt->bind_param("s", $username);
@@ -28,7 +27,7 @@
             if (!empty($profileImage)) {
               $userImg = 'data:image/png;base64,' . base64_encode($profileImage);
             }
-            // Guardar Id_Enti na sessão
+            
             $_SESSION['Id_Enti'] = $idEnti;
           }
 
@@ -40,7 +39,7 @@
           <img src="<?php echo $userImg; ?>" alt="User" class="user-img" onclick="toggleDropdown()">
         </div>
           <div class="dropdown-menu" id="dropdownMenu">
-            <a href="/ProjetoEstagio/FrontEnd/Perfil/detalhesConta.php">Ver Detalhes da Conta</a>
+            <a href="/ProjetoEstagio/FrontEnd/Paginas/Perfil/detalhesConta.php?user=<?php echo urlencode($username); ?>">Ver Detalhes da Conta</a>
             <a href="/ProjetoEstagio/BackEnd/Login/Logout.php">Logout</a>
           </div>
         </div>
@@ -61,6 +60,6 @@
       <ul>
           <li><a href="/ProjetoEstagio/FrontEnd/Paginas/MainPage/MainPage.php" style="border-right: 1px solid;">Início</a></li>
           <li><a href="/ProjetoEstagio/FrontEnd/Paginas/MainPage/Entidades/Mostrar/MostrarEntidades.php" style="border-right: 1px solid;">Entidades e Parceiros</a></li>
-          <li><a href="#about">Sobre nós</a></li>
+          
       </ul>
   </div>

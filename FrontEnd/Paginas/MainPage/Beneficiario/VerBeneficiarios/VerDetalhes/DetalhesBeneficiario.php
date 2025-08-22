@@ -7,7 +7,7 @@
     <script src="/ProjetoEstagio/BackEnd/MainPageDropdown/DropdownMain.js" defer></script>
     <link rel="icon" href="/ProjetoEstagio/FrontEnd/Imagens/CLIS.png" type="image/png">
     <script src='/ProjetoEstagio/BackEnd/Beneficiario/VerAtualizarBeneficiario.js'></script>
-    <script src='/ProjetoEstagio/BackEnd/Beneficiario/Beneficiario.js' defer></script>
+    
 </head>
 <body>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/ProjetoEstagio/BackEnd/MainPageDropdown/topbar.php'; ?>
@@ -33,8 +33,8 @@
                         <input type="text" name="nif" id="nif" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                     </div>
                     <div>
-                        <label for="niss">NISS</label>
-                        <input type="text" name="niss" id="niss" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        <label for="NISS">NISS</label>
+                        <input type="text" name="NISS" id="NISS" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                     </div>
                     <div>
                         <label for="bi_cc">BI/CC</label>
@@ -134,19 +134,19 @@
                     <script>
                         const tipoApoioSelect = document.getElementById('tipo_apoio');
                         const apoioContainer = document.createElement('div');
-                        apoioContainer.style.width = '70%';
+                        apoioContainer.style.width = '80%';
                         apoioContainer.innerHTML = `
                             <label for="tipo_alimentar">Tipo de Apoio Alimentar</label>
                             <select id="tipo_alimentar" name="tipo_alimentar">
                                 <option value="">------</option>
-                                <!-- Adiciona opções no carregamento -->
                             </select>
                         `;
 
                         tipoApoioSelect.addEventListener('change', () => {
                             const parent = tipoApoioSelect.closest('.grid-4');
                             const existingApoio = document.getElementById('tipo_alimentar');
-                            if (tipoApoioSelect.value === "Apoio Alimentar") {
+                            const apoio = tipoApoioSelect.options[tipoApoioSelect.selectedIndex].text;
+                            if (apoio === "Apoio Alimentar") {
                                 if (!existingApoio) {
                                     parent.appendChild(apoioContainer);
                                 }
@@ -277,7 +277,7 @@
                     <div id="pais_origem_container" style="display: none;">
                         <label for="pais_origem_select">País:</label>
                         <select name="pais_origem" id="pais_origem_select" style="width: 200px;">
-                            <option>Selecione</option>
+                            <option value="">Selecione um país</option>
                         </select>
                     </div>
                     <script>
@@ -361,8 +361,6 @@
             <a href="https://www.facebook.com/Freguesia.de.Ermesinde/?locale=pt_PT">Facebook</a> | <a href="https://www.instagram.com/jfermesinde/">Instagram</a>
         </div>
         <hr>
-        <p style="font-size: 12px;">© 2023 CLIS. Todos os direitos reservados.</p>
     </footer>
-    
 </body>
 </html>
