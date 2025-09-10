@@ -16,8 +16,8 @@
 
 
     $query = "
-        SELECT al.Id_Alimentar, al.nome FROM apoio_alimentar al, apoio a, entidades e
-        WHERE al.Id_Apoio = a.Id_Apoio AND a.Id_Apoio = '$alimentar' AND a.Id_Enti = '$entidade'
+        SELECT al.Id_Alimentar, al.nome FROM apoio_alimentar al, apoio a
+        WHERE al.Id_Apoio = a.Id_Apoio AND a.nome = '$alimentar' AND a.Id_Enti = '$entidade'
 
     ";
 

@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (Array.isArray(data)) {
             data.forEach(entidade => {
                 const opt = document.createElement("option");
+                opt.value = entidade.Id_Enti;
                 opt.textContent = entidade.sigla;
                 entidadeSelect.appendChild(opt);
             });

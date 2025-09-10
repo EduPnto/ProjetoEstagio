@@ -16,7 +16,7 @@
     $query = "
         SELECT a.nome, a.Id_Apoio
         FROM apoio a, entidades e
-        WHERE a.Id_Enti = e.Id_Enti AND e.Sigla = '$entidade'
+        WHERE a.Id_Enti = e.Id_Enti AND e.Id_Enti = '$entidade'
     ";
 
     $result = $conn->query($query);

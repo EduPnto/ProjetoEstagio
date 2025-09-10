@@ -64,7 +64,7 @@
         $data['nif'], $data['niss'], $data['bi_cc'],
         $data['morada'], $data['contacto'], $data['cod_postal'], 
         $data['data_nasc'], $data['data_admissao'], $data['data_saida'], 
-        $id_Enti, $id_apoio,$id_Alimentar, $data['deficiencia'],
+        $id_Enti, $id_apoio, $id_Alimentar, $data['deficiencia'],
         $data['autonomia'], $data['sem_abrigo'], $data['emprego'],
         $data['imigrante'], $id_Sigla, $data['rendimento_per_Capita'], $data['apoio_saas'], $data['titular'], $data['observacoes']
     );
