@@ -169,7 +169,7 @@
             <div class="grid-2">
                 <div>
                     <label for="deficiencia_sim">Deficiência/incapacidade:</label><br>
-                    <input type="checkbox" name="deficiencia" id="deficiencia_sim" required> Sim
+                    <input type="checkbox" name="deficiencia" id="deficiencia_sim" > Sim
                     <input type="checkbox" name="deficiencia" id="deficiencia_nao" required> Não
                     <script>
                         const deficienciaSim = document.getElementById('deficiencia_sim');
@@ -196,8 +196,8 @@
             <div class="grid-2">
                 <div>
                     <label for="sem_abrigo_sim">Situação sem abrigo:</label><br>
-                    <input type="checkbox" name="sem_abrigo" id="sem_abrigo_sim"> Sim
-                    <input type="checkbox" name="sem_abrigo" id="sem_abrigo_nao"> Não
+                    <input type="checkbox" name="sem_abrigo" id="sem_abrigo_sim" required> Sim
+                    <input type="checkbox" name="sem_abrigo" id="sem_abrigo_nao" required> Não
                     <script>
                         const semAbrigoSim = document.getElementById('sem_abrigo_sim');
                         const semAbrigoNao = document.getElementById('sem_abrigo_nao');
@@ -315,7 +315,7 @@
             <div class="grid-4">
                 <div>
                     <label for="rendimento_per_Capita">Rendimento per Capita</label>
-                    <input type="text" name="rendimento_per_Capita" id="rendimento_per_Capita" oninput="this.value = this.value.replace(/[^0-9.,]/g, '')">
+                    <input type="text" name="rendimento_per_Capita" id="rendimento_per_Capita" oninput="this.value = this.value.replace(/[^0-9.,]/g, '')" required>
                 </div>
             </div>
         </div>
@@ -367,6 +367,53 @@
             document.getElementById("btn_criar").addEventListener("click", function(event) {
                 event.preventDefault(); 
 
+                // Verificação de campos obrigatórios
+                const requiredFields = [
+                    "nome", "genero", "contacto", "nif", "niss", "bi_cc", "morada", "cod_postal",
+                    "data_nasc", "data_admissao", "data_saida", "tipo_apoio", "apoio_entidade", "rendimento_per_Capita"
+                ];
+
+                for (let field of requiredFields) {
+                    const el = document.getElementById(field);
+                    if (el && (!el.value || el.value === "------" || el.value === "")) {
+                        alert("Por favor preencha o campo obrigatório: " + el.previousElementSibling.innerText);
+                        el.focus();
+                        return;
+                    }
+                }
+
+                // Campos de seleção especial
+                if (document.getElementById("imigrante_sim").checked && document.getElementById("pais_origem_select").value === "Default_Value") {
+                    alert("Por favor selecione o país de origem.");
+                    document.getElementById("pais_origem_select").focus();
+                    return;
+                }
+                if (!document.getElementById("deficiencia_sim").checked && !document.getElementById("deficiencia_nao").checked) {
+                    alert("Por favor selecione uma opção para Deficiência/incapacidade.");
+                    return;
+                }
+                if (!document.getElementById("sem_abrigo_sim").checked && !document.getElementById("sem_abrigo_nao").checked) {
+                    alert("Por favor selecione uma opção para Pessoa em situação de sem abrigo.");
+                    return;
+                }
+                if (!document.getElementById("auto").checked && !document.getElementById("depen").checked) {
+                    alert("Por favor selecione uma opção para Situação autonomia/dependência.");
+                    return;
+                }
+                if (!document.getElementById("Empre").checked && !document.getElementById("Desemp").checked) {
+                    alert("Por favor selecione uma opção para Situação face ao emprego.");
+                    return;
+                }
+                if (!document.getElementById("apoiosaas_sim").checked && !document.getElementById("apoiosaas_nao").checked) {
+                    alert("Por favor selecione uma opção para Tem acompanhamento SAAS?");
+                    return;
+                }
+                if (document.getElementById("apoiosaas_sim").checked && !document.getElementById("SAASTitular").value) {
+                    alert("Por favor preencha o campo Nome Titular do SAAS.");
+                    document.getElementById("SAASTitular").focus();
+                    return;
+                }
+                
                 const data = {
                     Id_Bene: <?php echo $new_id_bene; ?>,
                     nome: document.getElementById("nome").value,
