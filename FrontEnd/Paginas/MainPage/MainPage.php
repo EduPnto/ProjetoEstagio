@@ -40,7 +40,7 @@
             $menuItems = [
               ["href" => "Entidades/Mostrar/MostrarEntidades.php", "icon" => "../../Icons/Entidades.png", "alt" => "Entidades", "label" => "Entidades"],
               ["href" => "Beneficiario/SubPageBeneficiario.php", "icon" => "../../Icons/Beneficiario.png", "alt" => "Beneficiários", "label" => "Beneficiários"],
-              ["href" => "Produtos/ProdutosMenu.php", "icon" => "../../Icons/Produtos.png", "alt" => "Produtos", "label" => "Produtos"],
+              ["href" => "Produtos/VerProdutos/VerProdutos.php", "icon" => "../../Icons/Produtos.png", "alt" => "Produtos", "label" => "Produtos"],
               ["href" => "Emprestimos/EmprestimosMenu.php", "icon" => "../../Icons/Emprestimos.png", "alt" => "Empréstimos", "label" => "Empréstimos"],
               ["href" => "https://www.jf-ermesinde.pt/pages/589", "icon" => "../../Icons/Documentos.png", "alt" => "Documentação", "label" => "Documentação"]
             ];
