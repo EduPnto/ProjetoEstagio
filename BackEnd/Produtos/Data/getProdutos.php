@@ -11,9 +11,10 @@
     try {
         $id_enti = isset($_SESSION['Id_Enti']) ? intval($_SESSION['Id_Enti']) : 0;
         if ($id_enti == 0) {
-            $sql = "SELECT p.*, e.Sigla AS Entidade
+            $sql = "SELECT p.*, e.Sigla AS Entidade, c.nome AS Categoria
                     FROM produtos p
                     JOIN entidades e ON e.Id_Enti = p.Id_Enti
+                    LEFT JOIN categoria c ON c.Id_Category = p.Id_Category
                 ";
             $stmt = $conn->prepare($sql);
             $stmt->execute();
