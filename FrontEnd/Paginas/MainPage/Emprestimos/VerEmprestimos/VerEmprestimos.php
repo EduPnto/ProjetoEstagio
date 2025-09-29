@@ -14,8 +14,7 @@
 
     <main>
         <div class="menu-container">
-            <input type="text" id="search-niss" placeholder="Pesquisar por NISS..." style="width: 100%; padding: 10px; margin-bottom: 20px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
-            <div id="cards-container"></div>
+           <div id="cards-container"></div>
         </div>
     </main>
 
